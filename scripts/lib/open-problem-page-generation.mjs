@@ -18,7 +18,8 @@ function yamlString(value) {
 function detailPageSource(problem) {
   return `---
 title: ${yamlString(problem.title)}
-description: ${yamlString('Verified open-problem record for ' + problem.title + '.')}
+description: ${yamlString('Evidence-reviewed open-problem record: ' + problem.title)}
+tableOfContents: false
 ---
 
 ${OPEN_PROBLEM_GENERATED_PAGE_MARKER}

@@ -1,0 +1,367 @@
+---
+import { getOpenProblemDataset, sortOpenProblems } from '../lib/open-problems.mjs';
+import { getPaperDataset, withBase } from '../lib/papers.mjs';
+
+const papers = await getPaperDataset();
+const problems = sortOpenProblems(await getOpenProblemDataset());
+const trackCount = new Set(
+  papers.flatMap((paper: any) => paper.research_tracks),
+).size;
+const verifiedDates = [
+  ...papers.map((paper: any) => paper.last_verified).filter(Boolean),
+  ...problems.map((problem: any) => problem.last_verified),
+].sort();
+const latestVerification = verifiedDates.at(-1);
+const baseUrl = import.meta.env.BASE_URL;
+const paths = [
+  {
+    number: '01',
+    title: 'Find a research question',
+    copy: 'Browse precise open questions by track and type, then inspect what would count as resolution or falsification.',
+    label: 'Explore open problems',
+    href: withBase(baseUrl, 'open-problems/'),
+  },
+  {
+    number: '02',
+    title: 'Trace a paper claim',
+    copy: 'Move from an optimizer update rule to its exact source version, experimental conditions, and stated limitations.',
+    label: 'Browse paper records',
+    href: withBase(baseUrl, 'paper-notes/'),
+  },
+  {
+    number: '03',
+    title: 'Compare the evidence',
+    copy: 'Read protocol-aware comparisons that keep model scale, tuning, compute, and wall-clock reporting visible.',
+    label: 'Open the evidence matrix',
+    href: withBase(baseUrl, 'claim-evidence-matrix/'),
+  },
+];
+---
+
+<div class="atlas-overview">
+  <section class="atlas-stats" aria-label="Atlas collection summary">
+    <div>
+      <strong>{papers.length}</strong>
+      <span>validated paper records</span>
+    </div>
+    <div>
+      <strong>{problems.length}</strong>
+      <span>reviewed problem records</span>
+    </div>
+    <div>
+      <strong>{trackCount}</strong>
+      <span>research tracks</span>
+    </div>
+    <div>
+      <strong>{latestVerification}</strong>
+      <span>latest evidence review</span>
+    </div>
+  </section>
+
+  <section class="workflow-section" aria-labelledby="workflow-title">
+    <p class="eyebrow atlas-meta">Choose your entry point</p>
+    <h2 id="workflow-title">Start with the research task, not the site structure</h2>
+    <div class="workflow-grid">
+      {paths.map((path) => (
+        <article>
+          <span class="card-number atlas-meta">{path.number}</span>
+          <h3>{path.title}</h3>
+          <p>{path.copy}</p>
+          <a href={path.href}>{path.label} <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="verification-contract" aria-labelledby="contract-title">
+    <div>
+      <p class="eyebrow atlas-meta">Verification contract</p>
+      <h2 id="contract-title">A research atlas, not a leaderboard</h2>
+      <p>
+        Every public record keeps the checked source version, evidence conditions,
+        and uncertainty boundary visible. Candidate discovery remains separate
+        until human review is complete.
+      </p>
+    </div>
+    <ul>
+      <li><strong>Primary-source grounded</strong><span>arXiv-first reader links when available</span></li>
+      <li><strong>Comparison-aware</strong><span>scale, budget, baseline, and metric stay attached</span></li>
+      <li><strong>Explicitly bounded</strong><span>unknowns state what was—and was not—checked</span></li>
+    </ul>
+  </section>
+
+  <section class="problem-preview" aria-labelledby="problem-preview-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow atlas-meta">Evidence-reviewed research agenda</p>
+        <h2 id="problem-preview-title">Open questions to investigate next</h2>
+      </div>
+      <a href={withBase(baseUrl, 'open-problems/')}>View all {problems.length} problems <span aria-hidden="true">→</span></a>
+    </div>
+    <ol>
+      {problems.slice(0, 4).map((problem, index) => (
+        <li>
+          <span class="atlas-meta">{String(index + 1).padStart(2, '0')}</span>
+          <a href={withBase(baseUrl, `open-problems/generated/${problem.id}/`)}>{problem.title}</a>
+          <small>{problem.problem_type.replaceAll('-', ' ')}</small>
+        </li>
+      ))}
+    </ol>
+  </section>
+</div>
+
+<style>
+  .atlas-overview {
+    display: grid;
+    gap: clamp(3.5rem, 8vw, 6.5rem);
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-bottom: 2rem;
+  }
+
+  .atlas-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-block: 1px solid var(--atlas-border-strong);
+  }
+
+  .atlas-stats div {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+    padding: 1.1rem 1rem;
+  }
+
+  .atlas-stats div + div {
+    border-inline-start: 1px solid var(--atlas-border);
+  }
+
+  .atlas-stats strong {
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .atlas-stats span {
+    color: var(--atlas-muted);
+    font-size: 0.72rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    color: var(--atlas-burgundy);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h2,
+  h3 {
+    font-family: var(--atlas-display-font);
+  }
+
+  h2 {
+    max-width: 52rem;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.6rem, 4vw, 2.35rem);
+    line-height: 1.15;
+  }
+
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .workflow-grid article {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 16rem;
+    padding: 1.25rem;
+    border: 1px solid var(--atlas-border);
+    border-top: 0.2rem solid var(--atlas-burgundy);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    box-shadow: var(--atlas-shadow-small);
+  }
+
+  .card-number {
+    color: var(--atlas-burgundy);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .workflow-grid h3 {
+    margin: 1.4rem 0 0.7rem;
+    font-size: 1.25rem;
+  }
+
+  .workflow-grid p {
+    flex: 1;
+    color: var(--atlas-muted);
+    font-size: 0.9rem;
+    line-height: 1.62;
+  }
+
+  .workflow-grid a,
+  .section-heading > a {
+    color: var(--sl-color-accent-high);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .workflow-grid a:hover,
+  .section-heading > a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .verification-contract {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+    gap: 2rem;
+    padding: clamp(1.35rem, 4vw, 2rem);
+    border: 1px solid var(--atlas-blue-border);
+    border-radius: var(--atlas-radius);
+    background: linear-gradient(140deg, var(--atlas-blue-soft), var(--atlas-paper));
+  }
+
+  .verification-contract h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .verification-contract p:not(.eyebrow) {
+    margin: 0;
+    color: var(--atlas-muted);
+    line-height: 1.65;
+  }
+
+  .verification-contract ul {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .verification-contract li {
+    display: grid;
+    gap: 0.1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--atlas-border);
+  }
+
+  .verification-contract li span {
+    color: var(--atlas-muted);
+    font-size: 0.78rem;
+  }
+
+  .section-heading {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  .section-heading h2 {
+    margin-bottom: 0;
+  }
+
+  .section-heading > a {
+    flex: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .problem-preview ol {
+    display: grid;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--atlas-border-strong);
+    list-style: none;
+  }
+
+  .problem-preview li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    align-items: baseline;
+    min-width: 0;
+    padding: 0.9rem 0.15rem;
+    border-bottom: 1px solid var(--atlas-border);
+  }
+
+  .problem-preview li > span {
+    color: var(--atlas-burgundy);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .problem-preview li a {
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-decoration-color: color-mix(in srgb, var(--atlas-burgundy) 35%, transparent);
+    text-underline-offset: 0.18em;
+  }
+
+  .problem-preview li small {
+    color: var(--atlas-muted);
+    font-size: 0.67rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 52rem) {
+    .workflow-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-grid article {
+      min-height: 0;
+    }
+
+    .verification-contract {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .atlas-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .atlas-stats div:nth-child(3) {
+      border-inline-start: 0;
+    }
+
+    .atlas-stats div:nth-child(n + 3) {
+      border-top: 1px solid var(--atlas-border);
+    }
+
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .problem-preview li {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .problem-preview li small {
+      grid-column: 2;
+    }
+  }
+</style>

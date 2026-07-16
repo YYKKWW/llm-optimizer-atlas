@@ -25,6 +25,11 @@ test('one deterministic generated detail route exists per verified problem', () 
     assert.equal(pages.has(route), true, 'missing route: ' + route);
     assert.match(pages.get(route), new RegExp(`problemId="${problem.id}"`));
     assert.ok(pages.get(route).includes(OPEN_PROBLEM_GENERATED_PAGE_MARKER));
+    assert.match(pages.get(route), /tableOfContents: false/);
+    assert.match(
+      pages.get(route),
+      /description: "Evidence-reviewed open-problem record:/,
+    );
   }
 });
 
@@ -52,6 +57,64 @@ test('detail component renders required provenance and research metadata', async
   ]) {
     assert.ok(source.includes(expression), 'missing rendered field: ' + expression);
   }
+});
+
+test('problem explorer is progressively enhanced and accessibly labelled', async () => {
+  const collection = await readFile(
+    path.join(projectRoot, 'src', 'components', 'OpenProblemCollection.astro'),
+    'utf8',
+  );
+  const card = await readFile(
+    path.join(projectRoot, 'src', 'components', 'OpenProblemCard.astro'),
+    'utf8',
+  );
+  for (const required of [
+    'type="search"',
+    'role="search"',
+    'data-problem-track',
+    'data-problem-type',
+    'data-problem-sort',
+    'aria-live="polite"',
+    '<noscript>',
+    'data-problem-empty',
+    'paperSearchTextByProblem',
+  ]) {
+    assert.ok(collection.includes(required), 'missing explorer contract: ' + required);
+  }
+  for (const required of [
+    'aria-labelledby={titleId}',
+    '<time datetime={problem.last_verified}>',
+    'aria-label={`Status:',
+    '<h3 id={titleId}>',
+    'paperSearchText',
+  ]) {
+    assert.ok(card.includes(required), 'missing card accessibility contract: ' + required);
+  }
+});
+
+test('detail page prioritizes decision context and links to evidence anchors', async () => {
+  const source = await readFile(
+    path.join(projectRoot, 'src', 'components', 'OpenProblemDetail.astro'),
+    'utf8',
+  );
+  const orderedSections = [
+    'id="precise-question"',
+    'id="known-results"',
+    'id="unknown-boundary"',
+    'id="resolution-criteria"',
+    'id="scope-assumptions"',
+    'id="source-boundary"',
+    'id="candidate-approaches"',
+  ];
+  let previousIndex = -1;
+  for (const section of orderedSections) {
+    const index = source.indexOf(section);
+    assert.ok(index > previousIndex, 'detail section is missing or out of order: ' + section);
+    previousIndex = index;
+  }
+  assert.match(source, /href={`#evidence-\$\{sourceRefId\}`}/);
+  assert.match(source, /aria-label="Adjacent open problems"/);
+  assert.match(source, /Read.*arXiv|paperSourceLinks/);
 });
 
 test('generated synchronization detects drift and protects unowned files', async () => {

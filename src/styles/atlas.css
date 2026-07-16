@@ -1,0 +1,158 @@
+:root {
+  --sl-content-width: 55rem;
+  --sl-sidebar-width: 18rem;
+  --sl-color-accent-low: #f6e6e9;
+  --sl-color-accent: #a33150;
+  --sl-color-accent-high: #6f1732;
+  --sl-color-bg: #faf8f5;
+  --sl-color-bg-nav: #fffdf9;
+  --sl-color-hairline-light: #e5dfd7;
+  --atlas-paper: #fffdf9;
+  --atlas-paper-muted: #f4f0eb;
+  --atlas-ink: #201c1a;
+  --atlas-muted: #665f5a;
+  --atlas-border: #ded7cf;
+  --atlas-border-strong: #c8beb3;
+  --atlas-burgundy: #941f43;
+  --atlas-burgundy-soft: #f8e9ed;
+  --atlas-action-bg: #7d1f3c;
+  --atlas-action-text: #fffdf9;
+  --atlas-blue-soft: #eaf3fb;
+  --atlas-blue-border: #9fc3e5;
+  --atlas-green-soft: #eaf5ef;
+  --atlas-green-border: #95c8a9;
+  --atlas-amber-soft: #fbf2dc;
+  --atlas-amber-border: #dcc484;
+  --atlas-shadow: 0 0.8rem 2.4rem rgb(62 43 31 / 8%);
+  --atlas-shadow-small: 0 0.35rem 1rem rgb(62 43 31 / 7%);
+  --atlas-radius: 0.85rem;
+  --atlas-display-font: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --atlas-mono-font: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #4b1728;
+  --sl-color-accent: #e7a0b4;
+  --sl-color-accent-high: #ffe1e9;
+  --sl-color-bg: #171514;
+  --sl-color-bg-nav: #1d1a19;
+  --sl-color-hairline-light: #3c3531;
+  --atlas-paper: #1d1a19;
+  --atlas-paper-muted: #25211f;
+  --atlas-ink: #f4efea;
+  --atlas-muted: #c7bdb5;
+  --atlas-border: #403833;
+  --atlas-border-strong: #5a4d46;
+  --atlas-burgundy: #f0a7ba;
+  --atlas-burgundy-soft: #421827;
+  --atlas-action-bg: #7d1f3c;
+  --atlas-action-text: #fffdf9;
+  --atlas-blue-soft: #172d3e;
+  --atlas-blue-border: #416b89;
+  --atlas-green-soft: #193226;
+  --atlas-green-border: #47785b;
+  --atlas-amber-soft: #382e18;
+  --atlas-amber-border: #766331;
+  --atlas-shadow: 0 1rem 2.5rem rgb(0 0 0 / 24%);
+  --atlas-shadow-small: 0 0.4rem 1rem rgb(0 0 0 / 20%);
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--sl-color-bg);
+  color: var(--atlas-ink);
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-accent-high);
+}
+
+h1,
+h2,
+h3,
+.site-title {
+  font-family: var(--atlas-display-font);
+  letter-spacing: -0.018em;
+}
+
+h1 {
+  line-height: 1.08;
+}
+
+.site-title {
+  font-weight: 700;
+}
+
+.header {
+  border-top: 3px solid var(--atlas-burgundy);
+  background: color-mix(in srgb, var(--sl-color-bg-nav) 94%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.sidebar-pane {
+  background: var(--sl-color-bg-nav);
+  border-inline-end-color: var(--atlas-border);
+}
+
+site-search button {
+  border-color: var(--atlas-border-strong);
+  border-radius: 0.65rem;
+  background: var(--atlas-paper);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 40%);
+}
+
+.sl-markdown-content a:not([class]) {
+  text-decoration-color: color-mix(in srgb, currentColor 38%, transparent);
+  text-underline-offset: 0.16em;
+}
+
+.sl-markdown-content a:not([class]):hover {
+  text-decoration-thickness: 0.12em;
+  text-decoration-color: currentColor;
+}
+
+:where(a, button, input, select, summary):focus-visible {
+  outline: 3px solid var(--sl-color-accent);
+  outline-offset: 3px;
+  border-radius: 0.2rem;
+}
+
+code,
+kbd,
+.atlas-meta {
+  font-family: var(--atlas-mono-font);
+}
+
+@media (max-width: 50rem) {
+  :root {
+    --sl-content-pad-x: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :where(a, button, input, select, summary):focus-visible {
+    outline: 3px solid Highlight;
+  }
+
+  .header,
+  .sidebar-pane {
+    border-color: CanvasText;
+  }
+}

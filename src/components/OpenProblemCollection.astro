@@ -2,30 +2,611 @@
 import OpenProblemCard from './OpenProblemCard.astro';
 import {
   getOpenProblemDataset,
+  relatedPaperIds,
   sortOpenProblems,
 } from '../lib/open-problems.mjs';
+import { RESEARCH_TRACK_LABELS } from '../lib/paper-views.mjs';
+import { getPaperDataset } from '../lib/papers.mjs';
 
 const problems = sortOpenProblems(await getOpenProblemDataset());
+const papers = await getPaperDataset();
+const papersById = new Map<string, any>(
+  papers.map((paper: any) => [paper.id, paper]),
+);
+const paperSearchTextByProblem = new Map(
+  problems.map((problem) => [
+    problem.id,
+    relatedPaperIds(problem)
+      .flatMap((paperId) => [paperId, papersById.get(paperId)?.title ?? ''])
+      .join(' '),
+  ]),
+);
+const trackValues = [...new Set(problems.flatMap((problem) => problem.research_tracks))]
+  .sort((left, right) =>
+    (RESEARCH_TRACK_LABELS.get(left) ?? left).localeCompare(
+      RESEARCH_TRACK_LABELS.get(right) ?? right,
+      'en-US',
+    ),
+  );
+const problemTypes = [...new Set(problems.map((problem) => problem.problem_type))]
+  .sort((left, right) => left.localeCompare(right, 'en-US'));
+const uniquePaperCount = new Set(
+  problems.flatMap((problem) =>
+    problem.source_refs.map((ref: any) => ref.paper_id),
+  ),
+).size;
+const humanize = (value: string) =>
+  value
+    .split('-')
+    .map((part) => part[0]?.toUpperCase() + part.slice(1))
+    .join(' ');
 ---
 
-<p class="collection-summary">
-  <strong>{problems.length}</strong> verified open-problem record{problems.length === 1 ? '' : 's'}.
-  Candidate-discovery artifacts are excluded until their sources and boundaries pass human review.
-</p>
+<section class="problem-explorer" data-problem-explorer aria-labelledby="problem-explorer-title">
+  <header class="explorer-header">
+    <div>
+      <p class="eyebrow atlas-meta">Evidence-reviewed research agenda</p>
+      <h2 id="problem-explorer-title">Browse the open questions</h2>
+      <p class="explorer-copy">
+        Move from a precise research question to its checked evidence boundary,
+        unknowns, and operational resolution criteria.
+      </p>
+    </div>
+    <dl class="collection-stats" aria-label="Open-problem collection summary">
+      <div>
+        <dt>Problems</dt>
+        <dd>{problems.length}</dd>
+      </div>
+      <div>
+        <dt>Source papers</dt>
+        <dd>{uniquePaperCount}</dd>
+      </div>
+      <div>
+        <dt>Research tracks</dt>
+        <dd>{trackValues.length}</dd>
+      </div>
+    </dl>
+  </header>
 
-<div class="problem-grid">
-  {problems.map((problem) => <OpenProblemCard problem={problem} />)}
-</div>
+  <aside class="verification-note" aria-labelledby="verification-note-title">
+    <strong id="verification-note-title">What “evidence-reviewed” means here.</strong>
+    The source metadata, evidence locations, and checked open-status boundary have
+    been reviewed. Verification does not mean the research question is solved.
+  </aside>
+
+  <form
+    class="explorer-controls"
+    data-problem-controls
+    role="search"
+    aria-label="Filter open problems"
+    hidden
+  >
+    <label class="search-field">
+      <span>Search open problems</span>
+      <input
+        type="search"
+        name="q"
+        data-problem-query
+        placeholder="Titles, questions, tags, papers…"
+        autocomplete="off"
+        aria-controls="problem-results"
+      />
+    </label>
+
+    <label>
+      <span>Research track</span>
+      <select name="track" data-problem-track aria-controls="problem-results">
+        <option value="">All research tracks</option>
+        {trackValues.map((track) => (
+          <option value={track}>{RESEARCH_TRACK_LABELS.get(track) ?? humanize(track)}</option>
+        ))}
+      </select>
+    </label>
+
+    <label>
+      <span>Problem type</span>
+      <select name="type" data-problem-type aria-controls="problem-results">
+        <option value="">All problem types</option>
+        {problemTypes.map((type) => <option value={type}>{humanize(type)}</option>)}
+      </select>
+    </label>
+
+    <label>
+      <span>Sort</span>
+      <select name="sort" data-problem-sort aria-controls="problem-results">
+        <option value="default">Curated order</option>
+        <option value="title">Title A–Z</option>
+        <option value="verified">Recently verified</option>
+        <option value="sources">Most source papers</option>
+      </select>
+    </label>
+
+    <button type="button" class="clear-button" data-problem-clear hidden>
+      Clear all
+    </button>
+  </form>
+
+  <noscript>
+    <p class="noscript-note">
+      Filtering requires JavaScript; all verified records are shown below.
+    </p>
+  </noscript>
+
+  <div class="active-filters" data-active-filters hidden aria-label="Active filters"></div>
+
+  <div class="results-heading">
+    <p role="status" aria-live="polite" aria-atomic="true" data-problem-status>
+      Showing <strong>{problems.length}</strong> of {problems.length} reviewed problem records
+    </p>
+    <span class="results-hint">Select a title to open the full research record.</span>
+  </div>
+
+  <div class="empty-state" data-problem-empty hidden>
+    <p><strong>No reviewed problem records match these filters.</strong></p>
+    <p>Try a broader search or clear the active filters.</p>
+    <button type="button" data-problem-empty-clear>Clear filters</button>
+  </div>
+
+  <ol class="problem-list" id="problem-results" data-problem-list>
+    {problems.map((problem, originalOrder) => (
+      <OpenProblemCard
+        problem={problem}
+        originalOrder={originalOrder}
+        paperSearchText={paperSearchTextByProblem.get(problem.id) ?? ''}
+      />
+    ))}
+  </ol>
+</section>
+
+<script>
+  import {
+    DEFAULT_OPEN_PROBLEM_FILTER_STATE,
+    matchesOpenProblemFilter,
+    parseOpenProblemFilterState,
+    serializeOpenProblemFilterState,
+    sortOpenProblemFilterRecords,
+  } from '../lib/open-problem-filter.mjs';
+
+  type FilterState = {
+    query: string;
+    track: string;
+    type: string;
+    sort: string;
+  };
+
+  type ActiveFilter = {
+    key: 'query' | 'track' | 'type';
+    label: string;
+  };
+
+  const humanize = (value: string) =>
+    value
+      .split('-')
+      .map((part: string) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+
+  document.querySelectorAll('[data-problem-explorer]').forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+    const form = root.querySelector('[data-problem-controls]');
+    const queryInput = root.querySelector('[data-problem-query]');
+    const trackSelect = root.querySelector('[data-problem-track]');
+    const typeSelect = root.querySelector('[data-problem-type]');
+    const sortSelect = root.querySelector('[data-problem-sort]');
+    const list = root.querySelector('[data-problem-list]');
+    const status = root.querySelector('[data-problem-status]');
+    const empty = root.querySelector('[data-problem-empty]');
+    const activeFilters = root.querySelector('[data-active-filters]');
+    const clearButtons = root.querySelectorAll(
+      '[data-problem-clear], [data-problem-empty-clear]',
+    );
+    if (
+      !(form instanceof HTMLFormElement) ||
+      !(queryInput instanceof HTMLInputElement) ||
+      !(trackSelect instanceof HTMLSelectElement) ||
+      !(typeSelect instanceof HTMLSelectElement) ||
+      !(sortSelect instanceof HTMLSelectElement) ||
+      !(list instanceof HTMLOListElement) ||
+      !(status instanceof HTMLElement) ||
+      !(empty instanceof HTMLElement) ||
+      !(activeFilters instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    const records = Array.from(list.querySelectorAll('[data-problem-card]'))
+      .filter((element) => element instanceof HTMLLIElement)
+      .map((element, index) => ({
+        element,
+        title: element.dataset.title ?? '',
+        searchText: element.dataset.searchText ?? '',
+        tracks: (element.dataset.tracks ?? '').split(',').filter(Boolean),
+        type: element.dataset.type ?? '',
+        lastVerified: element.dataset.lastVerified ?? '',
+        sourceCount: Number(element.dataset.sourceCount ?? 0),
+        originalOrder: Number(element.dataset.originalOrder ?? index),
+      }));
+
+    let state: FilterState = { ...DEFAULT_OPEN_PROBLEM_FILTER_STATE };
+
+    const optionExists = (select: HTMLSelectElement, value: string) =>
+      Array.from(select.options).some((option) => option.value === value);
+
+    const readControls = () => ({
+      query: queryInput.value.trim(),
+      track: trackSelect.value,
+      type: typeSelect.value,
+      sort: sortSelect.value,
+    });
+
+    const setControls = (nextState: FilterState) => {
+      queryInput.value = nextState.query;
+      trackSelect.value = optionExists(trackSelect, nextState.track)
+        ? nextState.track
+        : '';
+      typeSelect.value = optionExists(typeSelect, nextState.type)
+        ? nextState.type
+        : '';
+      sortSelect.value = optionExists(sortSelect, nextState.sort)
+        ? nextState.sort
+        : 'default';
+      state = readControls();
+    };
+
+    const updateUrl = () => {
+      const url = new URL(window.location.href);
+      const params = serializeOpenProblemFilterState(state);
+      url.search = params.toString();
+      window.history.replaceState({}, '', url);
+    };
+
+    const renderActiveFilters = () => {
+      activeFilters.replaceChildren();
+      const filters: ActiveFilter[] = [];
+      if (state.query) {
+        filters.push({ key: 'query', label: `Search: ${state.query}` });
+      }
+      if (state.track) {
+        filters.push({
+          key: 'track',
+          label: `Track: ${trackSelect.selectedOptions[0]?.textContent ?? humanize(state.track)}`,
+        });
+      }
+      if (state.type) {
+        filters.push({
+          key: 'type',
+          label: `Type: ${typeSelect.selectedOptions[0]?.textContent ?? humanize(state.type)}`,
+        });
+      }
+
+      for (const filter of filters) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = `${filter.label} ×`;
+        button.setAttribute('aria-label', `Remove ${filter.label} filter`);
+        button.addEventListener('click', () => {
+          if (filter.key === 'query') queryInput.value = '';
+          if (filter.key === 'track') trackSelect.value = '';
+          if (filter.key === 'type') typeSelect.value = '';
+          applyFilters();
+        });
+        activeFilters.append(button);
+      }
+      activeFilters.hidden = filters.length === 0;
+    };
+
+    const applyFilters = ({ writeUrl = true } = {}) => {
+      state = readControls();
+      const focusedCard =
+        document.activeElement instanceof Element
+          ? document.activeElement.closest('[data-problem-card]')
+          : null;
+      const ordered = sortOpenProblemFilterRecords(records, state.sort);
+      let visibleCount = 0;
+      for (const record of ordered) {
+        const matches = matchesOpenProblemFilter(record, state);
+        record.element.hidden = !matches;
+        if (matches) visibleCount += 1;
+        list.append(record.element);
+      }
+
+      status.innerHTML = `Showing <strong>${visibleCount}</strong> of ${records.length} reviewed problem records`;
+      empty.hidden = visibleCount !== 0;
+      const clearButton = root.querySelector('[data-problem-clear]');
+      if (clearButton instanceof HTMLButtonElement) {
+        clearButton.hidden = !(
+          state.query ||
+          state.track ||
+          state.type ||
+          state.sort !== 'default'
+        );
+      }
+      renderActiveFilters();
+      if (writeUrl) updateUrl();
+      if (focusedCard instanceof HTMLElement && focusedCard.hidden) {
+        queryInput.focus();
+      }
+    };
+
+    const clearFilters = () => {
+      setControls(DEFAULT_OPEN_PROBLEM_FILTER_STATE);
+      applyFilters();
+      queryInput.focus();
+    };
+
+    form.addEventListener('submit', (event) => event.preventDefault());
+    queryInput.addEventListener('input', () => applyFilters());
+    trackSelect.addEventListener('change', () => applyFilters());
+    typeSelect.addEventListener('change', () => applyFilters());
+    sortSelect.addEventListener('change', () => applyFilters());
+    clearButtons.forEach((button) =>
+      button.addEventListener('click', clearFilters),
+    );
+    window.addEventListener('popstate', () => {
+      setControls(parseOpenProblemFilterState(window.location.search));
+      applyFilters({ writeUrl: false });
+    });
+
+    setControls(parseOpenProblemFilterState(window.location.search));
+    form.hidden = false;
+    root.classList.add('is-enhanced');
+    applyFilters({ writeUrl: false });
+  });
+</script>
 
 <style>
-  .collection-summary {
-    padding: 0.8rem 1rem;
-    border-left: 0.22rem solid var(--sl-color-accent);
-    background: var(--sl-color-gray-6);
+  .problem-explorer {
+    display: grid;
+    gap: 1.15rem;
+    margin-top: 1.25rem;
   }
 
-  .problem-grid {
+  .explorer-header {
     display: grid;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: end;
+    padding: 1.3rem 0 0.25rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.35rem;
+    color: var(--atlas-burgundy);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h2,
+  .explorer-copy {
+    margin: 0;
+  }
+
+  h2 {
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .explorer-copy {
+    max-width: 44rem;
+    margin-top: 0.5rem;
+    color: var(--atlas-muted);
+  }
+
+  .collection-stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 0.55rem;
+    margin: 0;
+  }
+
+  .collection-stats div {
+    min-width: 5.7rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 0.65rem;
+    background: var(--atlas-paper);
+    text-align: center;
+  }
+
+  .collection-stats dt {
+    color: var(--atlas-muted);
+    font-size: 0.64rem;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+
+  .collection-stats dd {
+    margin: 0.1rem 0 0;
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .verification-note,
+  .noscript-note {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--atlas-blue-border);
+    border-inline-start: 0.24rem solid var(--sl-color-accent);
+    background: var(--atlas-blue-soft);
+    color: var(--atlas-ink);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .explorer-controls {
+    display: grid;
+    grid-template-columns: minmax(14rem, 1.7fr) repeat(3, minmax(8.5rem, 1fr)) auto;
+    gap: 0.75rem;
+    align-items: end;
+    padding: 1rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper-muted);
+  }
+
+  .explorer-controls label {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+    color: var(--atlas-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .explorer-controls input,
+  .explorer-controls select,
+  .explorer-controls button,
+  .empty-state button,
+  .active-filters button {
+    min-height: 2.75rem;
+    border: 1px solid var(--atlas-border-strong);
+    border-radius: 0.55rem;
+    background: var(--atlas-paper);
+    color: var(--atlas-ink);
+    font: inherit;
+  }
+
+  .explorer-controls input,
+  .explorer-controls select {
+    width: 100%;
+    padding: 0.62rem 0.72rem;
+    font-size: 0.84rem;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .explorer-controls input::placeholder {
+    color: var(--atlas-muted);
+  }
+
+  .clear-button,
+  .empty-state button {
+    padding: 0.58rem 0.8rem;
+    color: var(--sl-color-accent-high);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .active-filters button {
+    min-height: 2rem;
+    padding: 0.25rem 0.6rem;
+    border-color: color-mix(in srgb, var(--atlas-burgundy) 38%, var(--atlas-border));
+    background: var(--atlas-burgundy-soft);
+    color: var(--sl-color-accent-high);
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  .results-heading {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--atlas-border-strong);
+  }
+
+  .results-heading p {
+    margin: 0;
+    color: var(--atlas-ink);
+    font-size: 0.86rem;
+  }
+
+  .results-hint {
+    color: var(--atlas-muted);
+    font-size: 0.75rem;
+  }
+
+  .problem-list {
+    display: grid;
+    gap: 0.78rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .empty-state {
+    padding: 1.35rem;
+    border: 1px dashed var(--atlas-border-strong);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper-muted);
+    text-align: center;
+  }
+
+  .empty-state p {
+    margin: 0 0 0.45rem;
+  }
+
+  .empty-state button {
+    margin-top: 0.35rem;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 70rem) {
+    .explorer-header {
+      grid-template-columns: 1fr;
+    }
+
+    .collection-stats {
+      justify-content: start;
+    }
+
+    .explorer-controls {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .search-field {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .collection-stats {
+      width: 100%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .collection-stats div {
+      min-width: 0;
+      padding-inline: 0.35rem;
+    }
+
+    .explorer-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .search-field {
+      grid-column: auto;
+    }
+
+    .clear-button {
+      width: 100%;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .verification-note,
+    .explorer-controls,
+    .collection-stats div,
+    .empty-state {
+      border-color: CanvasText;
+    }
   }
 </style>

@@ -3,103 +3,248 @@ import {
   openProblemDetailRoute,
   relatedPaperIds,
 } from '../lib/open-problems.mjs';
+import { RESEARCH_TRACK_LABELS } from '../lib/paper-views.mjs';
 import { withBase } from '../lib/papers.mjs';
 
-const { problem } = Astro.props;
+const { problem, originalOrder = 0, paperSearchText = '' } = Astro.props;
 const detailHref = withBase(
   import.meta.env.BASE_URL,
   openProblemDetailRoute(problem.id),
 );
 const relatedCount = relatedPaperIds(problem).length;
+const titleId = `problem-title-${problem.id}`;
+const humanize = (value: string) =>
+  value
+    .split('-')
+    .map((part) => part[0]?.toUpperCase() + part.slice(1))
+    .join(' ');
+const trackLabels = problem.research_tracks.map(
+  (track: string) => RESEARCH_TRACK_LABELS.get(track) ?? humanize(track),
+);
+const searchText = [
+  problem.title,
+  problem.question,
+  problem.problem_type,
+  problem.origin,
+  ...problem.research_tracks,
+  ...trackLabels,
+  ...problem.tags,
+  paperSearchText,
+].join(' ');
 ---
 
-<article class="problem-card">
-  <header>
-    <h2><a href={detailHref}>{problem.title}</a></h2>
-    <div class="badges">
-      <span class:list={['status', `status-${problem.status}`]}>{problem.status}</span>
-      <span>{problem.problem_type}</span>
+<li
+  class="problem-item"
+  data-problem-card
+  data-search-text={searchText}
+  data-title={problem.title}
+  data-tracks={problem.research_tracks.join(',')}
+  data-type={problem.problem_type}
+  data-last-verified={problem.last_verified}
+  data-source-count={relatedCount}
+  data-original-order={originalOrder}
+>
+  <article class="problem-card" aria-labelledby={titleId}>
+    <div class="problem-card__topline atlas-meta">
+      <span class="status" aria-label={`Status: ${humanize(problem.status)}`}>
+        <span aria-hidden="true" class="status-dot"></span>
+        {humanize(problem.status)}
+      </span>
+      <span>{humanize(problem.problem_type)}</span>
+      <span>{problem.origin === 'atlas-synthesis' ? 'Atlas synthesis' : 'Source stated'}</span>
     </div>
-  </header>
 
-  <p>{problem.question}</p>
+    <h3 id={titleId}>
+      <a href={detailHref}>{problem.title}</a>
+    </h3>
 
-  <ul class="tags" aria-label={`Tags for ${problem.title}`}>
-    {problem.tags.map((tag: string) => <li>{tag}</li>)}
-  </ul>
+    <p class="question">{problem.question}</p>
 
-  <footer>
-    <span>{relatedCount} grounded paper{relatedCount === 1 ? '' : 's'}</span>
-    <span>Verified {problem.last_verified}</span>
-    <a href={detailHref}>Problem record</a>
-  </footer>
-</article>
+    <ul class="tags" aria-label={`Tags for ${problem.title}`}>
+      {problem.tags.map((tag: string) => <li>{tag}</li>)}
+    </ul>
+
+    <footer>
+      <div class="record-facts">
+        <span>
+          <strong>{relatedCount}</strong> source paper{relatedCount === 1 ? '' : 's'}
+        </span>
+        <span>{trackLabels.join(' · ')}</span>
+        <span>
+          Reviewed <time datetime={problem.last_verified}>{problem.last_verified}</time>
+        </span>
+      </div>
+      <a class="record-link" href={detailHref} aria-label={`View problem record: ${problem.title}`}>
+        View record <span aria-hidden="true">→</span>
+      </a>
+    </footer>
+  </article>
+</li>
 
 <style>
-  .problem-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1rem;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.75rem;
-    background: var(--sl-color-bg-nav);
+  .problem-item {
+    min-width: 0;
   }
 
-  header,
+  .problem-card {
+    position: relative;
+    display: grid;
+    gap: 0.72rem;
+    min-width: 0;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--atlas-border);
+    border-inline-start: 0.24rem solid var(--atlas-border-strong);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    box-shadow: var(--atlas-shadow-small);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .problem-card:hover,
+  .problem-card:focus-within {
+    border-color: color-mix(in srgb, var(--atlas-burgundy) 55%, var(--atlas-border));
+    border-inline-start-color: var(--atlas-burgundy);
+    box-shadow: var(--atlas-shadow);
+  }
+
+  .problem-card__topline,
   footer,
-  .badges,
+  .record-facts,
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
     align-items: center;
   }
 
-  header {
-    justify-content: space-between;
-    align-items: flex-start;
+  .problem-card__topline {
+    gap: 0.45rem 0.8rem;
+    color: var(--atlas-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
   }
 
-  h2,
+  .status {
+    display: inline-flex;
+    gap: 0.38rem;
+    align-items: center;
+    color: var(--sl-color-green-high);
+    font-weight: 700;
+  }
+
+  .status-dot {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--sl-color-green-high);
+    box-shadow: 0 0 0 0.16rem var(--sl-color-green-low);
+  }
+
+  h3,
   p {
     margin: 0;
   }
 
-  h2 {
-    max-width: 42rem;
-    font-size: 1.05rem;
-    line-height: 1.35;
+  h3 {
+    max-width: 48rem;
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.12rem, 1.6vw, 1.34rem);
+    line-height: 1.3;
+    letter-spacing: -0.014em;
   }
 
-  .badges span,
-  .tags li {
-    padding: 0.14rem 0.44rem;
-    border-radius: 999px;
-    background: var(--sl-color-gray-6);
-    font-size: 0.72rem;
+  h3 a {
+    color: var(--atlas-ink);
+    text-decoration-color: color-mix(in srgb, var(--atlas-burgundy) 38%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
   }
 
-  .status-open {
-    background: var(--sl-color-green-low) !important;
-    color: var(--sl-color-green-high);
+  h3 a:hover {
+    color: var(--sl-color-accent-high);
+    text-decoration-color: currentColor;
+  }
+
+  .question {
+    color: var(--atlas-muted);
+    font-size: 0.93rem;
+    line-height: 1.62;
   }
 
   .tags {
+    gap: 0.35rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  footer {
-    margin-top: auto;
-    padding-top: 0.7rem;
-    border-top: 1px solid var(--sl-color-gray-6);
-    color: var(--sl-color-gray-3);
-    font-size: 0.75rem;
+  .tags li {
+    padding: 0.18rem 0.48rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 999px;
+    background: var(--atlas-paper-muted);
+    color: var(--atlas-muted);
+    font-size: 0.7rem;
+    line-height: 1.25;
   }
 
-  footer a {
-    margin-left: auto;
+  footer {
+    gap: 0.75rem 1rem;
+    justify-content: space-between;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--atlas-border);
+    color: var(--atlas-muted);
+    font-size: 0.74rem;
+  }
+
+  .record-facts {
+    min-width: 0;
+    gap: 0.3rem 0.85rem;
+  }
+
+  .record-facts span {
+    overflow-wrap: anywhere;
+  }
+
+  .record-link {
+    flex: none;
+    min-height: 2.1rem;
+    padding: 0.32rem 0.05rem;
+    color: var(--sl-color-accent-high);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .record-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  @media (max-width: 34rem) {
+    .problem-card {
+      padding: 1rem;
+    }
+
+    footer {
+      align-items: flex-start;
+    }
+
+    .record-facts {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .problem-card,
+    .tags li {
+      border-color: CanvasText;
+    }
+
+    .status-dot {
+      background: CanvasText;
+      box-shadow: none;
+    }
   }
 </style>

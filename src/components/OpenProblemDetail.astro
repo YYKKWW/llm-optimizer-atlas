@@ -1,5 +1,11 @@
 ---
-import { getOpenProblemDataset } from '../lib/open-problems.mjs';
+import {
+  getOpenProblemDataset,
+  openProblemDetailRoute,
+  relatedPaperIds,
+  sortOpenProblems,
+} from '../lib/open-problems.mjs';
+import { RESEARCH_TRACK_LABELS } from '../lib/paper-views.mjs';
 import {
   getPaperDataset,
   paperDetailRoute,
@@ -8,8 +14,9 @@ import {
 } from '../lib/papers.mjs';
 
 const { problemId } = Astro.props;
-const problems = await getOpenProblemDataset();
-const problem = problems.find((entry: any) => entry.id === problemId);
+const problems = sortOpenProblems(await getOpenProblemDataset());
+const problemIndex = problems.findIndex((entry: any) => entry.id === problemId);
+const problem = problems[problemIndex];
 if (!problem) {
   throw new Error('Generated open-problem page references unknown id: ' + problemId);
 }
@@ -19,156 +26,811 @@ const papersById = new Map<string, any>(
   papers.map((paper: any) => [paper.id, paper]),
 );
 const baseUrl = import.meta.env.BASE_URL;
+const previousProblem = problemIndex > 0 ? problems[problemIndex - 1] : null;
+const nextProblem = problemIndex + 1 < problems.length ? problems[problemIndex + 1] : null;
+const relatedCount = relatedPaperIds(problem).length;
+const backHref = withBase(baseUrl, 'open-problems/');
+const humanize = (value: string) =>
+  value
+    .split('-')
+    .map((part) => part[0]?.toUpperCase() + part.slice(1))
+    .join(' ');
+const trackLabels = problem.research_tracks.map(
+  (track: string) => RESEARCH_TRACK_LABELS.get(track) ?? humanize(track),
+);
+const originDescription =
+  problem.origin === 'atlas-synthesis'
+    ? 'This question is an atlas synthesis grounded in the source locations below; it is not presented as a verbatim author-stated problem.'
+    : 'This problem is explicitly stated by a cited source; see the problem-statement reference below.';
 ---
 
-<div class="record-meta">
-  <span>{problem.status}</span>
-  <span>{problem.problem_type}</span>
-  <span>{problem.origin}</span>
-  <span>{problem.verification_status}</span>
-  <span>Tracks: {problem.research_tracks.join(', ')}</span>
-  <span>Last verified: {problem.last_verified}</span>
-</div>
+<div class="problem-detail" data-problem-detail>
+  <nav class="problem-breadcrumb" aria-label="Problem navigation">
+    <a href={backHref}><span aria-hidden="true">←</span> All open problems</a>
+    <span class="atlas-meta">Problem {problemIndex + 1} of {problems.length}</span>
+  </nav>
 
-<ul class="tags" aria-label="Problem tags">
-  {problem.tags.map((tag: string) => <li>{tag}</li>)}
-</ul>
+  <div class="record-badges" aria-label="Record status">
+    <span class="badge badge-open">
+      <span class="badge-dot" aria-hidden="true"></span>
+      Status: {humanize(problem.status)}
+    </span>
+    <span class="badge badge-verified">Evidence boundary: {humanize(problem.verification_status)}</span>
+  </div>
 
-<h2>Precise question</h2>
-<p>{problem.question}</p>
+  <p class="origin-note">{originDescription}</p>
 
-<h2>Scope and assumptions</h2>
-<h3>Scope</h3>
-<ul>
-  {problem.scope.map((item: string) => <li>{item}</li>)}
-</ul>
-<h3>Assumptions</h3>
-<ul>
-  {problem.assumptions.map((item: string) => <li>{item}</li>)}
-</ul>
+  <dl class="record-meta" aria-label="Open-problem metadata">
+    <div>
+      <dt>Problem type</dt>
+      <dd>{humanize(problem.problem_type)}</dd>
+    </div>
+    <div>
+      <dt>Research tracks</dt>
+      <dd>{trackLabels.join(' · ')}</dd>
+    </div>
+    <div>
+      <dt>Grounded papers</dt>
+      <dd>{relatedCount}</dd>
+    </div>
+    <div>
+      <dt>Last reviewed</dt>
+      <dd><time datetime={problem.last_verified}>{problem.last_verified}</time></dd>
+    </div>
+  </dl>
 
-<h2>Verified source boundary</h2>
-<p class="boundary-note">
-  These facts are source-grounded. The open question itself is an atlas synthesis unless a source explicitly says otherwise.
-</p>
-<div class="evidence-list">
-  {problem.source_refs.map((sourceRef: any) => {
-    const paper = papersById.get(sourceRef.paper_id);
-    const sourceLinks = paperSourceLinks(paper);
-    return (
-      <article>
-        <h3>
-          <a href={withBase(baseUrl, paperDetailRoute(paper.id))}>{paper.title}</a>
-        </h3>
-        <p><strong>Source ref:</strong> <code>{sourceRef.id}</code></p>
-        <p><strong>Source version:</strong> {sourceRef.paper_source_version}</p>
-        <p><strong>Locator:</strong> {sourceRef.locator}</p>
-        <p><strong>Role:</strong> {sourceRef.role}</p>
-        <p>{sourceRef.supports}</p>
-        <nav aria-label={`Sources for ${paper.title}`}>
-          {sourceLinks.map((link) => (
-            <a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
-          ))}
-        </nav>
+  <ul class="tags" aria-label="Problem tags">
+    {problem.tags.map((tag: string) => <li>{tag}</li>)}
+  </ul>
+
+  <aside class="verification-boundary" aria-labelledby="verification-boundary-title">
+    <strong id="verification-boundary-title">Verified within a checked boundary.</strong>
+    The metadata, cited evidence, and open-status rationale were reviewed against
+    the recorded source versions. This is not a universal claim that no solution
+    exists outside the stated verification boundary.
+  </aside>
+
+  <nav class="problem-jump-nav" aria-label="Jump to a section">
+    <span class="atlas-meta">Jump to</span>
+    <a href="#precise-question">Question</a>
+    <a href="#known-results">Known</a>
+    <a href="#unknown-boundary">Unknown</a>
+    <a href="#resolution-criteria">Resolution criteria</a>
+    <a href="#scope-assumptions">Scope</a>
+    <a href="#source-boundary">Evidence</a>
+    <a href="#candidate-approaches">Approaches</a>
+  </nav>
+
+  <section id="precise-question" class="detail-section question-panel" aria-labelledby="precise-question-title">
+    <p class="section-kicker atlas-meta">Research question</p>
+    <h2 id="precise-question-title">Precise question</h2>
+    <p>{problem.question}</p>
+  </section>
+
+  <section id="known-results" class="detail-section" aria-labelledby="known-results-title">
+    <p class="section-kicker atlas-meta">Established within cited conditions</p>
+    <h2 id="known-results-title">What is known</h2>
+    <div class="known-results">
+      {problem.known_results.map((result: any, index: number) => (
+        <article>
+          <span class="result-number atlas-meta" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <p class="result-statement">{result.statement}</p>
+            <p><strong>Conditions:</strong> {result.conditions}</p>
+            <p class="source-ref-links">
+              <strong>Evidence:</strong>{' '}
+              {result.source_ref_ids.map((sourceRefId: string, sourceIndex: number) => (
+                <>
+                  {sourceIndex > 0 && ', '}
+                  <a href={`#evidence-${sourceRefId}`}>{sourceRefId}</a>
+                </>
+              ))}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="unknown-boundary" class="detail-section" aria-labelledby="unknown-boundary-title">
+    <p class="section-kicker atlas-meta">The remaining boundary</p>
+    <h2 id="unknown-boundary-title">What remains unknown—and why it matters</h2>
+    <div class="two-column">
+      <article class="unknown-card">
+        <h3>Unknown within the verified boundary</h3>
+        <p>{problem.unknown.statement}</p>
+        <p class="boundary-text">
+          <strong>Boundary checked:</strong> {problem.unknown.verification_boundary}
+        </p>
       </article>
-    );
-  })}
+      <article class="why-card">
+        <h3>Why this remains open</h3>
+        <p>{problem.why_open}</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="resolution-criteria" class="detail-section" aria-labelledby="resolution-criteria-title">
+    <p class="section-kicker atlas-meta">A testable finish line</p>
+    <h2 id="resolution-criteria-title">What would resolve—or fail to resolve—it?</h2>
+    <div class="criteria-grid">
+      <article class="resolution-card">
+        <h3><span aria-hidden="true">✓</span> Resolution criteria</h3>
+        <ul>
+          {problem.resolution_criteria.map((item: string) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="falsification-card">
+        <h3><span aria-hidden="true">×</span> Non-resolution criteria</h3>
+        <ul>
+          {problem.falsification_criteria.map((item: string) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="scope-assumptions" class="detail-section" aria-labelledby="scope-assumptions-title">
+    <p class="section-kicker atlas-meta">Interpretation guardrails</p>
+    <h2 id="scope-assumptions-title">Scope and assumptions</h2>
+    <div class="two-column">
+      <article>
+        <h3>Scope</h3>
+        <ul>
+          {problem.scope.map((item: string) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article>
+        <h3>Assumptions</h3>
+        <ul>
+          {problem.assumptions.map((item: string) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="source-boundary" class="detail-section" aria-labelledby="source-boundary-title">
+    <p class="section-kicker atlas-meta">Primary-source provenance</p>
+    <h2 id="source-boundary-title">Verified evidence boundary</h2>
+    <p class="section-intro">
+      Each source is pinned to the exact paper version and location used by this
+      record. Reader links prefer arXiv when an arXiv version is available.
+    </p>
+    <div class="evidence-list">
+      {problem.source_refs.map((sourceRef: any, index: number) => {
+        const paper = papersById.get(sourceRef.paper_id);
+        const sourceLinks = paperSourceLinks(paper);
+        return (
+          <article id={`evidence-${sourceRef.id}`}>
+            <header>
+              <p class="source-number atlas-meta">Source {String(index + 1).padStart(2, '0')}</p>
+              <h3>
+                <a href={withBase(baseUrl, paperDetailRoute(paper.id))}>{paper.title}</a>
+              </h3>
+            </header>
+            <p class="supports">{sourceRef.supports}</p>
+            <p class="locator"><strong>Located at:</strong> {sourceRef.locator}</p>
+            <nav aria-label={`Reading links for ${paper.title}`}>
+              {sourceLinks.map((link) => (
+                <a href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                  <span class="visually-hidden">: {paper.title} (opens in a new tab)</span>
+                </a>
+              ))}
+              <a href={withBase(baseUrl, paperDetailRoute(paper.id))}>Atlas paper record</a>
+            </nav>
+            <details>
+              <summary>Provenance details</summary>
+              <dl>
+                <div>
+                  <dt>Source ref</dt>
+                  <dd><code>{sourceRef.id}</code></dd>
+                </div>
+                <div>
+                  <dt>Source version</dt>
+                  <dd>{sourceRef.paper_source_version}</dd>
+                </div>
+                <div>
+                  <dt>Evidence role</dt>
+                  <dd>{humanize(sourceRef.role)}</dd>
+                </div>
+              </dl>
+            </details>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section id="candidate-approaches" class="detail-section" aria-labelledby="candidate-approaches-title">
+    <p class="section-kicker atlas-meta">Exploratory directions</p>
+    <h2 id="candidate-approaches-title">Candidate approaches</h2>
+    <aside class="exploratory-note">
+      These are research directions, not verified results or claims of expected success.
+    </aside>
+    <ul class="approach-list">
+      {problem.candidate_approaches.map((item: string) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  {problem.human_notes && (
+    <section class="detail-section" aria-labelledby="human-notes-title">
+      <h2 id="human-notes-title">Human notes</h2>
+      <pre class="human-notes">{problem.human_notes}</pre>
+    </section>
+  )}
+
+  <nav class="adjacent-problems" aria-label="Adjacent open problems">
+    <div>
+      {previousProblem ? (
+        <a href={withBase(baseUrl, openProblemDetailRoute(previousProblem.id))} rel="prev">
+          <span class="atlas-meta">Previous problem</span>
+          <strong><span aria-hidden="true">←</span> {previousProblem.title}</strong>
+        </a>
+      ) : (
+        <span class="empty-adjacent">Start of the verified collection</span>
+      )}
+    </div>
+    <span class="position atlas-meta">{problemIndex + 1} / {problems.length}</span>
+    <div class="next-problem">
+      {nextProblem ? (
+        <a href={withBase(baseUrl, openProblemDetailRoute(nextProblem.id))} rel="next">
+          <span class="atlas-meta">Next problem</span>
+          <strong>{nextProblem.title} <span aria-hidden="true">→</span></strong>
+        </a>
+      ) : (
+        <span class="empty-adjacent">End of the verified collection</span>
+      )}
+    </div>
+  </nav>
 </div>
-
-<h2>Known results</h2>
-<div class="known-results">
-  {problem.known_results.map((result: any) => (
-    <article>
-      <p>{result.statement}</p>
-      <p><strong>Conditions:</strong> {result.conditions}</p>
-      <p><strong>Source refs:</strong> {result.source_ref_ids.join(', ')}</p>
-    </article>
-  ))}
-</div>
-
-<h2>Unknown within the verified boundary</h2>
-<p>{problem.unknown.statement}</p>
-<p><strong>Verification boundary:</strong> {problem.unknown.verification_boundary}</p>
-
-<h2>Why this remains open</h2>
-<p>{problem.why_open}</p>
-
-<h2>Candidate approaches</h2>
-<ul>
-  {problem.candidate_approaches.map((item: string) => <li>{item}</li>)}
-</ul>
-
-<h2>Resolution criteria</h2>
-<ul>
-  {problem.resolution_criteria.map((item: string) => <li>{item}</li>)}
-</ul>
-
-<h2>Falsification criteria</h2>
-<ul>
-  {problem.falsification_criteria.map((item: string) => <li>{item}</li>)}
-</ul>
-
-{problem.human_notes && (
-  <>
-    <h2>Human notes</h2>
-    <pre class="human-notes">{problem.human_notes}</pre>
-  </>
-)}
 
 <style>
-  .record-meta,
+  .problem-detail {
+    --detail-gap: clamp(2.5rem, 6vw, 4.5rem);
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .problem-breadcrumb,
+  .record-badges,
   .tags,
-  nav {
+  .problem-jump-nav,
+  .evidence-list nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.55rem;
     align-items: center;
   }
 
-  .record-meta span,
-  .tags li {
-    padding: 0.15rem 0.48rem;
+  .problem-breadcrumb {
+    gap: 0.75rem;
+    justify-content: space-between;
+    margin-bottom: 0.15rem;
+    color: var(--atlas-muted);
+    font-size: 0.76rem;
+  }
+
+  .problem-breadcrumb a {
+    min-height: 2rem;
+    color: var(--sl-color-accent-high);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .record-badges {
+    gap: 0.5rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    gap: 0.42rem;
+    align-items: center;
+    padding: 0.28rem 0.62rem;
+    border: 1px solid var(--atlas-border);
     border-radius: 999px;
-    background: var(--sl-color-gray-6);
-    font-size: 0.78rem;
+    background: var(--atlas-paper-muted);
+    color: var(--atlas-ink);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .badge-open {
+    border-color: var(--atlas-green-border);
+    background: var(--atlas-green-soft);
+    color: var(--sl-color-green-high);
+  }
+
+  .badge-verified {
+    border-color: var(--atlas-blue-border);
+    background: var(--atlas-blue-soft);
+  }
+
+  .badge-dot {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .origin-note {
+    max-width: 48rem;
+    margin: 0.15rem 0 0;
+    color: var(--atlas-muted);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .record-meta {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin: 0.5rem 0 0;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    overflow: hidden;
+  }
+
+  .record-meta div {
+    min-width: 0;
+    padding: 0.72rem 0.8rem;
+  }
+
+  .record-meta div + div {
+    border-inline-start: 1px solid var(--atlas-border);
+  }
+
+  .record-meta dt {
+    color: var(--atlas-muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.065em;
+    text-transform: uppercase;
+  }
+
+  .record-meta dd {
+    margin: 0.18rem 0 0;
+    color: var(--atlas-ink);
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
   }
 
   .tags {
-    margin: 0.85rem 0;
+    gap: 0.35rem;
+    margin: 0.15rem 0 0;
     padding: 0;
     list-style: none;
   }
 
-  .boundary-note {
-    padding: 0.8rem 1rem;
-    border-left: 0.22rem solid var(--sl-color-accent);
-    background: var(--sl-color-gray-6);
+  .tags li {
+    padding: 0.18rem 0.48rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 999px;
+    background: var(--atlas-paper-muted);
+    color: var(--atlas-muted);
+    font-size: 0.7rem;
   }
 
-  .evidence-list,
-  .known-results {
+  .verification-boundary,
+  .exploratory-note {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--atlas-blue-border);
+    border-inline-start: 0.24rem solid var(--sl-color-accent);
+    background: var(--atlas-blue-soft);
+    font-size: 0.84rem;
+    line-height: 1.58;
+  }
+
+  .problem-jump-nav {
+    gap: 0.4rem;
+    padding: 0.7rem 0;
+    border-block: 1px solid var(--atlas-border);
+  }
+
+  .problem-jump-nav > span {
+    margin-inline-end: 0.25rem;
+    color: var(--atlas-muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .problem-jump-nav a {
+    min-height: 2rem;
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    color: var(--sl-color-accent-high);
+    font-size: 0.72rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .problem-jump-nav a:hover {
+    background: var(--sl-color-accent-low);
+  }
+
+  .detail-section {
+    min-width: 0;
+    margin-top: var(--detail-gap);
+    scroll-margin-top: 5rem;
+  }
+
+  .section-kicker {
+    margin: 0 0 0.3rem;
+    color: var(--atlas-burgundy);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .detail-section > h2,
+  .question-panel h2 {
+    width: fit-content;
+    margin: 0 0 1rem;
+    padding-bottom: 0.28rem;
+    border-bottom: 0.18rem solid var(--atlas-burgundy);
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+    line-height: 1.2;
+  }
+
+  .question-panel {
+    padding: clamp(1.15rem, 3vw, 1.65rem);
+    border: 1px solid var(--atlas-border-strong);
+    border-radius: var(--atlas-radius);
+    background: linear-gradient(145deg, var(--atlas-paper), var(--atlas-paper-muted));
+    box-shadow: var(--atlas-shadow-small);
+  }
+
+  .question-panel > p:last-child {
+    margin: 0;
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.08rem, 2vw, 1.32rem);
+    line-height: 1.55;
+  }
+
+  .known-results,
+  .evidence-list {
     display: grid;
     gap: 0.8rem;
   }
 
-  .evidence-list article,
   .known-results article {
-    padding: 0.9rem;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.65rem;
-    background: var(--sl-color-bg-nav);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 1rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+  }
+
+  .result-number,
+  .source-number {
+    color: var(--atlas-burgundy);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .known-results p {
+    margin: 0.45rem 0 0;
+    color: var(--atlas-muted);
+    font-size: 0.85rem;
+  }
+
+  .known-results .result-statement {
+    margin-top: 0;
+    color: var(--atlas-ink);
+    font-size: 0.94rem;
+    line-height: 1.58;
+  }
+
+  .source-ref-links {
+    overflow-wrap: anywhere;
+  }
+
+  .two-column,
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .two-column > article,
+  .criteria-grid > article {
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+  }
+
+  .two-column h3,
+  .criteria-grid h3 {
+    margin: 0 0 0.65rem;
+    font-family: var(--atlas-display-font);
+    font-size: 1.05rem;
+  }
+
+  .two-column p {
+    margin: 0;
+    color: var(--atlas-muted);
+    font-size: 0.88rem;
+    line-height: 1.62;
+  }
+
+  .boundary-text {
+    margin-top: 0.75rem !important;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--atlas-border);
+    font-size: 0.8rem !important;
+  }
+
+  .unknown-card {
+    border-top: 0.22rem solid var(--atlas-amber-border) !important;
+  }
+
+  .why-card {
+    border-top: 0.22rem solid var(--atlas-blue-border) !important;
+  }
+
+  .criteria-grid ul,
+  .two-column ul,
+  .approach-list {
+    margin: 0;
+    padding-inline-start: 1.2rem;
+  }
+
+  .criteria-grid li,
+  .two-column li,
+  .approach-list li {
+    margin-top: 0.45rem;
+    color: var(--atlas-muted);
+    line-height: 1.58;
+  }
+
+  .resolution-card {
+    border-top: 0.22rem solid var(--atlas-green-border) !important;
+    background: linear-gradient(var(--atlas-green-soft), var(--atlas-paper) 4.5rem) !important;
+  }
+
+  .falsification-card {
+    border-top: 0.22rem solid var(--atlas-burgundy) !important;
+    background: linear-gradient(var(--atlas-burgundy-soft), var(--atlas-paper) 4.5rem) !important;
+  }
+
+  .section-intro {
+    max-width: 48rem;
+    margin: -0.25rem 0 1rem;
+    color: var(--atlas-muted);
+    font-size: 0.88rem;
+  }
+
+  .evidence-list > article {
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    scroll-margin-top: 5rem;
   }
 
   .evidence-list h3,
   .evidence-list p {
-    margin-top: 0;
+    margin: 0;
+  }
+
+  .evidence-list h3 {
+    margin-top: 0.2rem;
+    font-family: var(--atlas-display-font);
+    font-size: 1.02rem;
+    line-height: 1.35;
+  }
+
+  .supports {
+    margin-top: 0.75rem !important;
+    color: var(--atlas-ink);
+    line-height: 1.58;
+  }
+
+  .locator {
+    margin-top: 0.6rem !important;
+    color: var(--atlas-muted);
+    font-size: 0.82rem;
+    overflow-wrap: anywhere;
+  }
+
+  .evidence-list nav {
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .evidence-list nav a {
+    min-height: 2.25rem;
+    padding: 0.42rem 0.68rem;
+    border: 1px solid var(--atlas-border-strong);
+    border-radius: 0.5rem;
+    background: var(--atlas-paper-muted);
+    color: var(--sl-color-accent-high);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .evidence-list nav a:first-child {
+    border-color: var(--atlas-action-bg);
+    background: var(--atlas-action-bg);
+    color: var(--atlas-action-text);
+  }
+
+  details {
+    margin-top: 0.8rem;
+    border-top: 1px solid var(--atlas-border);
+  }
+
+  summary {
+    min-height: 2.75rem;
+    padding: 0.7rem 0;
+    color: var(--sl-color-accent-high);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  details dl {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0 0 0.35rem;
+  }
+
+  details dl div {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+
+  details dt {
+    color: var(--atlas-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  details dd {
+    margin: 0;
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+  }
+
+  .exploratory-note {
+    margin-bottom: 0.85rem;
+    border-color: var(--atlas-amber-border);
+    background: var(--atlas-amber-soft);
   }
 
   .human-notes {
     padding: 1rem;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.5rem;
-    background: var(--sl-color-gray-6);
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper-muted);
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .adjacent-problems {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    margin-top: var(--detail-gap);
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--atlas-border-strong);
+  }
+
+  .adjacent-problems a {
+    display: grid;
+    gap: 0.25rem;
+    color: var(--atlas-ink);
+    text-decoration: none;
+  }
+
+  .adjacent-problems a > span,
+  .position,
+  .empty-adjacent {
+    color: var(--atlas-muted);
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .adjacent-problems strong {
+    font-family: var(--atlas-display-font);
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .next-problem {
+    text-align: end;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 48rem) {
+    .record-meta {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .record-meta div:nth-child(odd) {
+      border-inline-start: 0;
+    }
+
+    .record-meta div:nth-child(n + 3) {
+      border-top: 1px solid var(--atlas-border);
+    }
+
+    .two-column,
+    .criteria-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .adjacent-problems {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .position {
+      grid-row: 1;
+    }
+
+    .next-problem {
+      text-align: start;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .record-meta {
+      grid-template-columns: 1fr;
+    }
+
+    .record-meta div + div {
+      border-inline-start: 0;
+      border-top: 1px solid var(--atlas-border);
+    }
+
+    details dl div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+
+    .known-results article {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .badge,
+    .record-meta,
+    .verification-boundary,
+    .question-panel,
+    .known-results article,
+    .two-column > article,
+    .criteria-grid > article,
+    .evidence-list > article,
+    .evidence-list nav a,
+    .exploratory-note {
+      border-color: CanvasText !important;
+    }
   }
 </style>

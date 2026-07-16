@@ -10,6 +10,14 @@ export default defineConfig({
       title: 'LLM Optimizer Atlas',
       description:
         'A verified personal literature atlas for LLM optimizers and mathematical optimization.',
+      customCss: ['./src/styles/atlas.css'],
+      social: [
+        {
+          icon: 'github',
+          label: 'LLM Optimizer Atlas on GitHub',
+          href: 'https://github.com/YYKKWW/llm-optimizer-atlas',
+        },
+      ],
       sidebar: [
         {
           label: 'Overview',

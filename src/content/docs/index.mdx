@@ -1,50 +1,20 @@
 ---
 title: LLM Optimizer Atlas
-description: A verified personal map of LLM optimizers and their mathematical foundations.
+description: An evidence-reviewed map from LLM optimizer update rules and evidence to open research questions.
+template: splash
+hero:
+  title: LLM Optimizer Atlas
+  tagline: Trace optimization ideas from mathematical geometry to training evidence—and from checked evidence limits to the next open question.
+  actions:
+    - text: Explore open problems
+      link: ./open-problems/
+      icon: right-arrow
+    - text: Browse the paper library
+      link: ./paper-notes/
+      icon: open-book
+      variant: minimal
 ---
 
-This atlas connects optimizer update rules, geometry, evidence, and open
-questions. Paper-facing views are built from one validated YAML dataset so that
-publication status, source versions, claims, and evidence conditions stay
-consistent across the site.
+import AtlasOverview from '../../components/AtlasOverview.astro';
 
-## Start with the map
-
-Use the [Literature Map](/llm-optimizer-atlas/literature-map/) to move through
-five research tracks: norms and duality, structured preconditioning,
-constrained matrix geometry, benchmarking and scaling, and systems-efficient
-optimization.
-
-## Atlas surfaces
-
-- [Paper Library](/llm-optimizer-atlas/paper-notes/) — generated views and one
-  durable record per verified paper.
-- [Claim–Evidence Matrix](/llm-optimizer-atlas/claim-evidence-matrix/) — claims
-  aligned with their evidence and comparison conditions.
-- [Open Problems](/llm-optimizer-atlas/open-problems/) — research questions with
-  explicit scope and completion criteria.
-- [Reading Queue](/llm-optimizer-atlas/reading-queue/) — verified records still
-  marked unread.
-- [Experiment Ledger](/llm-optimizer-atlas/experiment-notes/) — reproducible
-  experiment records.
-- [Where Papers Disagree](/llm-optimizer-atlas/where-papers-disagree/) —
-  protocol-aware synthesis of conditional conclusions.
-- [Benchmark Comparisons](/llm-optimizer-atlas/benchmark-comparisons/) —
-  comparable experimental conditions and resource accounting.
-- [Watchlist](/llm-optimizer-atlas/watchlist/) — verified frontier preprints
-  monitored for source and publication changes.
-
-## Verification contract
-
-Paper metadata, publication status, update rules, URLs, quantitative evidence,
-and open-problem boundaries enter the atlas only after primary-source
-verification. Structured facts have one source of truth; generated pages are
-read-only consumers and never overwrite human-maintained notes.
-
-## Current milestone
-
-The verified seed corpus now drives the paper library, grouped views, reading
-queue, frontier watchlist, claim–evidence matrix, disagreement synthesis, and
-source-grounded open-problem records. Scheduled discovery remains a
-separate unverified artifact workflow; experiment records remain a distinct
-human-reviewed content family.
+<AtlasOverview />
