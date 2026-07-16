@@ -1,0 +1,24 @@
+- id: Invalid Problem ID
+  title: TODO_UNVERIFIED
+  status: candidate
+  verification_status: unverified
+  problem_type: unknown
+  research_tracks:
+    - unknown-track
+  tags:
+    - Invalid Tag
+  origin: invented
+  question: ""
+  scope: []
+  assumptions: []
+  source_refs: []
+  known_results: []
+  unknown:
+    statement: ""
+    verification_boundary: ""
+  why_open: ""
+  candidate_approaches: []
+  resolution_criteria: []
+  falsification_criteria: []
+  last_verified: 2026-02-31
+  human_notes: 42

@@ -1,0 +1,19 @@
+Inspect the repository and read AGENTS.md before making changes.
+
+Create the verified open-problem data layer without adding candidate records.
+
+Required implementation:
+- a strict open-problem schema and YAML dataset;
+- a loader that rejects duplicate YAML keys;
+- exact foreign-key validation against papers.yml;
+- source references pinned to the exact paper source_version and locator;
+- explicit scope, assumptions, known results and conditions, unknown boundary,
+  candidate approaches, resolution criteria, and falsification criteria;
+- an origin field distinguishing source-stated problems from atlas synthesis;
+- a protected atomic writer that preserves human_notes, rejects record
+  deletion, and cannot automatically promote new verified records;
+- validation commands, fixtures, and tests.
+
+The formal dataset may contain only verification_status: verified records.
+Candidate discovery output must use a different schema and storage location.
+Run all repository validation, tests, link checks, and the production build.

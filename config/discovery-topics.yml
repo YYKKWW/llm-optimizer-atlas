@@ -1,0 +1,39 @@
+profiles:
+  - id: optimizer-gains-at-scale
+    all_groups:
+      - [language model, llm, pretraining, deep learning]
+      - [optimizer, optimization, preconditioner, preconditioning]
+      - [scale, scaling, compute, token]
+  - id: hyperparameter-transfer
+    all_groups:
+      - [optimizer, optimization, preconditioner]
+      - [hyperparameter, learning rate, weight decay, transfer, mup]
+  - id: token-versus-system-efficiency
+    all_groups:
+      - [optimizer, optimization, preconditioner]
+      - [wall clock, runtime, memory, communication, token efficiency, distributed]
+  - id: norm-constraints-versus-weight-decay
+    all_groups:
+      - [norm constraint, spectral sphere, frobenius sphere, manifold constraint]
+      - [weight decay, regularization, scale invariance, retraction]
+  - id: matrix-sign-accuracy
+    all_groups:
+      - [matrix sign, polar decomposition, newton schulz]
+      - [approximation, precision, iteration, inexact]
+  - id: nonsmooth-spectral-optimization
+    all_groups:
+      - [spectral norm, singular value, spectral sphere]
+      - [nonsmooth, multiplicity, stationarity, manifold, stratified]
+  - id: fair-optimizer-benchmarking
+    all_groups:
+      - [optimizer, optimization]
+      - [benchmark, comparison, tuning, batch size, training horizon]
+  - id: low-precision-distributed-matrix-optimization
+    all_groups:
+      - [matrix, preconditioner, shampoo, muon, polar]
+      - [low precision, quantization, distributed, sharding, communication]
+  - id: theory-bridge
+    source_allowlist: [mathematical-programming, siam-journal-on-optimization]
+    all_groups:
+      - [preconditioner, matrix optimization, norm constraint, spectral optimization, manifold optimization, linear minimization oracle]
+      - [stochastic, nonconvex, convergence, distributed, low rank, inexact]

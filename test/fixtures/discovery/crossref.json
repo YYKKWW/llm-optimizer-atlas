@@ -1,0 +1,16 @@
+{
+  "message": {
+    "items": [
+      {
+        "DOI": "10.1137/24M000001",
+        "title": ["Low-Precision Distributed Matrix Preconditioning for Language Model Training"],
+        "author": [
+          { "given": "Ada", "family": "Example" }
+        ],
+        "published-online": { "date-parts": [[2026, 5, 10]] },
+        "abstract": "<jats:p>A low precision distributed optimizer with matrix preconditioning, communication, and memory measurements.</jats:p>",
+        "subject": ["Optimization"]
+      }
+    ]
+  }
+}

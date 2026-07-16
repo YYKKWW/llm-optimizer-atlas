@@ -1,0 +1,22 @@
+Inspect the repository and read AGENTS.md.
+
+Generate the open-problem index and one durable detail route per verified
+open-problem record.
+
+Required page content:
+- status, type, origin, research tracks, tags, and verification date;
+- precise question, scope, and assumptions;
+- known results and conditions;
+- exact paper source versions and locators;
+- unknown and verification boundary;
+- why the problem remains open;
+- candidate approaches;
+- resolution and falsification criteria;
+- links to atlas paper records, arXiv reading pages, and formal versions.
+
+Pages must load formal data at build time and must not duplicate problem or
+paper metadata manually. The generator may write only inside its owned
+generated directory, must detect drift and path escape, and must never change
+human_notes or hand-written files.
+
+Add tests and run validation, link checks, and the production build.

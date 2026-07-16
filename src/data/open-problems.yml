@@ -1,0 +1,917 @@
+- id: matrix-optimizer-gains-beyond-billion-scale
+  title: Do Matrix-Optimizer Gains Persist Beyond Billion-Scale Models?
+  status: open
+  verification_status: verified
+  problem_type: empirical
+  research_tracks:
+    - preconditioning
+    - benchmarking
+  tags:
+    - matrix-preconditioning
+    - scaling-laws
+    - token-efficiency
+  origin: atlas-synthesis
+  question: >-
+    Under matched architecture, data, target loss, and optimizer-specific tuning, do the token-
+    or forward/backward-FLOP efficiency gains of matrix-preconditioned optimizers over strong
+    AdamW-family baselines remain meaningfully above parity over a preregistered range of model sizes
+    and data-to-model ratios beyond the currently tested 1.5B-parameter boundary?
+  scope:
+    - Dense pre-norm Llama- or Qwen-style language models are the first target family.
+    - >-
+      Muon, SOAP, Shampoo, and norm-constrained variants are compared with independently tuned
+      AdamW-family baselines.
+    - >-
+      Token-equivalent and forward/backward-FLOP efficiency are evaluated here; wall-clock
+      efficiency is a separate open problem.
+    - Width, depth, and data-to-model ratio are reported separately.
+  assumptions:
+    - >-
+      Each paired comparison uses the same corpus, tokenizer, architecture, schedule family,
+      sequence length, data order, and target evaluation metric.
+    - Tuning budgets are equal or use a transfer rule fixed before target-scale evaluation.
+    - Claims use final-checkpoint or matched-loss comparisons rather than intermediate curves.
+  source_refs:
+    - id: fantastic-scaling-boundary
+      paper_id: fantastic-pretraining-optimizers
+      paper_source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
+      locator: Section 4.1, Figures 3–4, Table 5, and Section 5
+      role: empirical-boundary
+      supports: >-
+        The study evaluates roughly 0.13B–1.2B Llama-like models over several data ratios, finds
+        that token-equivalent gains over tuned AdamW diminish with scale, and lists testing beyond
+        1.2B as future work.
+    - id: transfer-scaling-boundary
+      paper_id: hyperparameter-transfer-matrix-preconditioners
+      paper_source_version: NeurIPS 2025 proceedings version; arXiv:2512.05620v2
+      locator: Section 4, Figure 6, Section H.2, and Appendix J
+      role: empirical-boundary
+      supports: >-
+        Under the paper's learning-rate and weight-decay transfer rules, Muon, SOAP, and Shampoo
+        retain forward/backward-FLOP gains from 190M to 1.4B; optimizer-transform FLOPs are excluded
+        and larger-scale validation is left for future work.
+    - id: hyperball-scaling-boundary
+      paper_id: hyperball-optimization
+      paper_source_version: arXiv:2606.16899v1
+      locator: Abstract, Sections 3.1–3.2, and Figure 2
+      role: empirical-boundary
+      supports: >-
+        The full-model Hyperball comparisons stop at 1.2B parameters and use token-equivalent
+        efficiency rather than an end-to-end systems metric.
+    - id: muon-dense-scaling-boundary
+      paper_id: muon-is-scalable-for-llm-training
+      paper_source_version: arXiv:2502.16982v1
+      locator: Section 3.2, the scaling-configuration table, and Figure 3
+      role: empirical-boundary
+      supports: >-
+        The dense Muon scaling experiment reaches 1.5B parameters and 38.91B tokens, but Muon reuses
+        hyperparameters selected for AdamW rather than receiving an independent target-scale search;
+        its efficiency measure is training FLOPs rather than matched end-to-end wall-clock.
+  known_results:
+    - statement: >-
+        Matrix-preconditioned optimizers show positive token-equivalent gains over tuned AdamW in
+        some sub-1.4B experiments, but the estimated advantage can diminish with scale.
+      conditions: >-
+        This result is conditional on the Llama-like models, data mixtures, optimizer-specific
+        tuning procedure, and token-equivalent metric used by Fantastic Pretraining Optimizers.
+      source_ref_ids:
+        - fantastic-scaling-boundary
+    - statement: >-
+        Scale-aware learning rate and independent weight decay can preserve reported
+        forward/backward-FLOP gains through 1.4B parameters.
+      conditions: >-
+        The comparison uses 20 tokens per parameter, transfers from a 190M base model, and excludes
+        optimizer-transform FLOPs.
+      source_ref_ids:
+        - transfer-scaling-boundary
+    - statement: >-
+        Explicit Frobenius weight and update constraints improve token-equivalent results in the
+        tested full-model range but have not been established above 1.2B.
+      conditions: >-
+        The result uses the Hyperball paper's Qwen3-style recipe, data ratios, and fitted AdamW
+        scaling-law reference.
+      source_ref_ids:
+        - hyperball-scaling-boundary
+    - statement: >-
+        A dense Muon-versus-AdamW scaling experiment extends the checked model-size boundary to 1.5B.
+      conditions: >-
+        Muon reuses the tuned AdamW learning rate and weight decay with shape-aware scaling, so this
+        is not the same independently tuned comparison standard used in the question.
+      source_ref_ids:
+        - muon-dense-scaling-boundary
+  unknown:
+    statement: >-
+      Whether the observed gain persists across larger held-out scales or declines toward parity
+      after sufficiently strong baseline tuning and scale-aware hyperparameters.
+    verification_boundary: >-
+      The broadest checked dense scaling experiment reaches 1.5B, while independently transferred or
+      optimizer-specifically tuned full-model evidence stops at 1.2B–1.4B; protocols and efficiency
+      definitions differ, so no broader literature-wide claim is made.
+  why_open: >-
+    The verified papers establish incompatible finite-scale trends and explicitly leave larger-scale
+    evaluation unresolved; none distinguishes scale-stable gain from decline toward parity over a
+    larger declared range.
+  candidate_approaches:
+    - Pre-register paired scaling experiments at several sizes above 1.5B and multiple data ratios.
+    - Fit efficiency-versus-scale models with seed uncertainty instead of extrapolating one curve.
+    - Factorially separate optimizer choice, transfer rule, and explicit norm constraint.
+  resolution_criteria:
+    - >-
+      Evaluate at least two sizes above 1.5B, preferably including one model at 7B or larger, under
+      a fixed matched protocol.
+    - >-
+      Use multiple seeds, independently tuned baselines, and confidence intervals for matched-loss
+      token or forward/backward-FLOP efficiency.
+    - >-
+      Statistically distinguish scale-stable positive gain from decline toward parity over the
+      evaluated range and state the limit of any extrapolation.
+  falsification_criteria:
+    - >-
+      A persistent-gain hypothesis over the declared range is rejected if its upper confidence bound
+      is at or below parity at multiple larger held-out scales after matched tuning.
+    - >-
+      A decline-to-parity hypothesis over the declared range is rejected if a preregistered method
+      retains a statistically stable positive gain across larger held-out sizes and data ratios.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: joint-learning-rate-weight-decay-transfer
+  title: Joint Transfer of Learning Rate and Weight Decay
+  status: open
+  verification_status: verified
+  problem_type: mixed
+  research_tracks:
+    - preconditioning
+    - benchmarking
+  tags:
+    - hyperparameter-transfer
+    - learning-rate
+    - weight-decay
+  origin: atlas-synthesis
+  question: >-
+    Can peak learning rate and independent weight decay be transferred jointly from a small base
+    model across width, depth, batch size, and training horizon for AdamW, Muon, SOAP, and Shampoo,
+    and what finite-width correction is required beyond muP learning-rate scaling and $1/D$
+    weight-decay scaling?
+  scope:
+    - Independent decoupled weight decay is used and the width variable $D$ is defined explicitly.
+    - Width-only and depth-only transfer are tested before combined compute-optimal scaling.
+    - >-
+      Blocking, grafting, embedding/readout handling, warmup, and batch size are treated as part of
+      the optimizer protocol.
+  assumptions:
+    - Base-model hyperparameters are tuned with a declared search budget.
+    - Held-out scales are not used to fit or select the transfer rule.
+    - A numerical transfer-success tolerance is fixed before evaluation.
+  source_refs:
+    - id: transfer-lr-finite-width
+      paper_id: hyperparameter-transfer-matrix-preconditioners
+      paper_source_version: NeurIPS 2025 proceedings version; arXiv:2512.05620v2
+      locator: Section 3.2 and Figure 2
+      role: known-result
+      supports: >-
+        muP improves learning-rate transfer in the tested width sweeps but does not make every
+        optimizer perfectly invariant; SOAP exhibits a finite-width deviation that blocking or
+        spectral normalization mitigates, and the paper notes that width changes beyond roughly
+        one order of magnitude may require a learning-rate power-law correction.
+    - id: transfer-wd-boundary
+      paper_id: hyperparameter-transfer-matrix-preconditioners
+      paper_source_version: NeurIPS 2025 proceedings version; arXiv:2512.05620v2
+      locator: Section 3.4, Figure 5, and Section 5
+      role: problem-statement
+      supports: >-
+        Independent weight decay scaled as $1/D$ is near-optimal in the tested range; the paper leaves
+        a detailed comparison with a constant-EMA-timescale alternative and the decay mechanism for
+        future study. The power-law warning elsewhere concerns learning-rate transfer, not this rule.
+    - id: fantastic-sensitive-hyperparameters
+      paper_id: fantastic-pretraining-optimizers
+      paper_source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
+      locator: Section 3.3 and Table 4
+      role: empirical-boundary
+      supports: >-
+        The hyperparameters that move with scale differ across AdamW, SOAP, and Muon, so optimizer
+        structure is part of the transfer problem.
+    - id: hyperball-lr-drift
+      paper_id: hyperball-optimization
+      paper_source_version: arXiv:2606.16899v1
+      locator: Section 3.3 and Figures 5–6
+      role: empirical-boundary
+      supports: >-
+        Fixing Frobenius weight and update norms reduces observed optimal-learning-rate drift in the
+        tested width and depth sweeps but does not establish universal joint transfer.
+  known_results:
+    - statement: >-
+        muP-style rules improve learning-rate transfer, while finite-width deviations remain
+        optimizer- and implementation-dependent.
+      conditions: >-
+        The evidence is from the paper's selected OpenWebText width/depth sweeps and its specific
+        blocking and normalization choices.
+      source_ref_ids:
+        - transfer-lr-finite-width
+    - statement: >-
+        Scaling independent weight decay as $1/D$ is near-optimal over the tested FineWeb
+        compute-optimal range.
+      conditions: >-
+        D follows the paper's width definition, and the conclusion is tied to its parameterization,
+        base-model tuning, and tested scale range.
+      source_ref_ids:
+        - transfer-wd-boundary
+    - statement: Explicit norm control can reduce learning-rate drift in selected width and depth sweeps.
+      conditions: >-
+        The result concerns the Hyperball configurations, radii, and training recipes evaluated in
+        arXiv:2606.16899v1.
+      source_ref_ids:
+        - hyperball-lr-drift
+  unknown:
+    statement: >-
+      Whether one predictive rule can transfer the joint $(\eta,\lambda)$ choice
+      across simultaneous changes in width, depth, batch, horizon, and optimizer structure.
+    verification_boundary: >-
+      The checked evidence covers selected one-axis sweeps and particular OpenWebText/FineWeb
+      recipes; it does not validate all axes jointly.
+  why_open: >-
+    Existing work reports useful conditional scaling laws but also finite-width deviations and
+    optimizer-specific sensitive variables, leaving no held-out multi-axis rule.
+  candidate_approaches:
+    - Fit finite-width corrections on top of muP using only base and intermediate scales.
+    - Model angular update size directly rather than learning rate alone.
+    - Treat block size, grafting, batch size, and weight decay as coupled scaling variables.
+    - Compare predicted soft weight-decay equilibria with explicit norm-control trajectories.
+  resolution_criteria:
+    - >-
+      A rule trained only on base and intermediate scales predicts held-out optimal learning rate
+      and weight decay within one predefined search-grid step.
+    - >-
+      Transferred loss is within declared run-to-run uncertainty of independently tuned loss across
+      width, depth, batch, and horizon holdouts, including at least one held-out configuration that
+      changes two or more axes jointly.
+    - Failures are explained by measurable finite-width, conditioning, or stable-rank quantities.
+  falsification_criteria:
+    - Systematic optimum drift beyond the preregistered tolerance on held-out scales rejects the rule.
+    - A rule selected after observing target-scale outcomes is not evidence of transfer.
+    - >-
+      A claimed optimizer-independent rule is rejected by reproducible optimizer-specific scaling
+      exponents under the same protocol.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: token-efficiency-versus-system-efficiency
+  title: When Does Token Efficiency Become System Efficiency?
+  status: open
+  verification_status: verified
+  problem_type: systems
+  research_tracks:
+    - benchmarking
+    - systems
+    - preconditioning
+  tags:
+    - communication-cost
+    - memory-cost
+    - time-to-target
+    - token-efficiency
+  origin: atlas-synthesis
+  question: >-
+    Under what model, batch, hardware, and parallelism conditions does a reduction in tokens or
+    forward/backward FLOPs to a target loss translate into lower end-to-end time, accelerator-hours,
+    energy, communication, and peak memory?
+  scope:
+    - Time-to-matched-loss is the primary endpoint rather than isolated per-step time.
+    - >-
+      Optimizer transforms, communication, compilation, persistent state, temporary buffers, and
+      tuning cost are included.
+    - Algorithmic efficiency and systems efficiency are reported as separate metrics.
+  assumptions:
+    - Each method reaches the same declared target loss under the same evaluation pipeline.
+    - Hardware allocation and allowed implementation optimization are matched.
+    - Warmup, compilation, checkpointing, and data loading are accounted for consistently.
+  source_refs:
+    - id: fantastic-token-metric
+      paper_id: fantastic-pretraining-optimizers
+      paper_source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
+      locator: Sections 3.1 and 4.1
+      role: empirical-boundary
+      supports: >-
+        The main speedup is tokens to matched loss and assumes optimized matrix transforms have
+        limited overhead; matched end-to-end wall-clock scaling is not reported.
+    - id: transfer-fb-flops
+      paper_id: hyperparameter-transfer-matrix-preconditioners
+      paper_source_version: NeurIPS 2025 proceedings version; arXiv:2512.05620v2
+      locator: Section 4, Figure 6, and Section H.2
+      role: empirical-boundary
+      supports: The reported compute multiplier counts forward/backward FLOPs but excludes optimizer transforms.
+    - id: benchmark-step-time
+      paper_id: benchmarking-optimizers-llm-pretraining
+      paper_source_version: arXiv:2509.01440v1
+      locator: Appendix D.3 and Figures 42–43
+      role: empirical-boundary
+      supports: >-
+        The paper measures per-step time in a single-GPU setting without gradient accumulation or
+        torch.compile and finds materially different optimizer overheads.
+    - id: pion-system-cost
+      paper_id: pion-spectrum-preserving-optimizer
+      paper_source_version: arXiv:2605.12492v1
+      locator: Appendix C and Table 4
+      role: empirical-boundary
+      supports: >-
+        On eight H100 GPUs with NVLink and DDP, full Pion is slower per step and uses more peak memory
+        than the reported AdamW and Muon baselines; this is not a full time-to-target comparison.
+  known_results:
+    - statement: Token-equivalent speedup need not include optimizer-transform or communication cost.
+      conditions: >-
+        This follows from the Fantastic Optimizers and Hyperparameter Transfer efficiency
+        definitions, not from an end-to-end systems comparison.
+      source_ref_ids:
+        - fantastic-token-metric
+        - transfer-fb-flops
+    - statement: Matrix-style optimizers can have materially different per-step runtime and memory costs.
+      conditions: >-
+        The verified measurements use incompatible single-GPU and eight-H100 protocols and therefore
+        do not establish a common ranking.
+      source_ref_ids:
+        - benchmark-step-time
+        - pion-system-cost
+  unknown:
+    statement: >-
+      Whether token-efficient optimizers provide an end-to-end Pareto improvement, and where
+      communication or state costs reverse their ranking.
+    verification_boundary: >-
+      The checked systems measurements use incompatible hardware, batches, compilers, model sizes,
+      and target definitions; none jointly measures every requested cost.
+  why_open: >-
+    Current efficiency claims use different denominators and omit different system costs, preventing
+    a supported implication from sample efficiency to deployment-relevant training efficiency.
+  candidate_approaches:
+    - Build a standard time-to-target harness with profiler traces and collective counters.
+    - Validate hardware-aware cost models against measured end-to-end runs.
+    - Publish multi-objective Pareto curves instead of one aggregate speedup number.
+  resolution_criteria:
+    - Run matched-loss comparisons on at least two hardware and parallelism regimes.
+    - >-
+      Report tokens, forward/backward and optimizer FLOPs, wall-clock, accelerator-hours, energy,
+      communication bytes, persistent state, peak memory, and tuning expenditure.
+    - Publish sufficient configuration and code to reproduce the ranking.
+  falsification_criteria:
+    - Token efficiency alone cannot establish system efficiency.
+    - >-
+      A universal implication is rejected by reproducible conditions where the token winner is
+      slower and has no compensating memory, energy, or communication benefit.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: when-norm-constraints-replace-weight-decay
+  title: When Can Explicit Norm Constraints Replace Weight Decay?
+  status: open
+  verification_status: verified
+  problem_type: mixed
+  research_tracks:
+    - manifold-constraints
+    - norm-duality
+    - benchmarking
+  tags:
+    - explicit-constraints
+    - frobenius-norm
+    - spectral-norm
+    - weight-decay
+  origin: atlas-synthesis
+  question: >-
+    What architectural, geometric, and optimizer conditions are necessary for explicit Frobenius or
+    spectral constraints on weights and updates to replace decoupled weight decay without degrading
+    optimization, generalization, or system efficiency?
+  scope:
+    - >-
+      Approximately scale-invariant hidden matrices are separated from embeddings, normalization
+      gains, biases, and other scale-semantic parameters.
+    - Hard projection, soft or dynamic retraction, and decoupled weight decay are compared separately.
+    - Norm control, angular learning rate, and classical regularization effects are not conflated.
+  assumptions:
+    - Constraint radii and update normalization are independently tuned or theoretically specified.
+    - The same base optimizer and schedule are used in direct ablations.
+    - Approximate scale invariance is measured instead of assumed for every parameter.
+  source_refs:
+    - id: muon-weight-decay-need
+      paper_id: muon-is-scalable-for-llm-training
+      paper_source_version: arXiv:2502.16982v1
+      locator: Section 2.2, “Weight Decay,” and Figure 2
+      role: empirical-boundary
+      supports: >-
+        In the paper's 800M, 100B-token experiment, vanilla Muon shows weight/output-RMS growth and
+        late degradation, while adding decoupled weight decay improves the reported validation curve.
+    - id: macro-wd-ablation
+      paper_id: demystifying-manifold-constraints-llm-pretraining
+      paper_source_version: arXiv:2605.04418v1
+      locator: Section 4.3 and Appendix D.2, Table 9
+      role: empirical-boundary
+      supports: >-
+        In a 330M Qwen3-like experiment, constrained MuonH/MACRO variants are nearly unchanged by
+        the tested zero-versus-nonzero weight-decay setting.
+    - id: hyperball-equilibrium-assumptions
+      paper_id: hyperball-optimization
+      paper_source_version: arXiv:2606.16899v1
+      locator: Section 4.2, Assumptions 4.1–4.2, Theorem 4.6, and Table 1
+      role: limitation
+      supports: >-
+        The equilibrium-radius and angular-step derivation relies on stationary isotropic inputs,
+        idealized optimizer maps, constant hyperparameters, and exact scale invariance.
+    - id: sso-main-hidden-weight-policy
+      paper_id: controlled-llm-training-spectral-sphere
+      paper_source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
+      locator: Section 3.3, Equations 13–14, and the accompanying footnote
+      role: empirical-boundary
+      supports: >-
+        The main text says exact retraction makes weight decay redundant for hidden two-dimensional
+        weights and removes it there, while retaining weight decay for embeddings and other
+        scale-semantic parameters.
+    - id: sso-appendix-retraction-policy
+      paper_id: controlled-llm-training-spectral-sphere
+      paper_source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
+      locator: Appendix A.3, “Retraction Choices”
+      role: limitation
+      supports: >-
+        The same source describes hard retraction as generally used with standard decoupled weight
+        decay and presents dynamic soft spectral correction as the drop-in replacement, leaving the
+        implementation policy less unconditional than the main-text claim.
+  known_results:
+    - statement: Decoupled weight decay stabilizes the tested unconstrained Muon training regime.
+      conditions: >-
+        The observation is limited to the paper's 800M model, 100B-token recipe, and Muon scaling rule.
+      source_ref_ids:
+        - muon-weight-decay-need
+    - statement: Explicitly constrained variants can be insensitive to weight decay in a direct small-scale ablation.
+      conditions: >-
+        The strongest direct checked ablation is a 330M Qwen3-like setup and does not establish
+        equivalence at larger scales or for every parameter class.
+      source_ref_ids:
+        - macro-wd-ablation
+    - statement: >-
+        SSO's main text and retraction appendix assign different roles to weight decay, so the source
+        does not establish one unconditional hard-constraint replacement rule.
+      conditions: >-
+        The main-text removal concerns hidden two-dimensional weights; embeddings and other
+        scale-semantic parameters remain separate, and Appendix A.3 distinguishes hard from dynamic
+        soft retraction.
+      source_ref_ids:
+        - sso-main-hidden-weight-policy
+        - sso-appendix-retraction-policy
+  unknown:
+    statement: >-
+      Whether explicit constraints and weight decay are dynamically equivalent outside idealized
+      scale-invariant stationary regimes, and which parameter classes still require regularization.
+    verification_boundary: >-
+      The strongest direct checked ablation is 330M; larger studies alter optimizer geometry and
+      recipe details, while the available theory excludes realistic anisotropic nonstationarity.
+  why_open: >-
+    The verified sources support conflicting conditional outcomes and do not provide necessary and
+    sufficient conditions connecting radial control, angular dynamics, and generalization.
+  candidate_approaches:
+    - Match radial and angular trajectories between constrained and weight-decayed runs.
+    - Derive perturbation bounds for approximate rather than exact scale invariance.
+    - Learn or derive layer-specific radii and test hybrid parameter-class policies.
+  resolution_criteria:
+    - >-
+      State necessary or sufficient conditions for scale invariance, radius, update norm, and
+      optimizer noise.
+    - >-
+      Run matched multi-scale ablations covering loss, downstream metrics, activation scale,
+      generalization, angular dynamics, wall-clock, and memory.
+    - Treat embeddings, normalization parameters, and finite-precision projection error explicitly.
+  falsification_criteria:
+    - >-
+      A universal substitution claim is rejected by a reproducible non-scale-invariant parameter
+      class where matched constraints cannot reproduce weight decay's effect.
+    - Matching weight norms without matching angular dynamics and final performance is insufficient.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: training-relevant-matrix-sign-accuracy
+  title: How Accurate Must Matrix-Sign Updates Be for Training?
+  status: open
+  verification_status: verified
+  problem_type: mixed
+  research_tracks:
+    - norm-duality
+    - preconditioning
+    - systems
+  tags:
+    - adaptive-stopping
+    - finite-precision
+    - matrix-sign
+    - polar-decomposition
+  origin: atlas-synthesis
+  question: >-
+    What layer- and step-dependent accuracy of an approximate matrix sign or polar factor is required
+    for optimizer progress and stability, and can an adaptive stopping rule reduce matrix
+    multiplications without sacrificing matched-loss training behavior?
+  scope:
+    - Muon-like spectral updates and spectral-sphere tangent projections are included.
+    - Degree-limited polynomial iterations in BF16 or FP32 are compared with exact SVD references.
+    - Worst-case spectral error is separated from error in dominant and small singular subspaces.
+  assumptions:
+    - The outer optimizer, momentum, learning rate, and weight decay stay fixed across subroutines.
+    - Approximation accuracy and matrix-operation cost are both measured.
+    - Finite-precision stability is analyzed separately from exact-arithmetic convergence.
+  source_refs:
+    - id: polar-minimax-theory
+      paper_id: polar-express-matrix-sign
+      paper_source_version: ICLR 2026 conference version; arXiv:2505.16932v5
+      locator: Theorems 3.1 and 3.3
+      role: known-result
+      supports: >-
+        Given a valid singular-value interval, polynomial degree sequence, and iteration budget,
+        Polar Express is worst-case minimax optimal for the composed approximation and has a
+        super-exponential exact-arithmetic convergence bound.
+    - id: polar-training-saturation
+      paper_id: polar-express-matrix-sign
+      paper_source_version: ICLR 2026 conference version; arXiv:2505.16932v5
+      locator: Section 4.3, Figure 5, and Appendix H.1, Figures 9–10
+      role: empirical-boundary
+      supports: >-
+        In the reported GPT-2 Small FineWeb experiment, too few iterations hurt, while more than
+        roughly five or six and exact SVD do not improve final validation loss; small singular
+        directions can remain inaccurate without visibly changing that result.
+    - id: muon-accuracy-ablation
+      paper_id: muon-is-scalable-for-llm-training
+      paper_source_version: arXiv:2502.16982v1
+      locator: Section 2.2, “Other Hyper-parameters”
+      role: empirical-boundary
+      supports: >-
+        A more accurate Newton–Schulz configuration did not improve the paper's reported training
+        performance, so its cheaper iteration setting was retained.
+    - id: sso-sign-accuracy
+      paper_id: controlled-llm-training-spectral-sphere
+      paper_source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
+      locator: Section 5.3 and Section 6.1, footnote 6
+      role: empirical-boundary
+      supports: >-
+        SSO warns that inaccurate tangent projection can approach a worst-case Muon direction and
+        uses eight FP32 matrix-sign iterations, while its five-versus-eight ablation changes training
+        loss by less than 0.001 in the tested recipe.
+  known_results:
+    - statement: >-
+        A worst-case optimal fixed-budget polynomial construction is available when the singular-value
+        interval and degree budget are specified.
+      conditions: >-
+        The guarantee concerns the composed matrix-sign approximation in exact arithmetic and does
+        not by itself identify the training-relevant error tolerance.
+      source_ref_ids:
+        - polar-minimax-theory
+    - statement: >-
+        Full spectral accuracy is unnecessary for the checked GPT-2-scale Polar Express experiment
+        once a modest iteration threshold is reached.
+      conditions: >-
+        The result uses the paper's GPT-2 Small, FineWeb, one-billion-token, degree-five setup and
+        does not establish a universal threshold.
+      source_ref_ids:
+        - polar-training-saturation
+    - statement: A separate Muon report found no benefit from its tested more-accurate Newton–Schulz setting.
+      conditions: >-
+        This uses the technical report's own “Other Hyper-parameters” ablation and must not be
+        attributed to the GPT-2 Small, one-billion-token Polar Express protocol.
+      source_ref_ids:
+        - muon-accuracy-ablation
+    - statement: Tangent-projection accuracy can matter geometrically even when a small iteration ablation changes little.
+      conditions: >-
+        The statement is limited to SSO's projection derivation and reported recipe.
+      source_ref_ids:
+        - sso-sign-accuracy
+  unknown:
+    statement: >-
+      Which approximation error norm and singular subspaces predict optimization quality, and whether
+      the required tolerance can be chosen online per layer and step.
+    verification_boundary: >-
+      Direct checked evidence is concentrated in GPT-2-scale Muon and one SSO recipe; it does not
+      cover arbitrary scale, layer geometry, precision, or training horizon.
+  why_open: >-
+    Numerical worst-case optimality and empirical training sufficiency use different objectives, and
+    no verified source supplies an adaptive rule with both an inexact-update guarantee and broad
+    matched-loss evidence.
+  candidate_approaches:
+    - Define spectrum-weighted or update-angle error criteria tied to outer-optimizer progress.
+    - Stop per layer when dominant-subspace convergence meets a declared inexact-oracle budget.
+    - Develop inexact-oracle convergence analysis and precision schedules across training.
+  resolution_criteria:
+    - Provide a computable adaptive stopping rule with an explicit inexact-update guarantee.
+    - Use fewer matrix multiplications than a fixed conservative count under the same target loss.
+    - Validate across multiple layers, scales, numerical precisions, seeds, and training horizons.
+  falsification_criteria:
+    - >-
+      A universal tolerance is rejected by layers or scales where the same measured error yields
+      materially different training behavior.
+    - >-
+      Full spectral-norm accuracy is not validated as the relevant criterion when it improves while
+      update quality and matched-loss behavior remain unchanged.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: spectral-sphere-repeated-top-singular-values
+  title: Spectral-Sphere Optimization at Repeated Top Singular Values
+  status: open
+  verification_status: verified
+  problem_type: theoretical
+  research_tracks:
+    - manifold-constraints
+    - norm-duality
+  tags:
+    - nonsmooth-optimization
+    - spectral-sphere
+    - singular-value-multiplicity
+    - stationarity
+  origin: atlas-synthesis
+  question: >-
+    Can a basis-invariant stochastic optimization method and convergence theory be developed for the
+    spectral sphere $\{W : \lVert W\rVert_2 = R\}$ that remains well defined when the largest singular value has
+    multiplicity greater than one?
+  scope:
+    - The equality-constrained spectral sphere is studied, not only the convex spectral ball.
+    - Matrices at and near leading-singular-value crossings are included.
+    - The exact mathematical construction precedes finite-precision implementation choices.
+  assumptions:
+    - The objective and stochastic-oracle assumptions are stated explicitly.
+    - No global assumption that the first singular value is strictly larger than the second is allowed.
+    - A stationarity concept for the nonsmooth feasible set is defined before proving convergence.
+  source_refs:
+    - id: sso-simple-top-assumption
+      paper_id: controlled-llm-training-spectral-sphere
+      paper_source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
+      locator: Section 3.2, Equations 9–12, and footnote 2
+      role: limitation
+      supports: >-
+        The tangent-space derivation assumes a unique top singular value so that the spectral norm is
+        differentiable and represented by one principal singular-vector pair.
+    - id: macro-manifold-theorem-boundary
+      paper_id: demystifying-manifold-constraints-llm-pretraining
+      paper_source_version: arXiv:2605.04418v1
+      locator: Section 2, Assumption 1, and Theorem 1
+      role: limitation
+      supports: >-
+        The paper states that the spectral sphere is not a manifold, while its convergence theorem
+        assumes a compact smooth manifold and therefore does not cover the full spectral sphere.
+    - id: macro-repeated-sv-obstruction
+      paper_id: demystifying-manifold-constraints-llm-pretraining
+      paper_source_version: arXiv:2605.04418v1
+      locator: Appendix C.1
+      role: empirical-boundary
+      supports: >-
+        Repeated top singular values are identified as the obstruction; an almost-sure uniqueness
+        argument under stochasticity bypasses rather than resolves the exceptional points.
+  known_results:
+    - statement: A simple top singular value yields a conventional tangent construction for SSO.
+      conditions: >-
+        The construction requires differentiability of the spectral norm and therefore a positive
+        leading singular-value gap.
+      source_ref_ids:
+        - sso-simple-top-assumption
+    - statement: The compact-smooth-manifold convergence result does not cover the full spectral sphere.
+      conditions: >-
+        It applies only where the required smooth-manifold assumptions hold; repeated leading values
+        fall outside that verified theorem boundary.
+      source_ref_ids:
+        - macro-manifold-theorem-boundary
+        - macro-repeated-sv-obstruction
+  unknown:
+    statement: >-
+      How to define a basis-invariant update, tangent or normal object, stationarity concept, and
+      convergence rate through repeated-top-singular-value points.
+    verification_boundary: >-
+      The checked analyses assume a simple top singular value, restrict their theorem to a smooth
+      subset, or invoke an almost-sure argument rather than treating multiplicity directly.
+  why_open: >-
+    The exact set is nonsmooth at multiplicity and the current convergence results do not cover those
+    points; the verified sources do not provide a gap-free construction.
+  candidate_approaches:
+    - Apply generalized-gradient and variational analysis to the spectral sphere.
+    - Treat the feasible set as a stratified set with transitions between multiplicity strata.
+    - Use the complete leading singular subspace to construct basis-invariant updates.
+    - Analyze randomized smoothing with an explicit bias bound.
+  resolution_criteria:
+    - Define an update for every multiplicity that is invariant to the chosen leading-subspace basis.
+    - >-
+      Prove convergence to an explicitly defined nonsmooth stationary point without assuming a
+      positive spectral gap.
+    - Demonstrate numerical behavior on deliberately constructed singular-value crossings.
+  falsification_criteria:
+    - A proof that retains a positive leading singular-value gap does not resolve the problem.
+    - >-
+      Basis-dependent directions, discontinuity at crossings, or failure to preserve the spectral
+      radius reject a proposed construction.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: conditional-fair-optimizer-benchmarking
+  title: Conditional and Reproducible Optimizer Benchmarking
+  status: open
+  verification_status: verified
+  problem_type: benchmarking
+  research_tracks:
+    - benchmarking
+    - systems
+  tags:
+    - batch-size
+    - benchmark-design
+    - hyperparameter-tuning
+    - rank-reversal
+  origin: atlas-synthesis
+  question: >-
+    What benchmark protocol yields reproducible conditional optimizer rankings across batch size,
+    model scale, training horizon, hardware, and tuning budget without conflating optimizer quality
+    with one training recipe?
+  scope:
+    - Final validation loss, time-to-target, and downstream metrics are reported separately.
+    - Dense and mixture-of-experts models are stratified rather than pooled into one rank.
+    - Rank is modeled as a function of declared conditions, not as a universal winner.
+  assumptions:
+    - Optimizers receive equal declared tuning-compute budgets and method-appropriate search spaces.
+    - Data order, initialization distribution, schedule family, and endpoint are controlled.
+    - Multiple seeds and uncertainty are required when rankings are close.
+  source_refs:
+    - id: benchmark-batch-horizon-ranks
+      paper_id: benchmarking-optimizers-llm-pretraining
+      paper_source_version: arXiv:2509.01440v1
+      locator: Section 4.1 and Figure 4
+      role: empirical-boundary
+      supports: >-
+        Increasing batch size materially changes optimizer rankings, and the same study reports
+        changes with horizon and retuned momentum parameters.
+    - id: benchmark-recipe-reversal
+      paper_id: benchmarking-optimizers-llm-pretraining
+      paper_source_version: arXiv:2509.01440v1
+      locator: Section 4.3, Figure 13, and Takeaway 9
+      role: empirical-boundary
+      supports: >-
+        Learning-rate decay, weight decay, and auxiliary-loss choices can reverse comparative
+        conclusions across implementations.
+    - id: fantastic-tuning-rank-reversal
+      paper_id: fantastic-pretraining-optimizers
+      paper_source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
+      locator: Section 4.2 and Figure 5
+      role: empirical-boundary
+      supports: >-
+        A single learning-rate or weight-decay choice can shrink or reverse an apparent optimizer
+        advantage, and early curves need not preserve final rankings.
+    - id: soap-batch-frequency-boundary
+      paper_id: soap-language-modeling
+      paper_source_version: ICLR 2025 proceedings version; arXiv:2409.11321v2
+      locator: Section 6.3 and Figure 4
+      role: empirical-boundary
+      supports: >-
+        When reducing batch size, the paper increases preconditioning frequency by the same factor to
+        keep batch-size times frequency constant; Figure 4 therefore measures a coupled protocol and
+        cannot isolate a batch-size effect from the frequency change. The analysis is preliminary.
+  known_results:
+    - statement: Optimizer ranking changes with batch size, training horizon, and momentum retuning.
+      conditions: >-
+        The result is established within the controlled FineWeb experiments of
+        arXiv:2509.01440v1 and is not automatically transferable to other recipes.
+      source_ref_ids:
+        - benchmark-batch-horizon-ranks
+    - statement: Ordinary recipe and tuning choices can reverse an apparent optimizer advantage.
+      conditions: >-
+        The verified examples involve the specific codebases, models, schedules, and endpoint
+        definitions in the cited benchmark studies; SOAP's batch and preconditioning-frequency
+        variables co-vary in its cited experiment.
+      source_ref_ids:
+        - benchmark-recipe-reversal
+        - fantastic-tuning-rank-reversal
+        - soap-batch-frequency-boundary
+  unknown:
+    statement: >-
+      Whether a feasible benchmark can separate algorithm effects from recipe interactions while
+      remaining affordable enough to repeat at useful model scales.
+    verification_boundary: >-
+      The checked studies standardize different subsets of scale, batch, schedule, tuning, and
+      hardware axes and therefore do not establish one generally reproducible rank protocol.
+  why_open: >-
+    Conditional rank reversals are documented, but no verified benchmark simultaneously controls all
+    major axes or supplies an independently reproduced conditional ranking surface.
+  candidate_approaches:
+    - Pre-register a factorial benchmark across scale, batch size, and horizon.
+    - Fix tuning-compute budgets while retaining optimizer-specific search spaces.
+    - Estimate conditional rank surfaces with hierarchical uncertainty models.
+    - Separate algorithm-only and best-recipe benchmark tracks.
+  resolution_criteria:
+    - Reproduce the protocol in at least two independent implementations and hardware settings.
+    - Publish raw, failed, and tuning runs together with final configurations and costs.
+    - >-
+      Produce rankings stable within declared strata or a validated model that predicts their
+      condition-dependent changes.
+  falsification_criteria:
+    - >-
+      An unexplained statistically significant rank reversal within a condition the protocol claims
+      to cover rejects its reproducibility claim.
+    - >-
+      A baseline that improves materially after one omitted ordinary hyperparameter sweep invalidates
+      a fairness claim.
+    - Intermediate-checkpoint rankings alone do not resolve final conditional ranking.
+  last_verified: 2026-07-17
+  human_notes: ''
+
+- id: low-precision-distributed-matrix-optimization
+  title: Low-Precision Distributed Matrix Optimization
+  status: open
+  verification_status: verified
+  problem_type: systems
+  research_tracks:
+    - preconditioning
+    - systems
+  tags:
+    - distributed-optimization
+    - low-precision
+    - matrix-preconditioning
+    - optimizer-state
+  origin: atlas-synthesis
+  question: >-
+    Can low-precision, sharded matrix preconditioning and matrix-function updates provide a genuine
+    time-memory-communication Pareto improvement while preserving update geometry and matched-loss
+    training behavior?
+  scope:
+    - Muon matrix sign, SOAP or Shampoo factorizations, and related spectral updates are included.
+    - Data, tensor, pipeline, and optimizer-state sharding are evaluated explicitly.
+    - Persistent state, temporary buffers, collective bytes, numerical error, and time-to-target are reported.
+  assumptions:
+    - The low-precision method and full-precision reference use the same target loss and model recipe.
+    - Quantized communication and any full-precision master state are included in accounting.
+    - Matrix-operation approximations are evaluated for both numerical and optimization error.
+  source_refs:
+    - id: muon-distributed-gather
+      paper_id: muon-is-scalable-for-llm-training
+      paper_source_version: arXiv:2502.16982v1
+      locator: Section 2.3, Algorithm 1, and “Analysis”
+      role: empirical-boundary
+      supports: >-
+        Distributed Muon gathers a full matrix before Newton–Schulz, stores a momentum buffer, uses
+        BF16 gathers, and adds communication and matrix multiplications; tensor parallelism can add
+        another gather.
+    - id: soap-low-precision-future-work
+      paper_id: soap-language-modeling
+      paper_source_version: ICLR 2025 proceedings version; arXiv:2409.11321v2
+      locator: Section 5, Section 7.3, and Conclusion
+      role: problem-statement
+      supports: >-
+        The reported throughput uses one H100 with gradient accumulation, FP32 matrix operations
+        create an overhead floor, and lower-precision preconditioners plus comprehensive distributed
+        comparison are left for future work.
+    - id: kl-shampoo-qr-bottleneck
+      paper_id: kl-shampoo-and-soap
+      paper_source_version: ICLR 2026 proceedings version; extended arXiv:2509.03378v10
+      locator: Section 2, Figure 1, and Appendix H, Figure 9
+      role: empirical-boundary
+      supports: >-
+        Removing Adam-style second moments reduces memory, but FP32 QR remains a bottleneck and one
+        per-iteration advantage does not become a wall-clock advantage in the reported comparison.
+    - id: sso-low-precision-boundary
+      paper_id: controlled-llm-training-spectral-sphere
+      paper_source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
+      locator: Section 5, Tables 1–2, and Section 5.3
+      role: problem-statement
+      supports: >-
+        The B200 implementation remains slower per step than Muon, CPU root solving causes
+        synchronization, matrix sign uses FP32 iterations, and lower-precision kernels are future work.
+  known_results:
+    - statement: Distributed matrix updates can require full-matrix collectives beyond ordinary gradient communication.
+      conditions: >-
+        The verified mechanism is Distributed Muon's sharding layout and does not quantify every
+        parallelism configuration.
+      source_ref_ids:
+        - muon-distributed-gather
+    - statement: Reducing persistent moments alone does not remove factorization and precision overhead.
+      conditions: >-
+        The observation combines SOAP/KL-Shampoo implementation evidence and is conditional on the
+        checked QR and eigensystem implementations.
+      source_ref_ids:
+        - soap-low-precision-future-work
+        - kl-shampoo-qr-bottleneck
+    - statement: A spectral-constraint implementation can remain slower despite optimized kernels.
+      conditions: >-
+        The result concerns the SSO B200 implementation and its solver synchronization and FP32
+        matrix-sign choices.
+      source_ref_ids:
+        - sso-low-precision-boundary
+  unknown:
+    statement: >-
+      Whether precision reduction and sharding can remove matrix-method overhead without changing the
+      effective update enough to erase its sample-efficiency benefit.
+    verification_boundary: >-
+      The checked evidence spans incompatible single-GPU, private-cluster, H100, and B200 settings and
+      lacks a common distributed matched-loss evaluation.
+  why_open: >-
+    Individual work identifies communication, QR, root-solving, state, and precision bottlenecks, but
+    no verified implementation establishes a cross-scale matched-loss Pareto improvement.
+  candidate_approaches:
+    - Develop communication-avoiding block or subspace updates.
+    - Use mixed-precision factorizations with refinement or error feedback.
+    - Overlap collectives with forward/backward work and adapt precision or update frequency.
+    - Factor optimizer state while preserving a verifiable update-angle or descent guarantee.
+  resolution_criteria:
+    - Evaluate a public implementation at multiple node counts and at least two parallelism layouts.
+    - Compare at the same loss with both a full-precision matrix method and AdamW.
+    - >-
+      Report state, peak temporary memory, communication bytes, step time, time-to-target, and
+      approximation error, including hidden master copies and gathers.
+    - Connect matrix-operation error to update-angle, descent, or matched-loss degradation.
+  falsification_criteria:
+    - Kernel microbenchmarks without matched-loss training do not resolve the problem.
+    - >-
+      A claimed Pareto improvement is rejected if communication, memory, or loss degradation removes
+      its end-to-end advantage.
+    - Hidden FP32 master copies or unreported full-matrix gathers invalidate claimed savings.
+  last_verified: 2026-07-17
+  human_notes: ''

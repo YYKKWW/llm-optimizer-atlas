@@ -1,0 +1,28 @@
+Inspect the repository and read AGENTS.md.
+
+Add deterministic candidate-literature discovery for:
+- Mathematical Programming;
+- SIAM Journal on Optimization;
+- ICML;
+- NeurIPS;
+- ICLR.
+
+Use official venue indexes or metadata APIs where practical. Normalize DOI,
+arXiv, title, author, and source identifiers and apply conservative deduplication.
+Keyword matches are recall aids only and must never be described as verified
+papers or verified open problems.
+
+The scheduled GitHub Actions workflow must:
+- have contents: read as its only repository permission;
+- disable persisted checkout credentials;
+- produce an unverified candidate review bundle as an uploaded artifact;
+- run on a weekly schedule and manually;
+- preserve partial diagnostics on network failure;
+- verify that src/data and src/content remain unchanged;
+- never create or modify a verified record, Issue, branch, commit, or pull
+  request.
+
+Keep live network discovery out of the normal deploy validation path. Add
+offline fixtures and tests for adapters, relevance, normalization, deduplication,
+formal-dataset matching, forbidden candidate fields, path containment, and
+workflow permissions.

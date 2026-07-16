@@ -1,0 +1,31 @@
+---
+import OpenProblemCard from './OpenProblemCard.astro';
+import {
+  getOpenProblemDataset,
+  sortOpenProblems,
+} from '../lib/open-problems.mjs';
+
+const problems = sortOpenProblems(await getOpenProblemDataset());
+---
+
+<p class="collection-summary">
+  <strong>{problems.length}</strong> verified open-problem record{problems.length === 1 ? '' : 's'}.
+  Candidate-discovery artifacts are excluded until their sources and boundaries pass human review.
+</p>
+
+<div class="problem-grid">
+  {problems.map((problem) => <OpenProblemCard problem={problem} />)}
+</div>
+
+<style>
+  .collection-summary {
+    padding: 0.8rem 1rem;
+    border-left: 0.22rem solid var(--sl-color-accent);
+    background: var(--sl-color-gray-6);
+  }
+
+  .problem-grid {
+    display: grid;
+    gap: 1rem;
+  }
+</style>

@@ -1,0 +1,174 @@
+---
+import { getOpenProblemDataset } from '../lib/open-problems.mjs';
+import {
+  getPaperDataset,
+  paperDetailRoute,
+  paperSourceLinks,
+  withBase,
+} from '../lib/papers.mjs';
+
+const { problemId } = Astro.props;
+const problems = await getOpenProblemDataset();
+const problem = problems.find((entry: any) => entry.id === problemId);
+if (!problem) {
+  throw new Error('Generated open-problem page references unknown id: ' + problemId);
+}
+
+const papers = await getPaperDataset();
+const papersById = new Map<string, any>(
+  papers.map((paper: any) => [paper.id, paper]),
+);
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<div class="record-meta">
+  <span>{problem.status}</span>
+  <span>{problem.problem_type}</span>
+  <span>{problem.origin}</span>
+  <span>{problem.verification_status}</span>
+  <span>Tracks: {problem.research_tracks.join(', ')}</span>
+  <span>Last verified: {problem.last_verified}</span>
+</div>
+
+<ul class="tags" aria-label="Problem tags">
+  {problem.tags.map((tag: string) => <li>{tag}</li>)}
+</ul>
+
+<h2>Precise question</h2>
+<p>{problem.question}</p>
+
+<h2>Scope and assumptions</h2>
+<h3>Scope</h3>
+<ul>
+  {problem.scope.map((item: string) => <li>{item}</li>)}
+</ul>
+<h3>Assumptions</h3>
+<ul>
+  {problem.assumptions.map((item: string) => <li>{item}</li>)}
+</ul>
+
+<h2>Verified source boundary</h2>
+<p class="boundary-note">
+  These facts are source-grounded. The open question itself is an atlas synthesis unless a source explicitly says otherwise.
+</p>
+<div class="evidence-list">
+  {problem.source_refs.map((sourceRef: any) => {
+    const paper = papersById.get(sourceRef.paper_id);
+    const sourceLinks = paperSourceLinks(paper);
+    return (
+      <article>
+        <h3>
+          <a href={withBase(baseUrl, paperDetailRoute(paper.id))}>{paper.title}</a>
+        </h3>
+        <p><strong>Source ref:</strong> <code>{sourceRef.id}</code></p>
+        <p><strong>Source version:</strong> {sourceRef.paper_source_version}</p>
+        <p><strong>Locator:</strong> {sourceRef.locator}</p>
+        <p><strong>Role:</strong> {sourceRef.role}</p>
+        <p>{sourceRef.supports}</p>
+        <nav aria-label={`Sources for ${paper.title}`}>
+          {sourceLinks.map((link) => (
+            <a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+          ))}
+        </nav>
+      </article>
+    );
+  })}
+</div>
+
+<h2>Known results</h2>
+<div class="known-results">
+  {problem.known_results.map((result: any) => (
+    <article>
+      <p>{result.statement}</p>
+      <p><strong>Conditions:</strong> {result.conditions}</p>
+      <p><strong>Source refs:</strong> {result.source_ref_ids.join(', ')}</p>
+    </article>
+  ))}
+</div>
+
+<h2>Unknown within the verified boundary</h2>
+<p>{problem.unknown.statement}</p>
+<p><strong>Verification boundary:</strong> {problem.unknown.verification_boundary}</p>
+
+<h2>Why this remains open</h2>
+<p>{problem.why_open}</p>
+
+<h2>Candidate approaches</h2>
+<ul>
+  {problem.candidate_approaches.map((item: string) => <li>{item}</li>)}
+</ul>
+
+<h2>Resolution criteria</h2>
+<ul>
+  {problem.resolution_criteria.map((item: string) => <li>{item}</li>)}
+</ul>
+
+<h2>Falsification criteria</h2>
+<ul>
+  {problem.falsification_criteria.map((item: string) => <li>{item}</li>)}
+</ul>
+
+{problem.human_notes && (
+  <>
+    <h2>Human notes</h2>
+    <pre class="human-notes">{problem.human_notes}</pre>
+  </>
+)}
+
+<style>
+  .record-meta,
+  .tags,
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .record-meta span,
+  .tags li {
+    padding: 0.15rem 0.48rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+    font-size: 0.78rem;
+  }
+
+  .tags {
+    margin: 0.85rem 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .boundary-note {
+    padding: 0.8rem 1rem;
+    border-left: 0.22rem solid var(--sl-color-accent);
+    background: var(--sl-color-gray-6);
+  }
+
+  .evidence-list,
+  .known-results {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .evidence-list article,
+  .known-results article {
+    padding: 0.9rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.65rem;
+    background: var(--sl-color-bg-nav);
+  }
+
+  .evidence-list h3,
+  .evidence-list p {
+    margin-top: 0;
+  }
+
+  .human-notes {
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-gray-6);
+    white-space: pre-wrap;
+  }
+</style>

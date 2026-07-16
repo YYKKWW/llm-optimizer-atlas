@@ -18,7 +18,7 @@ const requiredPages = new Map([
   ['literature-map/systems.md', 'Systems and Efficient Optimization'],
   ['paper-notes/index.md', 'Paper Library'],
   ['claim-evidence-matrix/index.mdx', 'Claim–Evidence Matrix'],
-  ['open-problems/index.md', 'Open Problems'],
+  ['open-problems/index.mdx', 'Open Problems'],
   ['reading-queue/index.mdx', 'Reading Queue'],
   ['experiment-notes/index.md', 'Experiment Ledger'],
   ['where-papers-disagree/index.mdx', 'Where Papers Disagree'],

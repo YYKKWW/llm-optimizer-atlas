@@ -1,0 +1,105 @@
+---
+import {
+  openProblemDetailRoute,
+  relatedPaperIds,
+} from '../lib/open-problems.mjs';
+import { withBase } from '../lib/papers.mjs';
+
+const { problem } = Astro.props;
+const detailHref = withBase(
+  import.meta.env.BASE_URL,
+  openProblemDetailRoute(problem.id),
+);
+const relatedCount = relatedPaperIds(problem).length;
+---
+
+<article class="problem-card">
+  <header>
+    <h2><a href={detailHref}>{problem.title}</a></h2>
+    <div class="badges">
+      <span class:list={['status', `status-${problem.status}`]}>{problem.status}</span>
+      <span>{problem.problem_type}</span>
+    </div>
+  </header>
+
+  <p>{problem.question}</p>
+
+  <ul class="tags" aria-label={`Tags for ${problem.title}`}>
+    {problem.tags.map((tag: string) => <li>{tag}</li>)}
+  </ul>
+
+  <footer>
+    <span>{relatedCount} grounded paper{relatedCount === 1 ? '' : 's'}</span>
+    <span>Verified {problem.last_verified}</span>
+    <a href={detailHref}>Problem record</a>
+  </footer>
+</article>
+
+<style>
+  .problem-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    background: var(--sl-color-bg-nav);
+  }
+
+  header,
+  footer,
+  .badges,
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  header {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  h2 {
+    max-width: 42rem;
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  .badges span,
+  .tags li {
+    padding: 0.14rem 0.44rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+    font-size: 0.72rem;
+  }
+
+  .status-open {
+    background: var(--sl-color-green-low) !important;
+    color: var(--sl-color-green-high);
+  }
+
+  .tags {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  footer {
+    margin-top: auto;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--sl-color-gray-6);
+    color: var(--sl-color-gray-3);
+    font-size: 0.75rem;
+  }
+
+  footer a {
+    margin-left: auto;
+  }
+</style>

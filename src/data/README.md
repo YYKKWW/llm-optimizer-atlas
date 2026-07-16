@@ -1,4 +1,6 @@
-# Paper dataset contract
+# Structured dataset contracts
+
+## Paper dataset
 
 papers.yml is the single structured source of truth for paper metadata. The
 stage-2 baseline used an empty array so that no unverified record entered the
@@ -111,17 +113,59 @@ An intentional human edit may update human_notes directly after review. Record
 deletion or an ID change must also be a reviewed manual change so that notes can
 be archived first; the automated writer deliberately has no bypass.
 
+## Verified open-problem dataset
+
+open-problems.yml is a verified-only formal dataset. Candidate discovery may
+read it for deduplication but may never write it. Every formal record includes:
+
+- status `open` and verification_status `verified`;
+- origin `source-stated` or `atlas-synthesis`;
+- a precise question, scope, and assumptions;
+- source_refs pinned to a canonical paper ID, the exact paper source_version,
+  and a section/page/theorem/figure/table locator;
+- known_results with conditions and source-ref foreign keys;
+- an unknown statement bounded by the sources actually checked;
+- candidate approaches plus operational resolution and falsification criteria;
+- a nonfuture verification date and protected human_notes.
+
+The schema rejects TODO_UNVERIFIED anywhere in a verified problem. Cross-file
+validation rejects missing paper IDs, source-version drift, unverified paper
+sources, and papers without a readable URL or verification date. Related paper
+IDs are derived from source_refs rather than duplicated.
+
+The protected problem writer may update existing records atomically while
+preserving human_notes and preventing deletion. It deliberately refuses to add
+new verified records: promotion requires a reviewed source-control change.
+
+Generated open-problem pages are owned only under
+src/content/docs/open-problems/generated. The generator fails on unowned files,
+stale output, or paths that escape that directory.
+
+## Candidate discovery boundary
+
+The separate discovery schema permits only unreviewed literature candidates.
+Its output is restricted to `.artifacts/discovery` or an external runner temp
+directory and cannot contain formal fields such as verification_status,
+source_refs, or human_notes. The scheduled workflow has only `contents: read`,
+disables persisted Git credentials, checks that formal data and content remain
+unchanged, and uploads an artifact for human review.
+
 ## Commands
 
 - npm run validate:papers validates the canonical dataset.
 - npm run validate checks documentation content, paper data, and generated-page drift.
-- npm run generate:pages updates generated paper routes after dataset changes.
-- npm run check:generated verifies that generated routes match the dataset.
+- npm run validate:problems validates verified problems and all paper references.
+- npm run generate:pages updates generated paper and open-problem routes.
+- npm run check:generated verifies both generated content families.
 - npm run check:links checks source-level internal links; remote paper, arXiv,
   and code URLs require a network-enabled research audit.
 - npm run verify runs the type check, validation, full test suite, and internal
   link check used by the deployment quality gate.
 - npm run test:schema runs the schema and protection tests.
+- npm run test:open-problems runs problem data and page-generation tests.
+- npm run test:discovery runs offline discovery and workflow safety tests.
+- npm run discover:candidates performs live candidate discovery outside normal
+  deployment validation and writes only an unverified artifact bundle.
 - npm test runs all Node tests.
 - npm run build runs validation automatically before the Astro build.
 

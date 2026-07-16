@@ -9,7 +9,7 @@
   paper_url: https://example.invalid/paper
   arxiv_url: https://arxiv.org/abs/2401.00001
   code_url: TODO_UNVERIFIED
-  source_version: TODO_UNVERIFIED
+  source_version: arXiv:2401.00001v1
   tags:
     - norm-duality
     - schema-fixture
@@ -32,7 +32,7 @@
   limitations:
     - TODO_UNVERIFIED
   reading_status: unread
-  last_verified: null
+  last_verified: 2024-02-29
   human_notes: |
     Preserve this exact line.
     保留这些人工笔记。

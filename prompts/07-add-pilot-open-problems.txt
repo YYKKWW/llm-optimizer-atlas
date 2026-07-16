@@ -1,0 +1,19 @@
+Inspect the repository, read AGENTS.md, and use only papers already present in
+the verified paper dataset.
+
+Add five to eight pilot open-problem records. For each record:
+- distinguish an author-stated problem from atlas synthesis;
+- state one precise question and its scope and assumptions;
+- pin every source reference to paper_id, exact source_version, and a precise
+  section, page, theorem, figure, table, or appendix locator;
+- state known results with their conditions;
+- state what remains unknown only within the checked verification boundary;
+- provide operational resolution and falsification criteria;
+- preserve human_notes;
+- avoid universal claims when the sources establish only conditional evidence.
+
+Prefer arXiv abstract links for reader access while preserving formal
+publication records. Do not add a problem unless its complete verified record
+passes the schema and paper foreign-key checks.
+
+Run validation, tests, link checks, and a production build.

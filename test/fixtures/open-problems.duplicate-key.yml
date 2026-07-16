@@ -1,0 +1,40 @@
+- id: duplicate-problem
+  id: duplicate-problem-again
+  title: Duplicate Mapping Key
+  status: open
+  verification_status: verified
+  problem_type: empirical
+  research_tracks:
+    - benchmarking
+  tags:
+    - schema-fixture
+  origin: atlas-synthesis
+  question: Does this duplicate-key fixture parse?
+  scope:
+    - The YAML mapping must contain unique keys.
+  assumptions:
+    - Duplicate mappings are invalid input.
+  source_refs:
+    - id: fixture-source
+      paper_id: schema-fixture
+      paper_source_version: arXiv:2401.00001v1
+      locator: Section 1
+      role: known-result
+      supports: The fixture provides a source record.
+  known_results:
+    - statement: The fixture record exists.
+      conditions: The paper fixture loads successfully.
+      source_ref_ids:
+        - fixture-source
+  unknown:
+    statement: Whether a duplicate mapping could pass is the tested unknown.
+    verification_boundary: This is a parser fixture, not a research claim.
+  why_open: This file is intended to fail before schema validation.
+  candidate_approaches:
+    - Reject duplicate YAML mapping keys.
+  resolution_criteria:
+    - The loader rejects this file.
+  falsification_criteria:
+    - Successful loading would falsify the protection claim.
+  last_verified: 2024-02-29
+  human_notes: ""

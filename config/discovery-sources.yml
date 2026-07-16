@@ -1,0 +1,18 @@
+sources:
+  - id: mathematical-programming
+    label: Mathematical Programming
+    adapter: crossref-journal
+    issn: 0025-5610
+  - id: siam-journal-on-optimization
+    label: SIAM Journal on Optimization
+    adapter: crossref-journal
+    issn: 1052-6234
+  - id: icml
+    label: International Conference on Machine Learning
+    adapter: pmlr-icml
+  - id: neurips
+    label: Conference on Neural Information Processing Systems
+    adapter: neurips-proceedings
+  - id: iclr
+    label: International Conference on Learning Representations
+    adapter: iclr-proceedings

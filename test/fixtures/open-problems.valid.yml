@@ -1,0 +1,40 @@
+- id: fixture-open-problem
+  title: Fixture Open Problem
+  status: open
+  verification_status: verified
+  problem_type: mixed
+  research_tracks:
+    - benchmarking
+  tags:
+    - schema-fixture
+  origin: atlas-synthesis
+  question: Can the fixture condition be established under the stated scope?
+  scope:
+    - The fixture source and comparison family are fixed before evaluation.
+  assumptions:
+    - The fixture source version and locator remain unchanged.
+  source_refs:
+    - id: fixture-known-result
+      paper_id: schema-fixture
+      paper_source_version: arXiv:2401.00001v1
+      locator: Section 1, first paragraph
+      role: known-result
+      supports: The fixture source defines the condition used by this test record.
+  known_results:
+    - statement: The fixture condition is defined by the referenced source.
+      conditions: This statement applies only to the fixed fixture source version.
+      source_ref_ids:
+        - fixture-known-result
+  unknown:
+    statement: Whether the fixture condition holds beyond the recorded source is unknown.
+    verification_boundary: Only the fixture paper and exact source location were checked.
+  why_open: The fixture source does not settle the stated question beyond its recorded boundary.
+  candidate_approaches:
+    - Construct a controlled comparison under the fixed fixture scope.
+  resolution_criteria:
+    - Publish a reproducible result that answers the question under the complete scope.
+  falsification_criteria:
+    - A verified counterexample under the same scope refutes a universal answer.
+  last_verified: 2024-02-29
+  human_notes: |
+    Preserve this problem note exactly.
