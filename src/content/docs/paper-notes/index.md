@@ -1,36 +1,39 @@
 ---
 title: Paper Library
-description: The future index of verified paper records and durable reading notes.
+description: Data-driven views and durable records for the verified paper dataset.
 ---
 
-## Scaffold status
+The library is rendered from the validated `papers.yml` dataset. Generated
+pages contain only a view name or stable paper ID; bibliographic metadata,
+claims, evidence, and links remain in the dataset as the single source of
+truth.
 
-The library is intentionally empty. Candidate titles in planning files are not
-published here as verified records.
+## Browse the library
 
-## Purpose
+- [All papers](./generated/all/)
+- [Grouped by research track](./generated/by-research-track/)
+- [Grouped by publication status](./generated/by-publication-status/)
+- [Grouped by year](./generated/by-year/)
 
-Provide one canonical note per verified paper while keeping structured metadata
-separate from human interpretation.
+The [Reading Queue](/llm-optimizer-atlas/reading-queue/) filters the same data by
+`reading_status`. The [Watchlist](/llm-optimizer-atlas/watchlist/) includes only
+verified preprints explicitly marked with `frontier_watch: true`.
 
-## Planned note structure
+## Record boundary
 
-Each note will cover the problem, exact update rule, geometry, mathematical
-interpretation, theorem assumptions, computational cost, experimental protocol,
-strongest evidence, weaknesses, and connections to current research.
+Each generated record exposes the paper-stated claim, exact update, source
+version, evidence conditions, atlas interpretation, and limitations. A generated
+page is a read-only view: it never writes to `papers.yml` and never changes
+`human_notes`.
 
-## Source of truth
+## Regeneration
 
-Structured metadata will come from one validated YAML dataset. Paper notes will
-contain interpretation and manual annotations. Generated pages will be confined
-to a dedicated generated directory and must never overwrite hand-written notes
-or human-maintained fields.
+Run `npm run generate:pages` after changing the dataset. Validation fails when
+the committed generated routes no longer match the validated paper IDs.
 
 ## Verification rules
 
 Exact title, authors, date, status, URLs, and repositories must be checked
-against primary sources before a note becomes part of the library.
-
-## Next step
-
-Define and review the paper schema before creating the first record.
+against primary sources before a record becomes part of the library. A paper
+card summarizes that record; it does not upgrade a preprint or fill an unknown
+field by inference.

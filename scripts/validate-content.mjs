@@ -17,18 +17,29 @@ const requiredPages = new Map([
   ['literature-map/benchmarking.md', 'Benchmarking and Scaling'],
   ['literature-map/systems.md', 'Systems and Efficient Optimization'],
   ['paper-notes/index.md', 'Paper Library'],
-  ['claim-evidence-matrix/index.md', 'Claim–Evidence Matrix'],
+  ['claim-evidence-matrix/index.mdx', 'Claim–Evidence Matrix'],
   ['open-problems/index.md', 'Open Problems'],
-  ['reading-queue/index.md', 'Reading Queue'],
+  ['reading-queue/index.mdx', 'Reading Queue'],
   ['experiment-notes/index.md', 'Experiment Ledger'],
-  ['where-papers-disagree/index.md', 'Where Papers Disagree'],
+  ['where-papers-disagree/index.mdx', 'Where Papers Disagree'],
   ['benchmark-comparisons/index.md', 'Benchmark Comparisons'],
-  ['watchlist/index.md', 'Watchlist'],
+  ['watchlist/index.mdx', 'Watchlist'],
+  ['paper-notes/generated/all/index.mdx', 'All Papers'],
+  [
+    'paper-notes/generated/by-research-track/index.mdx',
+    'Papers by Research Track',
+  ],
+  [
+    'paper-notes/generated/by-publication-status/index.mdx',
+    'Papers by Publication Status',
+  ],
+  ['paper-notes/generated/by-year/index.mdx', 'Papers by Year'],
 ]);
 
 const requiredDirectories = [
   'literature-map',
   'paper-notes',
+  'paper-notes/generated',
   'open-problems',
   'benchmark-comparisons',
   'experiment-notes',

@@ -1,0 +1,148 @@
+---
+import { DISAGREEMENT_TOPICS } from '../lib/disagreement-topics.mjs';
+import {
+  getPaperDataset,
+  paperDetailRoute,
+  reportedStateLabel,
+  withBase,
+} from '../lib/papers.mjs';
+
+const papers = await getPaperDataset();
+const papersById = new Map<string, any>(
+  papers.map((paper: any) => [paper.id, paper]),
+);
+const baseUrl = import.meta.env.BASE_URL;
+
+for (const topic of DISAGREEMENT_TOPICS) {
+  for (const paperId of topic.paperIds) {
+    if (!papersById.has(paperId)) {
+      throw new Error(
+        `Disagreement topic "${topic.id}" references unknown paper "${paperId}".`,
+      );
+    }
+  }
+}
+---
+
+<p class="scope-note">
+  “Disagreement” here includes conditional conclusions reached under different
+  protocols. Inclusion does not imply a direct replication or contradiction.
+</p>
+
+{
+  DISAGREEMENT_TOPICS.map((topic) => (
+    <section aria-labelledby={topic.id}>
+      <h2 id={topic.id}>{topic.title}</h2>
+      <p class="question"><strong>Comparison question:</strong> {topic.question}</p>
+      <p>{topic.interpretation}</p>
+
+      <div class="comparison-grid">
+        {topic.paperIds.map((paperId) => {
+          const paper = papersById.get(paperId);
+          return (
+            <article>
+              <h3>
+                <a href={withBase(baseUrl, paperDetailRoute(paper.id))}>
+                  {paper.title}
+                </a>
+              </h3>
+              <p class="record-meta">{paper.year} · {paper.status}</p>
+              <p>{paper.core_claim}</p>
+              <details>
+                <summary>Protocol recorded in the atlas</summary>
+                <dl>
+                  <dt>Model scale</dt>
+                  <dd>{paper.evidence.model_scales}</dd>
+                  <dt>Token budget</dt>
+                  <dd>{paper.evidence.token_budget}</dd>
+                  <dt>Compute budget</dt>
+                  <dd>{paper.evidence.compute_budget}</dd>
+                  <dt>Baseline tuning</dt>
+                  <dd>{paper.evidence.baseline_tuning}</dd>
+                  <dt>Wall-clock reporting</dt>
+                  <dd>{reportedStateLabel(paper.evidence.wall_clock_reported)}</dd>
+                  <dt>Optimizer-state reporting</dt>
+                  <dd>{reportedStateLabel(paper.evidence.optimizer_state_reported)}</dd>
+                  <dt>Limitations</dt>
+                  <dd>
+                    <ul>
+                      {paper.limitations.map((limitation: string) => <li>{limitation}</li>)}
+                    </ul>
+                  </dd>
+                </dl>
+              </details>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  ))
+}
+
+<style>
+  .scope-note,
+  .question {
+    padding: 0.8rem 1rem;
+    background: var(--sl-color-gray-6);
+  }
+
+  .scope-note {
+    border-left: 0.22rem solid var(--sl-color-accent);
+  }
+
+  section + section {
+    margin-top: 3rem;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+    gap: 0.85rem;
+  }
+
+  article {
+    padding: 0.9rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.65rem;
+    background: var(--sl-color-bg-nav);
+    font-size: 0.82rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .record-meta {
+    margin: 0.35rem 0 0.75rem;
+    color: var(--sl-color-gray-3);
+    font-size: 0.75rem;
+  }
+
+  summary {
+    cursor: pointer;
+    color: var(--sl-color-accent-high);
+    font-weight: 650;
+  }
+
+  dl {
+    display: grid;
+    gap: 0.25rem;
+    margin-bottom: 0;
+  }
+
+  dt {
+    margin-top: 0.45rem;
+    font-weight: 650;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0.2rem 0 0;
+    padding-left: 1.1rem;
+  }
+</style>

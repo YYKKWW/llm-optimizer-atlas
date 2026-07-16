@@ -3,10 +3,11 @@ title: Systems and Efficient Optimization
 description: A track for low-rank, low-precision, memory, communication, and approximate linear algebra.
 ---
 
-## Scaffold status
+## Verified dataset view
 
-This track has no verified systems result, implementation link, or paper
-metadata yet.
+Verified records assigned to this track appear in the
+[data-driven research-track view](/llm-optimizer-atlas/paper-notes/generated/by-research-track/).
+This page keeps the track's guiding questions without duplicating paper metadata.
 
 ## Purpose
 
@@ -22,12 +23,12 @@ memory-constrained procedure that is actually executed.
 - What communication and optimizer-state costs are paid?
 - Which theoretical properties survive an inexact implementation?
 
-## Planned evidence
+## Evidence standard
 
 Records will distinguish algorithmic complexity from measured runtime and will
 identify hardware, precision, communication pattern, and included overhead.
 
-## Next step
+## Maintenance
 
-Create a verified implementation-evidence schema before linking code or
-reporting efficiency.
+Track membership and paper-level evidence are maintained in `papers.yml`; update
+that canonical dataset rather than adding a second paper list here.

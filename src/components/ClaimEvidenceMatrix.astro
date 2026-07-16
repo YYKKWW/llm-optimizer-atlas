@@ -1,0 +1,173 @@
+---
+import {
+  getPaperDataset,
+  paperDetailRoute,
+  reportedStateLabel,
+  sortPapers,
+  withBase,
+} from '../lib/papers.mjs';
+
+const papers = sortPapers(await getPaperDataset());
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<p class="matrix-note">
+  The matrix renders the validated evidence fields without converting missing
+  reporting into evidence of zero cost. Expand each row for budgets, tuning,
+  metrics, source version, and limitations.
+</p>
+
+<div class="matrix-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Paper and claim</th>
+        <th scope="col">Model scale</th>
+        <th scope="col">Wall-clock</th>
+        <th scope="col">Optimizer state</th>
+        <th scope="col">Evidence conditions and limitations</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        papers.map((paper) => (
+          <tr>
+            <th scope="row">
+              <a
+                href={withBase(baseUrl, paperDetailRoute(paper.id))}
+                class="paper-title"
+              >
+                {paper.title}
+              </a>
+              <p>{paper.core_claim}</p>
+              <small>Last verified: {paper.last_verified ?? 'Not verified'}</small>
+            </th>
+            <td>{paper.evidence.model_scales}</td>
+            <td>
+              <span class:list={['report-state', paper.evidence.wall_clock_reported === true && 'reported']}>
+                {reportedStateLabel(paper.evidence.wall_clock_reported)}
+              </span>
+            </td>
+            <td>
+              <span class:list={['report-state', paper.evidence.optimizer_state_reported === true && 'reported']}>
+                {reportedStateLabel(paper.evidence.optimizer_state_reported)}
+              </span>
+            </td>
+            <td>
+              <details>
+                <summary>Show complete evidence conditions</summary>
+                <dl>
+                  <dt>Token budget</dt>
+                  <dd>{paper.evidence.token_budget}</dd>
+                  <dt>Compute budget</dt>
+                  <dd>{paper.evidence.compute_budget}</dd>
+                  <dt>Baseline tuning</dt>
+                  <dd>{paper.evidence.baseline_tuning}</dd>
+                  <dt>Evaluation metric</dt>
+                  <dd>{paper.evidence.evaluation_metric}</dd>
+                  <dt>Source version</dt>
+                  <dd>{paper.source_version}</dd>
+                  <dt>Major limitations</dt>
+                  <dd>
+                    <ul>
+                      {paper.limitations.map((limitation: string) => <li>{limitation}</li>)}
+                    </ul>
+                  </dd>
+                </dl>
+              </details>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .matrix-note {
+    padding: 0.8rem 1rem;
+    border-left: 0.22rem solid var(--sl-color-accent);
+    background: var(--sl-color-gray-6);
+  }
+
+  .matrix-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 72rem;
+    font-size: 0.78rem;
+  }
+
+  th,
+  td {
+    min-width: 8rem;
+    vertical-align: top;
+  }
+
+  th:first-child {
+    width: 27%;
+  }
+
+  th:last-child {
+    width: 28%;
+  }
+
+  .paper-title {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    font-size: 0.88rem;
+  }
+
+  th p {
+    margin: 0 0 0.45rem;
+    color: var(--sl-color-gray-2);
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  small {
+    color: var(--sl-color-gray-3);
+    font-weight: 400;
+  }
+
+  .report-state {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+    white-space: nowrap;
+  }
+
+  .report-state.reported {
+    background: var(--sl-color-green-low);
+    color: var(--sl-color-green-high);
+  }
+
+  details summary {
+    cursor: pointer;
+    color: var(--sl-color-accent-high);
+    font-weight: 600;
+  }
+
+  dl {
+    display: grid;
+    gap: 0.3rem;
+    margin: 0.8rem 0 0;
+  }
+
+  dt {
+    margin-top: 0.45rem;
+    font-weight: 650;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0.25rem 0 0;
+    padding-left: 1.1rem;
+  }
+</style>

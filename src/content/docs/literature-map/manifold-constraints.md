@@ -3,10 +3,11 @@ title: Constraints, Manifolds, and Spectra
 description: A track for explicit constraints, spectral geometry, projections, and feasible directions.
 ---
 
-## Scaffold status
+## Verified dataset view
 
-This page defines the scope of the track without asserting any theorem,
-experimental result, or publication status.
+Verified records assigned to this track appear in the
+[data-driven research-track view](/llm-optimizer-atlas/paper-notes/generated/by-research-track/).
+This page keeps the track's guiding questions without duplicating paper metadata.
 
 ## Purpose
 
@@ -21,12 +22,12 @@ normal geometry, nonsmooth spectral sets, and constrained stationarity.
 - How do projected, retracted, and branch-switching updates differ?
 - Under what conditions can explicit constraints be compared with weight decay?
 
-## Planned evidence
+## Evidence standard
 
 Notes will separate formal assumptions and conclusions from geometric
 interpretation, numerical approximation, and implementation choices.
 
-## Next step
+## Maintenance
 
-Add open problems first, then attach literature only after exact statements and
-source status are verified.
+Track membership and paper-level evidence are maintained in `papers.yml`; update
+that canonical dataset rather than adding a second paper list here.

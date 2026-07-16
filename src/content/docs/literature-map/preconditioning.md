@@ -3,10 +3,11 @@ title: Structured Preconditioning
 description: A track for diagonal, matrix, Kronecker, and approximate second-order structure.
 ---
 
-## Scaffold status
+## Verified dataset view
 
-This track contains planning questions only; no paper metadata or performance
-claims have been added.
+Verified records assigned to this track appear in the
+[data-driven research-track view](/llm-optimizer-atlas/paper-notes/generated/by-research-track/).
+This page keeps the track's guiding questions without duplicating paper metadata.
 
 ## Purpose
 
@@ -23,13 +24,13 @@ update frequency, and numerical implementation affect optimization.
   cost?
 - When does token efficiency translate into wall-clock efficiency?
 
-## Planned evidence
+## Evidence standard
 
 Comparisons will record model scale, training budget, baselines, tuning budget,
 metrics, wall-clock treatment, optimizer-state memory, and matrix-operation
 overhead.
 
-## Next step
+## Maintenance
 
-Wait for the verified paper dataset and link each method to a single canonical
-paper note.
+Track membership and paper-level evidence are maintained in `papers.yml`; update
+that canonical dataset rather than adding a second paper list here.

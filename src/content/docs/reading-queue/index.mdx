@@ -1,0 +1,11 @@
+---
+title: Reading Queue
+description: Validated paper records whose reading status is currently unread.
+---
+
+import PaperCollection from '../../../components/PaperCollection.astro';
+
+This queue is a workflow view of the verified dataset, not a list of unverified
+candidates. It includes exactly the records whose `reading_status` is `unread`.
+
+<PaperCollection view="unread" />

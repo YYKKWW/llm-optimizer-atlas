@@ -1,0 +1,157 @@
+---
+import {
+  hasVerifiedUrl,
+  paperDetailRoute,
+  withBase,
+} from '../lib/papers.mjs';
+
+const { paper } = Astro.props;
+const detailHref = withBase(
+  import.meta.env.BASE_URL,
+  paperDetailRoute(paper.id),
+);
+const paperLinkAvailable = hasVerifiedUrl(paper.paper_url);
+const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
+---
+
+<article class="paper-card">
+  <header>
+    <h3><a href={detailHref}>{paper.title}</a></h3>
+    <p class="meta">
+      <span>{paper.year}</span>
+      <span class:list={['status', 'status-' + paper.status]}>{paper.status}</span>
+    </p>
+  </header>
+
+  <ul class="tags" aria-label="Paper tags">
+    {paper.tags.map((tag: string) => <li>{tag}</li>)}
+  </ul>
+
+  <p class="claim">{paper.core_claim}</p>
+
+  <footer>
+    <span class="verified">
+      Last verified: {paper.last_verified ?? 'Not verified'}
+    </span>
+    <nav aria-label={`Links for ${paper.title}`}>
+      {paperLinkAvailable && (
+        <a href={paper.paper_url} target="_blank" rel="noreferrer">Paper</a>
+      )}
+      {codeLinkAvailable && (
+        <a href={paper.code_url} target="_blank" rel="noreferrer">Code</a>
+      )}
+      <a href={detailHref}>Atlas record</a>
+    </nav>
+  </footer>
+</article>
+
+<style>
+  .paper-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    background: var(--sl-color-bg-nav);
+  }
+
+  header,
+  footer {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .meta {
+    display: flex;
+    flex: none;
+    gap: 0.4rem;
+    align-items: center;
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.78rem;
+  }
+
+  .status {
+    padding: 0.12rem 0.42rem;
+    border-radius: 999px;
+    color: var(--sl-color-white);
+    font-weight: 600;
+  }
+
+  .status-published {
+    background: var(--sl-color-green-high);
+  }
+
+  .status-accepted {
+    background: var(--sl-color-orange-high);
+  }
+
+  .status-preprint {
+    background: var(--sl-color-purple-high);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tags li {
+    padding: 0.12rem 0.42rem;
+    border-radius: 0.35rem;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-2);
+    font-size: 0.72rem;
+  }
+
+  .claim {
+    flex: 1;
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  footer {
+    align-items: flex-end;
+    border-top: 1px solid var(--sl-color-gray-6);
+    padding-top: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .verified {
+    color: var(--sl-color-gray-3);
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.55rem;
+  }
+
+  @media (max-width: 30rem) {
+    header,
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav {
+      justify-content: flex-start;
+    }
+  }
+</style>

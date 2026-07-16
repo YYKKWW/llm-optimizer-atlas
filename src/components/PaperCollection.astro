@@ -1,0 +1,61 @@
+---
+import PaperCard from './PaperCard.astro';
+import {
+  createPaperView,
+  getPaperDataset,
+} from '../lib/papers.mjs';
+
+const { view = 'all' } = Astro.props;
+const { groups, uniqueCount, summary } = createPaperView(
+  await getPaperDataset(),
+  view,
+);
+---
+
+<p class="collection-summary">
+  <strong>{uniqueCount}</strong> paper record{uniqueCount === 1 ? '' : 's'}. {summary}
+</p>
+
+{
+  groups.length === 0 ? (
+    <p>No paper records match this view.</p>
+  ) : (
+    groups.map((group) => (
+      <section class="paper-group" aria-labelledby={group.label ? `group-${group.key}` : undefined}>
+        {group.label && (
+          <h2 id={`group-${group.key}`}>
+            {group.label} <span>({group.papers.length})</span>
+          </h2>
+        )}
+        <div class="paper-grid">
+          {group.papers.map((paper) => <PaperCard paper={paper} />)}
+        </div>
+      </section>
+    ))
+  )
+}
+
+<style>
+  .collection-summary {
+    padding: 0.8rem 1rem;
+    border-left: 0.22rem solid var(--sl-color-accent);
+    background: var(--sl-color-gray-6);
+  }
+
+  .paper-group + .paper-group {
+    margin-top: 2.25rem;
+  }
+
+  h2 span {
+    color: var(--sl-color-gray-3);
+    font-size: 0.78em;
+    font-weight: 500;
+  }
+
+  .paper-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1rem;
+    align-items: stretch;
+  }
+</style>

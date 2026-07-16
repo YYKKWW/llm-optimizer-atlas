@@ -3,10 +3,11 @@ title: Norms, Duality, and Steepest Descent
 description: A track for optimizer geometry, dual norms, and descent directions.
 ---
 
-## Scaffold status
+## Verified dataset view
 
-This track is an empty research frame; no paper metadata or conclusions have
-been verified.
+Verified records assigned to this track appear in the
+[data-driven research-track view](/llm-optimizer-atlas/paper-notes/generated/by-research-track/).
+This page keeps the track's guiding questions without duplicating paper metadata.
 
 ## Purpose
 
@@ -22,13 +23,13 @@ geometries.
   minimization oracles equivalent, and under which assumptions?
 - How does a layerwise geometry differ from a global geometry?
 
-## Planned evidence
+## Evidence standard
 
 Every entry should preserve the exact update rule, domain, assumptions,
 computational cost, and the boundary between an author's claim and this atlas's
 interpretation.
 
-## Next step
+## Maintenance
 
-Add links only after the paper schema exists and candidate records pass
-primary-source verification.
+Track membership and paper-level evidence are maintained in `papers.yml`; update
+that canonical dataset rather than adding a second paper list here.

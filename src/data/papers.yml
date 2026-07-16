@@ -1,4 +1,1147 @@
-# Canonical paper dataset.
-# Stage 2 intentionally contains no paper records. Add records only after
-# primary-source verification in stage 3.
-[]
+- id: old-optimizer-new-norm
+  title: 'Old Optimizer, New Norm: An Anthology'
+  authors:
+    - Jeremy Bernstein
+    - Laker Newhouse
+  year: 2024
+  publication_date: 2024-10-09
+  status: accepted
+  venue: >-
+    OPT2024: 16th International Workshop on Optimization for Machine Learning (NeurIPS 2024
+    Workshop), accepted poster
+  paper_url: https://opt-ml.org/papers/2024/paper93.pdf
+  code_url: TODO_UNVERIFIED
+  source_version: OPT2024 accepted poster; arXiv:2409.20325v2
+  tags:
+    - dual-norms
+    - optimizer-geometry
+    - spectral-descent
+    - steepest-descent
+  research_tracks:
+    - norm-duality
+  frontier_watch: false
+  core_claim: >-
+    Under the paper's stated simplifications, Adam, Shampoo, and Prodigy reduce to steepest-descent
+    variants under different norms, making norm choice and step-size choice explicit
+    optimizer-design axes.
+  exact_update: >-
+    For a norm $\|\cdot\|$, its dual $\|\cdot\|_*$, and $\lambda>0$,
+
+
+    $\Delta
+    w^*=\arg\min_\Delta\{g^\top\Delta+(\lambda/2)\|\Delta\|^2\}=-(\|g\|_*/\lambda)\arg\max_{\|t\|=1}g^\top
+    t$.
+
+
+    With the paper's simplifications, Adam gives $w_{t+1}=w_t-\eta\,\operatorname{sign}(g_t)$;
+    Shampoo with $G=U\Sigma V^\top$ gives $W_{t+1}=W_t-\eta UV^\top$; and Prodigy uses
+    $w_{t+1}=w_t-\eta_t\operatorname{sign}(g_t)$ with
+    $\eta_{t+1}=\max(\eta_t,g_t^\top(w_0-w_t)/\|g_t\|_1)$.
+  traditional_optimization_link:
+    - steepest descent in normed spaces
+    - primal and dual norm geometry
+    - polar decomposition and spectral descent
+    - majorization-minimization
+    - online line search
+  evidence:
+    model_scales: 'Not applicable: the paper does not report a paper-internal model benchmark.'
+    datasets: 'Not applicable: the claims recorded here are algebraic and theoretical reinterpretations.'
+    token_budget: 'Not applicable: no training-token experiment supports the recorded claim.'
+    compute_budget: 'Not applicable: no hardware or FLOP benchmark supports the recorded claim.'
+    baseline_tuning: 'Not applicable: the equivalences concern explicitly simplified optimizer updates.'
+    evaluation_metric: Algebraic equivalence under the assumptions stated by the paper.
+    wall_clock_reported: false
+    optimizer_state_reported: false
+  limitations:
+    - >-
+      The equivalences disable or omit practical mechanisms such as exponential moving averages,
+      accumulation, bias correction, numerical stabilization, and schedules.
+    - >-
+      The paper does not establish that full production versions of Adam, Shampoo, and Prodigy are
+      equivalent.
+    - The workshop is explicitly non-archival, so the record is accepted rather than published.
+    - >-
+      The recorded date is the official acceptance-notification date, not an archival publication
+      date.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: modular-duality-in-deep-learning
+  title: Modular Duality in Deep Learning
+  authors:
+    - Jeremy Bernstein
+    - Laker Newhouse
+  year: 2025
+  publication_date: 2025-10-06
+  status: published
+  venue: Proceedings of the 42nd International Conference on Machine Learning, PMLR 267:3920-3930
+  paper_url: https://proceedings.mlr.press/v267/bernstein25a.html
+  code_url: https://github.com/modula-systems/modula
+  source_version: ICML 2025 / PMLR 267 publisher version; arXiv:2410.21265v2
+  tags:
+    - duality-map
+    - modular-norm
+    - operator-norms
+    - optimizer-geometry
+  research_tracks:
+    - norm-duality
+  frontier_watch: false
+  core_claim: >-
+    The paper claims that assigning operator norms from a layer's semantic role and recursively
+    composing their duality maps yields an architecture-wide modular dualization rule for
+    steepest-descent updates.
+  exact_update: |-
+    $\operatorname{dualize}_{\|\cdot\|}(g)=\arg\max_{\|t\|=1}g^\top t$ and
+    $\Delta w^*=-(\|g\|_*/\lambda)\operatorname{dualize}(g)$.
+    For a linear layer with $G=U\Sigma V^\top$, the atomic map is
+    $\sqrt{d_{\mathrm{out}}/d_{\mathrm{in}}}\,UV^\top$.
+    Embedding columns are normalized by their RMS; each $k\times k$ convolution slice maps to
+    $(1/k^2)\sqrt{d_{\mathrm{out}}/d_{\mathrm{in}}}\,U_{ij}V_{ij}^\top$.
+    Compound-module maps are then composed recursively using module mass and downstream sensitivity.
+  traditional_optimization_link:
+    - normed-space steepest descent
+    - induced operator norms
+    - duality maps
+    - polar decomposition
+    - modular and Finsler geometry
+  evidence:
+    model_scales: Three-layer bias-free MLPs with widths 32-4096; width 1024 for the weight-erasure experiment.
+    datasets: CIFAR-10 without data augmentation.
+    token_budget: >-
+      Learning-rate transfer uses 20 epochs with batch 128; weight erasure uses 1000 steps with
+      batch 1024.
+    compute_budget: Hardware and FLOP budgets are not reported.
+    baseline_tuning: >-
+      Adam under standard and muP-style parameterizations is learning-rate swept; the modular update
+      dualizes the raw gradient with five Newton-Schulz steps.
+    evaluation_metric: >-
+      Final training loss and recovery of an initialization watermark in the weight-erasure
+      experiment.
+    wall_clock_reported: false
+    optimizer_state_reported: false
+  limitations:
+    - >-
+      The paper-internal experiments are CIFAR-10 MLPs rather than Transformer language-model
+      pretraining.
+    - The evidence concerns optimization progress rather than wall-clock efficiency.
+    - Practical polar maps are approximate, and the arXiv version predates the final ICML paper.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: training-deep-learning-models-norm-constrained-lmos
+  title: Training Deep Learning Models with Norm-Constrained LMOs
+  authors:
+    - Thomas Pethick
+    - Wanyun Xie
+    - Kimon Antonakopoulos
+    - Zhenyu Zhu
+    - Antonio Silveti-Falls
+    - Volkan Cevher
+  year: 2025
+  publication_date: 2025-10-06
+  status: published
+  venue: Proceedings of the 42nd International Conference on Machine Learning, PMLR 267:49069-49104
+  paper_url: https://proceedings.mlr.press/v267/pethick25a.html
+  code_url: https://github.com/LIONS-EPFL/scion
+  source_version: ICML 2025 / PMLR 267 publisher version; arXiv:2502.07529v2
+  tags:
+    - conditional-gradient
+    - frank-wolfe
+    - linear-minimization-oracle
+    - norm-constraints
+    - scion
+  research_tracks:
+    - norm-duality
+    - benchmarking
+  frontier_watch: false
+  core_claim: >-
+    The paper claims that stochastic conditional-gradient updates over layerwise norm balls unify
+    several normalized optimizers and provide a practical Scion family with theoretical guarantees
+    and transferable layerwise geometry.
+  exact_update: |-
+    $d_k=\alpha_k\nabla f(x_k,\xi_k)+(1-\alpha_k)d_{k-1}$ and
+    $\operatorname{lmo}_{\mathcal D}(s)\in\arg\min_{x\in\mathcal D}\langle s,x\rangle$.
+    Unconstrained SCG uses $x_{k+1}=x_k+\gamma_k\operatorname{lmo}_{\mathcal D}(d_k)$;
+    constrained SCG uses $x_{k+1}=(1-\gamma_k)x_k+\gamma_k\operatorname{lmo}_{\mathcal D}(d_k)$.
+    Scion applies the corresponding LMO layerwise on operator-norm balls with radii $\rho_\ell$.
+  traditional_optimization_link:
+    - stochastic conditional gradient
+    - Frank-Wolfe methods
+    - norm-ball linear minimization oracles
+    - normalized steepest descent
+    - operator-norm duality
+  evidence:
+    model_scales: >-
+      MLPs and CNNs, DeiT-base, and nanoGPT models from 64M to 1B in the main width sweep; the paper
+      also reports experiments up to 3B.
+    datasets: FineWeb, ImageNet-1k, CIFAR-10, and Shakespeare.
+    token_budget: The main FineWeb setting uses 5100 iterations, batch 512, and block length 1024.
+    compute_budget: >-
+      A matched total-FLOP budget is not reported; some experiments include measured wall-clock
+      behavior.
+    baseline_tuning: >-
+      Learning rate and model width are swept; comparisons include AdamW and Muon with
+      optimizer-specific warmup, clipping, and parameter-group handling.
+    evaluation_metric: Language-model validation loss, classification accuracy, and selected wall-clock measurements.
+    wall_clock_reported: true
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      Several comparisons also change initialization, activation, or parameter-group rules, so
+      optimizer-only causality is not isolated.
+    - Muon uses Adam on selected first and last layers while Scion can span the network.
+    - >-
+      The recommended layerwise norm configuration depends on the model domain and is not one
+      universal update.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: muon-is-scalable-for-llm-training
+  title: Muon is Scalable for LLM Training
+  authors:
+    - Jingyuan Liu
+    - Jianlin Su
+    - Xingcheng Yao
+    - Zhejun Jiang
+    - Guokun Lai
+    - Yulun Du
+    - Yidao Qin
+    - Weixin Xu
+    - Enzhe Lu
+    - Junjie Yan
+    - Yanru Chen
+    - Huabin Zheng
+    - Yibo Liu
+    - Shaowei Liu
+    - Bohong Yin
+    - Weiran He
+    - Han Zhu
+    - Yuzhi Wang
+    - Jianzhou Wang
+    - Mengnan Dong
+    - Zheng Zhang
+    - Yongsheng Kang
+    - Hao Zhang
+    - Xinran Xu
+    - Yutao Zhang
+    - Yuxin Wu
+    - Xinyu Zhou
+    - Zhilin Yang
+  year: 2025
+  publication_date: 2025-02-24
+  status: preprint
+  venue: ''
+  paper_url: https://arxiv.org/abs/2502.16982
+  code_url: https://github.com/MoonshotAI/Moonlight
+  source_version: arXiv:2502.16982v1
+  tags:
+    - distributed-optimization
+    - matrix-sign
+    - muon
+    - spectral-descent
+  research_tracks:
+    - norm-duality
+    - benchmarking
+    - systems
+  frontier_watch: true
+  core_claim: >-
+    The paper claims that decoupled weight decay, shape-aware update scaling, and a distributed
+    implementation make Muon effective across the tested dense scaling sweep and in the reported
+    Moonlight mixture-of-experts training run.
+  exact_update: |-
+    $M_t=\mu M_{t-1}+\nabla L_t(W_{t-1})$.
+    In practice the Newton-Schulz input uses Nesterov momentum, $\mu M_t+\nabla L_t(W_{t-1})$.
+    With $X_0=M/\|M\|_F$, five iterations use
+    $X_k=aX_{k-1}+b(X_{k-1}X_{k-1}^\top)X_{k-1}+c(X_{k-1}X_{k-1}^\top)^2X_{k-1}$,
+    $(a,b,c)=(3.4445,-4.7750,2.0315)$.
+    For shape $[A,B]$, $W_t=W_{t-1}-\eta_t(0.2\sqrt{\max(A,B)}\,O_t+\lambda W_{t-1})$.
+  traditional_optimization_link:
+    - momentum and Nesterov acceleration
+    - spectral-norm steepest descent
+    - polar decomposition and matrix sign
+    - Newton-Schulz iteration
+    - decoupled weight decay
+    - optimizer-state sharding
+  evidence:
+    model_scales: >-
+      Dense Llama-shaped models from 399M to 1.5B parameters; Moonlight has 2.24B activated and
+      15.29B total non-embedding parameters.
+    datasets: TODO_UNVERIFIED
+    token_budget: The dense sweep uses 8.92B-38.91B tokens; the Moonlight run uses 5.7T tokens.
+    compute_budget: >-
+      Training FLOPs and PFLOP/s-days are used for scaling comparisons; optimizer-transform FLOPs
+      and end-to-end wall-clock are not the basis of the main scaling claim.
+    baseline_tuning: >-
+      AdamW is grid-searched in the compute-optimal setup; Muon reuses the tuned AdamW learning rate
+      and weight decay with shape-aware scaling.
+    evaluation_metric: >-
+      8K-context language-model loss, training-FLOP efficiency, downstream metrics, and selected
+      latency observations.
+    wall_clock_reported: true
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      The technical report does not identify a reproducible canonical training corpus for the main
+      runs.
+    - The final public-model comparison is not a matched optimizer-only experiment.
+    - >-
+      The repository still marks intermediate checkpoints as forthcoming despite the paper's release
+      statement.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: polar-express-matrix-sign
+  title: 'The Polar Express: Optimal Matrix Sign Methods and Their Application to the Muon Algorithm'
+  authors:
+    - Noah Amsel
+    - David Persson
+    - Christopher Musco
+    - Robert M. Gower
+  year: 2026
+  publication_date: 2026-01-26
+  status: published
+  venue: The Fourteenth International Conference on Learning Representations (ICLR 2026), Oral
+  paper_url: https://openreview.net/forum?id=yRtgZ1K8hO
+  code_url: https://github.com/NoahAmsel/PolarExpress
+  source_version: ICLR 2026 conference version; arXiv:2505.16932v5
+  tags:
+    - matrix-sign
+    - minimax-polynomials
+    - muon
+    - polar-decomposition
+  research_tracks:
+    - norm-duality
+    - systems
+  frontier_watch: false
+  core_claim: >-
+    Given a singular-value interval, polynomial degree, and iteration budget, the paper claims that
+    its greedy minimax construction is globally worst-case optimal for the composed matrix-sign
+    approximation and can improve Muon's practical polar-factor computation.
+  exact_update: >-
+    Muon uses $M_t=\beta M_{t-1}+(1-\beta)G_t$ and
+
+    $W_{t+1}=W_t-\lambda\,\operatorname{polar}(M_t)$, where $\operatorname{polar}(M)=UV^\top$ for
+    $M=U\Sigma V^\top$.
+
+    Polar Express initializes $X_0=M/(\|M\|_F+10^{-2})$ and applies scheduled odd minimax
+    polynomials $X_t=p_t(X_{t-1})$.
+
+    For $p_t(x)=a_tx+b_tx^3+c_tx^5$, the matrix step is
+
+    $Y=X^\top X$ and $X\leftarrow X(aI+Y(bI+cY))$.
+  traditional_optimization_link:
+    - polar decomposition and matrix sign
+    - minimax polynomial approximation
+    - Chebyshev equioscillation and Remez methods
+    - Newton-Schulz and Pade iterations
+    - spectral-norm steepest descent
+  evidence:
+    model_scales: GPT-2 Small with 124M parameters and GPT-2 Large with 774M parameters.
+    datasets: FineWeb.
+    token_budget: 1B tokens in the main experiments and a 10B-token extension.
+    compute_budget: >-
+      Four NVIDIA H100 GPUs, bfloat16, and five degree-5 matrix-sign iterations; FLOPs are not
+      reported.
+    baseline_tuning: >-
+      Jordan and You matrix-sign approximations are used inside otherwise matched Muon runs with a
+      learning-rate sweep; AdamW handles excluded parameters.
+    evaluation_metric: Training and validation loss plus median step time.
+    wall_clock_reported: true
+    optimizer_state_reported: false
+  limitations:
+    - >-
+      The exact minimax guarantee assumes a valid singular-value interval, while the practical
+      bfloat16 method estimates the interval and adds numerical safety modifications.
+    - >-
+      The experiments are limited to GPT-2-scale models and do not establish convergence of the full
+      Muon optimizer.
+    - >-
+      Polar Express changes a numerical linear-algebra subroutine rather than defining an
+      independent optimizer family.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: soap-language-modeling
+  title: 'SOAP: Improving and Stabilizing Shampoo using Adam for Language Modeling'
+  authors:
+    - Nikhil Vyas
+    - Depen Morwani
+    - Rosie Zhao
+    - Itai Shapira
+    - David Brandfonbrener
+    - Lucas Janson
+    - Sham Kakade
+  year: 2025
+  publication_date: 2025-01-22
+  status: published
+  venue: The Thirteenth International Conference on Learning Representations (ICLR 2025)
+  paper_url: >-
+    https://proceedings.iclr.cc/paper_files/paper/2025/hash/e988664070e9591f93fdcf605f7dc623-Abstract-Conference.html
+  code_url: https://github.com/nikhilvyas/SOAP
+  source_version: ICLR 2025 proceedings version; arXiv:2409.11321v2
+  tags:
+    - adam
+    - kronecker-preconditioning
+    - shampoo
+    - soap
+  research_tracks:
+    - preconditioning
+    - systems
+  frontier_watch: false
+  core_claim: >-
+    In the paper's tuned C4 language-model experiments, applying Adam in a slowly refreshed Shampoo
+    eigenbasis preserves per-step adaptivity and reaches matched validation loss in fewer iterations
+    and lower estimated single-H100 time than the tuned AdamW and Distributed Shampoo baselines.
+  exact_update: >-
+    $G'_t=Q_{L,t}^\top G_tQ_{R,t}$ and
+
+    $M_t=\beta_1M_{t-1}+(1-\beta_1)G_t$, with $M'_t=Q_{L,t}^\top M_tQ_{R,t}$.
+
+    $V_t=\beta_2V_{t-1}+(1-\beta_2)(G'_t\odot G'_t)$,
+
+    $N'_t=M'_t/(\sqrt{V_t}+\epsilon)$,
+
+    $N_t=Q_{L,t}N'_tQ_{R,t}^\top$, and $W_{t+1}=W_t-\eta_tN_t$.
+
+    The Shampoo statistics are
+
+    $L_t=\beta_2L_{t-1}+(1-\beta_2)G_tG_t^\top$ and
+
+    $R_t=\beta_2R_{t-1}+(1-\beta_2)G_t^\top G_t$;
+
+    every $f$ steps, $Q_L\leftarrow\operatorname{qr}(L_tQ_L)$ and
+    $Q_R\leftarrow\operatorname{qr}(R_tQ_R)$.
+  traditional_optimization_link:
+    - AdaGrad and matrix preconditioning
+    - Shampoo and Kronecker-factored preconditioning
+    - Adafactor
+    - Adam and RMSProp
+    - time-varying orthogonal reparameterization
+  evidence:
+    model_scales: 360M and 660M non-embedding-parameter language models in the main comparison.
+    datasets: C4, tokenized with the T5 tokenizer.
+    token_budget: >-
+      Approximately 20 training tokens per non-embedding parameter; sequence length 1024; the
+      principal comparison uses about 2.048M tokens per batch.
+    compute_budget: >-
+      The 360M and 660M schedules use 3200 and 6400 optimizer steps; wall time is estimated from
+      single-H100 throughput with gradient accumulation rather than a distributed end-to-end run.
+    baseline_tuning: >-
+      Learning-rate sweeps are followed by two-dimensional optimizer-specific sweeps; baselines are
+      PyTorch AdamW and Distributed Shampoo.
+    evaluation_metric: C4 validation loss, iterations to matched loss, and estimated single-H100 wall-clock time.
+    wall_clock_reported: true
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      The formal ICLR title adds for Language Modeling and its seven-author list excludes Mujin
+      Kwun, who appears in the shorter-title arXiv metadata.
+    - >-
+      Single-H100 wall time is estimated with gradient accumulation rather than measured in a
+      distributed end-to-end comparison.
+    - >-
+      The principal evidence covers C4 and two sub-billion-parameter models in specific large-batch
+      regimes.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: structured-preconditioners-unified-analysis
+  title: 'Structured Preconditioners in Adaptive Optimization: A Unified Analysis'
+  authors:
+    - Shuo Xie
+    - Tianhao Wang
+    - Sashank J. Reddi
+    - Sanjiv Kumar
+    - Zhiyuan Li
+  year: 2025
+  publication_date: 2025-10-06
+  status: published
+  venue: Proceedings of the 42nd International Conference on Machine Learning, PMLR 267:68746-68776
+  paper_url: https://proceedings.mlr.press/v267/xie25j.html
+  code_url: TODO_UNVERIFIED
+  source_version: ICML 2025 / PMLR 267 publisher version; arXiv:2503.10537v2
+  tags:
+    - adagrad
+    - matrix-subalgebra
+    - one-sided-shampoo
+    - structured-preconditioning
+  research_tracks:
+    - norm-duality
+    - preconditioning
+  frontier_watch: false
+  core_claim: >-
+    Under the paper's online-regret and stochastic-convex assumptions, its matrix-subalgebra
+    framework recovers AdaGrad-family rates and improves the analysis of one-sided Shampoo, showing
+    that a more structured preconditioner can benefit from comparator and domain geometry rather
+    than merely approximate a denser preconditioner.
+  exact_update: |-
+    One-sided Shampoo initializes $L_0=\epsilon I$ and uses
+    $L_t=L_{t-1}+(1/d_R)G_tG_t^\top$.
+    The update is
+    $X_{t+1}=\Pi_{\mathcal X}^{L_t^{1/2}\otimes I_{d_R}}\left(X_t-\eta_tL_t^{-1/2}G_t\right)$,
+    where $\Pi_{\mathcal X}^{H}$ is projection under the geometry induced by $H$.
+  traditional_optimization_link:
+    - online mirror descent
+    - follow-the-regularized-leader
+    - adaptive regularization
+    - AdaGrad
+    - matrix subalgebras and convex cones
+    - preconditioned projected gradient descent
+  evidence:
+    model_scales: >-
+      Not applicable: the paper is a convex-theory study with a synthetic experiment, not an
+      LLM-scale training study.
+    datasets: Synthetic experiment only; no named real-world training dataset.
+    token_budget: Not applicable.
+    compute_budget: No hardware, FLOP, or end-to-end training budget is reported for the synthetic experiment.
+    baseline_tuning: >-
+      The theoretical and synthetic comparisons include one-sided Shampoo and full-matrix AdaGrad;
+      no production-scale search is performed.
+    evaluation_metric: >-
+      Online-regret and stochastic-convex convergence bounds, supplemented by synthetic optimization
+      behavior.
+    wall_clock_reported: false
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      The theory assumes online, convex, or stochastic-convex settings and is not direct evidence
+      for nonconvex LLM training.
+    - Empirical evidence is limited to a synthetic experiment.
+    - No official code repository is linked by the publisher page, paper, or related materials.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: kl-shampoo-and-soap
+  title: Understanding and Improving Shampoo and SOAP via Kullback-Leibler Minimization
+  authors:
+    - Wu Lin
+    - Scott C. Lowe
+    - Felix Dangel
+    - Runa Eschenhagen
+    - Zikun Xu
+    - Roger B. Grosse
+  year: 2026
+  publication_date: 2026-01-26
+  status: published
+  venue: The Fourteenth International Conference on Learning Representations (ICLR 2026)
+  paper_url: https://openreview.net/forum?id=pQQuC1nIQq
+  code_url: https://github.com/yorkerlin/KL-Methods
+  source_version: ICLR 2026 proceedings version; extended arXiv:2509.03378v10
+  tags:
+    - covariance-estimation
+    - kl-divergence
+    - kl-shampoo
+    - kronecker-preconditioning
+  research_tracks:
+    - preconditioning
+    - systems
+  frontier_watch: false
+  core_claim: >-
+    In the paper's bfloat16 language-model experiments with equal iteration counts and per-method
+    random-search tuning, joint KL-based covariance estimation yields KL-Shampoo, which avoids Adam
+    grafting and attains lower validation loss than the evaluated Shampoo, SOAP, and KL-SOAP
+    implementations while retaining similar per-iteration runtime to SOAP.
+  exact_update: |-
+    For $G=\operatorname{Mat}(g)$ and EMA weight $\rho$,
+    $\Delta_a=(1/d_b)GQ_b\operatorname{Diag}(\lambda_b^{-1})Q_b^\top G^\top$ and
+    $\Delta_b=(1/d_a)G^\top Q_a\operatorname{Diag}(\lambda_a^{-1})Q_a^\top G$.
+    $S_k\leftarrow(1-\rho)S_k+\rho\Delta_k$ and
+    $\lambda_k\leftarrow(1-\rho)\lambda_k+\rho\,\operatorname{diag}(Q_k^\top\Delta_kQ_k)$;
+    every $f$ steps $Q_k\leftarrow\operatorname{qr}(S_kQ_k)$.
+    With $Q=Q_a\otimes Q_b$,
+    $\theta\leftarrow\theta-\gamma[Q\operatorname{Diag}(\lambda_a\otimes\lambda_b)^{-1/2}Q^\top]g$.
+  traditional_optimization_link:
+    - log-determinant Bregman divergence
+    - Gaussian covariance maximum likelihood
+    - matrix-normal whitening
+    - SPD manifold optimization
+    - natural gradient
+    - Kronecker-factored preconditioning
+  evidence:
+    model_scales: >-
+      NanoGPT 123M, NanoRWKV7 162M, Llama 134M, and NanoMoE 227M in the main experiments; arXiv v10
+      also reports a 450M Llama3 experiment.
+    datasets: FineWeb for NanoGPT and NanoRWKV7, C4 for Llama, and OpenWebText for NanoMoE.
+    token_budget: >-
+      1B tokens for NanoGPT and NanoRWKV7, 2B for Llama, and 2.5B for NanoMoE; batches are 0.5M
+      tokens except NanoMoE at 0.25M.
+    compute_budget: >-
+      Main comparisons use 150 random-search runs per method, equal iteration counts, and QR or
+      eigendecomposition every 10 iterations; total FLOPs and hardware model are not stated.
+    baseline_tuning: >-
+      All available optimizer hyperparameters are tuned with a two-stage random search; comparisons
+      include Shampoo, SOAP, KL-SOAP, and implementation-aligned variants.
+    evaluation_metric: >-
+      Language-model test or validation loss at equal iterations, per-iteration runtime, and
+      selected wall-clock comparisons in the extended appendix.
+    wall_clock_reported: true
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      The principal experiments remain limited to small and medium-small language models and
+      particular codebases.
+    - >-
+      The arXiv v10 appendix contains post-conference experiments and theory that must not be
+      attributed silently to the original ICLR version.
+    - The main experiments do not report a complete hardware or total-FLOP budget.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: benchmarking-optimizers-llm-pretraining
+  title: Benchmarking Optimizers for Large Language Model Pretraining
+  authors:
+    - Andrei Semenov
+    - Matteo Pagliardini
+    - Martin Jaggi
+  year: 2025
+  publication_date: 2025-09-01
+  status: preprint
+  venue: TODO_UNVERIFIED
+  paper_url: https://arxiv.org/abs/2509.01440
+  code_url: https://github.com/epfml/llm-optimizer-benchmark
+  source_version: arXiv:2509.01440v1
+  tags:
+    - benchmark
+    - hyperparameter-tuning
+    - llm-pretraining
+    - optimizer-comparison
+  research_tracks:
+    - benchmarking
+    - systems
+  frontier_watch: true
+  core_claim: >-
+    Across the paper's controlled FineWeb pretraining benchmark with optimizer-specific tuning and
+    varied batch sizes and horizons, optimizer rankings change with batch size, schedule, weight
+    decay, horizon, and retuned momentum parameters, so no optimizer is presented as universally
+    best outside the tested regimes.
+  exact_update: >-
+    Not applicable: this benchmark paper does not introduce a single optimizer update; its appendix
+    restates the update rules of the evaluated optimizers.
+  traditional_optimization_link:
+    - comparative empirical optimization
+    - variance reduction
+    - sign-based descent
+    - matrix preconditioning
+    - learning-rate scheduling
+    - hyperparameter sensitivity
+  evidence:
+    model_scales: >-
+      Dense Llama-like models with 124M, 210M, 583M, and 720M parameters, plus a 520M-parameter
+      Llama-based mixture-of-experts model.
+    datasets: >-
+      A cleaned and deduplicated FineWeb subset for the main experiments; OpenWebText2 in an
+      auxiliary scheduler ablation.
+    token_budget: >-
+      Training duration and effective batch size are varied below, near, and beyond
+      Chinchilla-optimal regimes; exact budgets are run- and model-specific and tabulated in the
+      paper.
+    compute_budget: >-
+      The wall-clock appendix uses fixed-iteration single-GPU runs without gradient accumulation or
+      torch.compile; aggregate training FLOPs are not reported.
+    baseline_tuning: >-
+      Optimizer-specific searches cover learning rate, weight decay, warmup, scheduler, clipping,
+      momentum-related parameters, and batch size, with retuning and transfer studies.
+    evaluation_metric: >-
+      FineWeb validation loss and perplexity, optimizer rankings across training horizons, and
+      fixed-iteration single-GPU wall-clock time.
+    wall_clock_reported: true
+    optimizer_state_reported: true
+  limitations:
+    - Neither the NeurIPS 2025 nor ICLR 2026 OpenReview record verifies acceptance or publication.
+    - >-
+      Most wall-clock ablations are single-GPU, small-batch runs without gradient accumulation or
+      torch.compile.
+    - >-
+      Rankings cannot be extrapolated to different corpora, architectures, hardware, or tuning
+      budgets.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: fantastic-pretraining-optimizers
+  title: Fantastic Pretraining Optimizers and Where to Find Them
+  authors:
+    - Kaiyue Wen
+    - David Hall
+    - Tengyu Ma
+    - Percy Liang
+  year: 2026
+  publication_date: 2026-01-26
+  status: published
+  venue: The Fourteenth International Conference on Learning Representations (ICLR 2026)
+  paper_url: https://openreview.net/forum?id=2J51qUZ0iG
+  code_url: https://github.com/marin-community/marin/tree/kaiyue/optimizers
+  source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
+  tags:
+    - benchmark
+    - hyperparameter-tuning
+    - matrix-preconditioning
+    - scaling-laws
+  research_tracks:
+    - preconditioning
+    - benchmarking
+    - systems
+  frontier_watch: false
+  core_claim: >-
+    In the paper's JAX and TPU-v5 Llama-like pretraining study with optimizer-specific tuning,
+    matrix-preconditioned methods lead scalar methods at smaller scales, but their token-equivalent
+    advantage over a well-tuned AdamW baseline diminishes with model scale and changes with the
+    data-to-model ratio.
+  exact_update: >-
+    Not applicable: this benchmark and scaling-analysis paper evaluates existing optimizers and
+    reproduces their algorithms in appendices but does not propose one canonical optimizer update.
+  traditional_optimization_link:
+    - matrix versus diagonal preconditioning
+    - Nesterov momentum and variance reduction
+    - coordinate-wise adaptive methods
+    - scaling laws
+    - hyperparameter optimization
+    - sample-efficiency evaluation
+  evidence:
+    model_scales: >-
+      Llama-like models with approximately 130M, 300M, 520M, and 1.2B parameters; sequence length
+      4096.
+    datasets: >-
+      A Llama-3-tokenized mixture of DCLM-baseline, StarCoder V2 Data, and ProofPile 2; evaluation
+      centers on C4/EN validation loss with downstream benchmarks.
+    token_budget: >-
+      The main study covers 1x, 2x, 4x, and 8x Chinchilla-optimal data ratios, with selected 16x
+      follow-up experiments.
+    compute_budget: >-
+      Training uses JAX on TPU v5 hardware; total FLOPs and aggregate accelerator-hours are not
+      reported.
+    baseline_tuning: >-
+      A three-phase, optimizer-specific coordinate-descent procedure tunes broad grids, identifies
+      scale-sensitive parameters, and fits hyperparameter scaling laws; AdamW is independently
+      tuned.
+    evaluation_metric: >-
+      Final C4/EN validation loss, downstream accuracy and bits-per-byte, and token-equivalent
+      speedup derived from AdamW loss scaling.
+    wall_clock_reported: false
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      The maximum model has 1.2B parameters and uses a specific data mixture, TPU hardware, and
+      tuning workflow.
+    - >-
+      The reported speedup is token-equivalent and excludes wall-clock, communication, and full
+      optimizer-state costs.
+    - >-
+      The abstract says ten optimizers while the main table lists eleven, so the atlas does not fix
+      one count without qualification.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: hyperparameter-transfer-matrix-preconditioners
+  title: >-
+    Hyperparameter Transfer Enables Consistent Gains of Matrix-Preconditioned Optimizers Across
+    Scales
+  authors:
+    - Shikai Qiu
+    - Zixi Chen
+    - Hoang Phan
+    - Qi Lei
+    - Andrew Gordon Wilson
+  year: 2025
+  publication_date: TODO_UNVERIFIED
+  status: published
+  venue: Advances in Neural Information Processing Systems 38 (NeurIPS 2025), Main Conference Track
+  paper_url: >-
+    https://proceedings.neurips.cc/paper_files/paper/2025/file/bdcd9f6327db5877dee502cdec183159-Paper-Conference.pdf
+  code_url: https://github.com/charliezchen/scaling-matrix-preconditioning
+  source_version: NeurIPS 2025 proceedings version; arXiv:2512.05620v2
+  tags:
+    - hyperparameter-transfer
+    - matrix-preconditioning
+    - mup
+    - scaling-laws
+  research_tracks:
+    - preconditioning
+    - benchmarking
+  frontier_watch: false
+  core_claim: >-
+    The paper claims that optimizer-specific maximal-update learning-rate rules and width-scaled
+    independent weight decay are necessary to preserve the tested matrix-preconditioned optimizers'
+    compute-efficiency gains across model scales.
+  exact_update: >-
+    The representative matrix-preconditioned update is
+
+    $\Delta W=-\eta(L+\epsilon_LI)^{-e_L}G(R+\epsilon_RI)^{-e_R}$,
+
+    with optimizer-specific exponents, blocking, and grafting choices.
+
+    The paper's scaling prescription combines optimizer-specific $\mu$P learning-rate scaling with
+    independent weight decay $\lambda(D)=\Theta(1/D)$; its Table 1 gives the layer- and
+    optimizer-specific exponents.
+  traditional_optimization_link:
+    - maximal update parameterization
+    - Kronecker-factored preconditioning
+    - Shampoo and SOAP
+    - spectral normalization
+    - hyperparameter transfer
+    - compute-optimal scaling
+  evidence:
+    model_scales: >-
+      Llama-style language models from 190M to 1.4B parameters, plus smaller width- and
+      depth-transfer experiments.
+    datasets: >-
+      OpenWebText for width and depth transfer; FineWeb for compute-optimal scaling and optimizer
+      comparisons.
+    token_budget: >-
+      Compute-optimal experiments use 20 tokens per parameter; the main scaling comparison spans
+      190M to 1.4B models.
+    compute_budget: >-
+      Forward- and backward-pass training FLOPs are used; optimizer-transform FLOPs are excluded
+      from the compute multiplier.
+    baseline_tuning: >-
+      AdamW, Muon, SOAP, and Shampoo are tuned on a 190M base model before transferring muP and
+      width-scaled weight-decay rules.
+    evaluation_metric: >-
+      Language-model loss and a compute multiplier estimated from training FLOPs needed to reach a
+      target loss.
+    wall_clock_reported: false
+    optimizer_state_reported: TODO_UNVERIFIED
+  limitations:
+    - >-
+      The main compute multiplier excludes optimizer-transform FLOPs and is not a wall-clock
+      measurement.
+    - >-
+      Conclusions depend on parameterization, weight-decay scaling, blocking, grafting, batch size,
+      and the base-model tuning protocol.
+    - The official proceedings page does not provide an unambiguous single-day publication date.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: controlled-llm-training-spectral-sphere
+  title: Controlled LLM Training on Spectral Sphere
+  authors:
+    - Tian Xie
+    - Haoming Luo
+    - Haoyu Tang
+    - Yiwen Hu
+    - Jason Klein Liu
+    - Qingnan Ren
+    - Yang Wang
+    - Wayne Xin Zhao
+    - Rui Yan
+    - Bing Su
+    - Chong Luo
+    - Baining Guo
+  year: 2026
+  publication_date: TODO_UNVERIFIED
+  status: accepted
+  venue: 43rd International Conference on Machine Learning (ICML 2026), final paper designated PMLR 306
+  paper_url: https://openreview.net/pdf/b9ca84cc3b708b5d87723f4b63527fb35f937506.pdf
+  code_url: https://github.com/Unakar/Spectral-Sphere-Optimizer
+  source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
+  tags:
+    - manifold-optimization
+    - matrix-sign
+    - mup
+    - spectral-sphere
+  research_tracks:
+    - norm-duality
+    - manifold-constraints
+    - systems
+  frontier_watch: false
+  core_claim: >-
+    The paper claims that Spectral Sphere Optimizer constrains both module weights and updates in
+    spectral geometry, yielding maximal-update-aligned activation control and favorable stability
+    and convergence behavior in its tested dense, mixture-of-experts, and deep-network pretraining
+    regimes.
+  exact_update: >-
+    Set $R=\sqrt{d_{\mathrm{out}}/d_{\mathrm{in}}}$,
+
+    $G_t=\nabla_WL(W_t)$, $M_t=\beta M_{t-1}+(1-\beta)G_t$, and $\widehat M_t=M_t/\|M_t\|_F$.
+
+    Power iteration gives $(\sigma_t,u_t,v_t)$ and $\Theta_t=u_tv_t^\top$; retract $W_t\leftarrow
+    RW_t/\sigma_t$.
+
+    Find $\lambda_t^*$ such that
+
+    $\langle\Theta_t,\operatorname{msign}(\widehat M_t+\lambda_t^*\Theta_t)\rangle=0$,
+
+    set $\Phi_t=\operatorname{msign}(\widehat M_t+\lambda_t^*\Theta_t)$, and update
+
+    $W_{t+1}=W_t-\eta R\Phi_t$.
+  traditional_optimization_link:
+    - constrained steepest descent
+    - spectral-norm duality
+    - matrix-sign linear minimization oracle
+    - tangent-space projection and retraction
+    - maximal update parameterization
+  evidence:
+    model_scales: >-
+      Dense 1.7B, MoE 8B-A1B, and a 200-layer DeepNet; width-transfer experiments span about
+      70M-1.8B.
+    datasets: OLMo-Mix-1124, tokenized with the OLMo-2 tokenizer.
+    token_budget: >-
+      100B training tokens and 1B validation tokens in the main scaling runs; width-transfer runs
+      use 30B tokens.
+    compute_budget: >-
+      BF16 training with about 4M tokens per step; the implementation table measures end-to-end
+      latency on NVIDIA B200 hardware.
+    baseline_tuning: >-
+      The AdamW learning rate is swept on the 1.7B model; Muon and spectral methods share the
+      selected schedule, while Spectral Sphere removes hidden-matrix weight decay and tunes solver
+      settings.
+    evaluation_metric: >-
+      Validation loss, downstream accuracy and perplexity, activation and routing stability, and
+      per-step latency.
+    wall_clock_reported: true
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      The spectral sphere is nonsmooth and is not a manifold when the leading singular value is
+      repeated.
+    - >-
+      The current implementation has higher per-step latency than Muon and identifies CPU solver
+      synchronization as an unresolved bottleneck.
+    - >-
+      The principal learning rate is selected for AdamW rather than independently optimized for
+      every compared method.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: demystifying-manifold-constraints-llm-pretraining
+  title: Demystifying Manifold Constraints in LLM Pre-training
+  authors:
+    - Kang An
+    - Jiaxiang Li
+    - Donald Goldfarb
+    - Shiqian Ma
+  year: 2026
+  publication_date: 2026-05-06
+  status: preprint
+  venue: ''
+  paper_url: https://arxiv.org/abs/2605.04418
+  code_url: TODO_UNVERIFIED
+  source_version: arXiv:2605.04418v1
+  tags:
+    - macro-optimizer
+    - manifold-constraints
+    - matrix-sign
+    - riemannian-optimization
+  research_tracks:
+    - norm-duality
+    - manifold-constraints
+    - benchmarking
+  frontier_watch: true
+  core_claim: >-
+    The paper claims that explicit Frobenius, spectral, or oblique constraints can control
+    activation scale and rotational dynamics directly, and that its single-loop MACRO update can
+    preserve these constraints without relying on decoupled weight decay.
+  exact_update: >-
+    Let $G_t=\nabla L(W_t)$ and update the momentum before projecting it:
+
+
+    $M_t=\beta M_{t-1}+(1-\beta)G_t$,
+
+
+    $\Phi_t=\operatorname{proj}_{T_{\mathcal M}(W_t)}(M_t)$, and $O_t=\operatorname{msign}(\Phi_t)$.
+
+
+    The normalized manifold update is
+
+
+    $\widetilde g_t=cR\,O_t/(\|O_t\|_{\mathcal M}+\epsilon)$ and
+
+
+    $W_{t+1}=P_{\mathcal M}(W_t-\eta_t\widetilde g_t)$,
+
+
+    where $P_{\mathcal M}$ is a projectional retraction. For a Frobenius sphere,
+
+    $P_{\mathcal M}(\widetilde W)=R\widetilde W/\|\widetilde W\|_F$; the experimental
+    spectral-sphere approximation uses $R\widetilde W/\|\widetilde W\|_2$.
+  traditional_optimization_link:
+    - Riemannian gradient methods
+    - tangent-space projection
+    - projectional retraction
+    - norm-constrained linear minimization
+    - rotational equilibrium
+    - decoupled weight decay
+  evidence:
+    model_scales: >-
+      Qwen3-like models with 120M, 330M, and 1B parameters; an additional 330M normalization-free
+      experiment.
+    datasets: OpenWebText.
+    token_budget: 3.7B, 8.9B, and 50B tokens for the 120M, 330M, and 1B models.
+    compute_budget: >-
+      Eight GPUs are reported for the three scales; aggregate FLOPs and hardware model are not
+      reported.
+    baseline_tuning: >-
+      Muon, MACRO variants, and manifold baselines are learning-rate swept; constrained methods also
+      sweep radii and selected matrix-splitting choices.
+    evaluation_metric: >-
+      Training and validation loss, tangent-space violation, activation stability, weight-decay
+      ablations, and learning-rate transfer.
+    wall_clock_reported: false
+    optimizer_state_reported: false
+  limitations:
+    - >-
+      The paper states that the spectral sphere is not a manifold, so its compact smooth-manifold
+      convergence theorem does not cover that constraint.
+    - The paper explicitly omits wall-clock comparisons.
+    - >-
+      The normalization-free experiment also changes activation and parameter-free normalization
+      choices, so it does not isolate the optimizer alone.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: hyperball-optimization
+  title: 'Fantastic Pretraining Optimizers and Where to Find Them II: Hyperball Optimization'
+  authors:
+    - Kaiyue Wen
+    - Xingyu Dang
+    - Kaifeng Lyu
+    - Tengyu Ma
+    - Percy Liang
+  year: 2026
+  publication_date: 2026-06-15
+  status: preprint
+  venue: ''
+  paper_url: https://arxiv.org/abs/2606.16899
+  code_url: TODO_UNVERIFIED
+  source_version: arXiv:2606.16899v1
+  tags:
+    - frobenius-sphere
+    - hyperball
+    - hyperparameter-transfer
+    - weight-decay
+  research_tracks:
+    - norm-duality
+    - manifold-constraints
+    - benchmarking
+  frontier_watch: true
+  core_claim: >-
+    The paper claims that fixing each selected matrix's Frobenius weight norm and base-update norm
+    can preserve matrix-optimizer gains over longer and larger tested regimes while improving
+    learning-rate transfer relative to constant decoupled weight decay.
+  exact_update: >-
+    Let $u_t$ be the base-optimizer update, $R=\|W_0\|_F$, and
+
+    $\operatorname{Normalize}(X)=X/\|X\|_F$.
+
+    Hyperball uses
+
+    $\widetilde W_{t+1}=W_t-\eta_tR\operatorname{Normalize}(u_t)$ and
+
+    $W_{t+1}=R\operatorname{Normalize}(\widetilde W_{t+1})$.
+
+    Embeddings, normalization gains, and parameters whose norm carries semantic meaning remain on a
+    standard optimizer.
+  traditional_optimization_link:
+    - projected gradient on a Frobenius sphere
+    - normalized descent
+    - rotational equilibrium
+    - scale-invariant optimization
+    - decoupled weight decay
+    - hyperparameter transfer
+  evidence:
+    model_scales: >-
+      Qwen3-style models up to 1.2B parameters, selected 8B experiments, and width or depth transfer
+      sweeps.
+    datasets: A mixture of DCLM-baseline, StarCoder V2, and ProofPile 2; selected runs use FineWeb-Edu.
+    token_budget: >-
+      Main comparisons cover 1x-8x Chinchilla ratios; transfer sweeps use 10B tokens per run; a
+      selected 8B comparison uses 159B tokens.
+    compute_budget: >-
+      The principal comparison is token-equivalent; matched end-to-end FLOPs, accelerator-hours, and
+      wall-clock budgets are not reported.
+    baseline_tuning: >-
+      AdamW and MuonW weight-decay baselines are compared with AdamH and MuonH under the paper's
+      optimizer-specific sweeps and fitted AdamW scaling law.
+    evaluation_metric: >-
+      Validation loss, token-equivalent speedup from an AdamW scaling law, and optimal-learning-rate
+      drift.
+    wall_clock_reported: false
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      Frobenius control approximates spectral control only when the matrix has sufficiently high
+      stable rank.
+    - The main efficiency measure is token-equivalent rather than wall-clock or full-system cost.
+    - No official accompanying code repository is linked by the arXiv record or paper.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''
+- id: pion-spectrum-preserving-optimizer
+  title: 'Pion: A Spectrum-Preserving Optimizer via Orthogonal Equivalence Transformation'
+  authors:
+    - Kexuan Shi
+    - Hanxuan Li
+    - Zeju Qiu
+    - Yandong Wen
+    - Simon Buchholz
+    - Weiyang Liu
+  year: 2026
+  publication_date: 2026-05-12
+  status: preprint
+  venue: ''
+  paper_url: https://arxiv.org/abs/2605.12492
+  code_url: https://github.com/Sphere-AI-Lab/pion
+  source_version: arXiv:2605.12492v1
+  tags:
+    - iso-spectral-manifold
+    - lie-algebra
+    - matrix-exponential
+    - spectrum-preservation
+  research_tracks:
+    - manifold-constraints
+    - systems
+  frontier_watch: true
+  core_claim: >-
+    The paper claims that updating weight matrices through coupled left and right orthogonal
+    transformations preserves their singular spectrum and provides a stable, competitive alternative
+    to additive optimizers in its pretraining and finetuning experiments.
+  exact_update: >-
+    For gradient $G_t$,
+
+    $G_t^{\mathrm{in}}=W_t^\top G_t-(W_t^\top G_t)^\top$ and
+
+    $G_t^{\mathrm{out}}=G_tW_t^\top-(G_tW_t^\top)^\top$.
+
+    The core update is
+
+    $W_{t+1}=\exp(-\eta G_t^{\mathrm{out}})W_t\exp(-\eta G_t^{\mathrm{in}})$.
+
+    The practical algorithm applies first- and second-moment estimates in the two Lie algebras and
+    replaces each exponential with
+
+    $\mathcal E_2(A,\alpha)=I+\eta\alpha A+(\eta\alpha A)^2/2$.
+  traditional_optimization_link:
+    - optimization on iso-spectral manifolds
+    - Lie-group and Lie-algebra methods
+    - orthogonal equivalence transformations
+    - matrix exponential and Cayley transforms
+    - Riemannian optimization
+  evidence:
+    model_scales: >-
+      LLaMA-based pretraining up to 1.3B parameters, plus 200-layer and normalization-free models;
+      separate SFT and RLVR studies use small billion-scale models.
+    datasets: C4 for pretraining; MetaMathQA and Magicoder-Evol-Instruct for SFT; DeepMath for RLVR.
+    token_budget: >-
+      54B C4 tokens for the 1.3B pretraining experiment, 9.6B tokens for normalization-free
+      training, and 50B tokens for the 200-layer study.
+    compute_budget: TODO_UNVERIFIED
+    baseline_tuning: >-
+      The paper compares Pion with AdamW and Muon across pretraining, SFT, and RLVR protocols;
+      complete matched tuning cost is not captured in this record.
+    evaluation_metric: >-
+      Validation loss, downstream accuracy, stability diagnostics, SFT in-domain and out-of-domain
+      accuracy, and RLVR avg-at-k accuracy.
+    wall_clock_reported: false
+    optimizer_state_reported: true
+  limitations:
+    - >-
+      Exact matrix exponentials preserve the singular spectrum, while the practical second-order
+      truncation preserves it only approximately.
+    - >-
+      Evidence spans several distinct protocols and does not establish universal superiority over
+      AdamW or Muon.
+    - >-
+      The official repository provides core implementations but does not yet present a tagged
+      release.
+  reading_status: unread
+  last_verified: 2026-07-16
+  human_notes: ''

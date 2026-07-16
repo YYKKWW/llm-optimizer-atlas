@@ -3,9 +3,11 @@ title: Benchmarking and Scaling
 description: A track for fair optimizer comparisons across budgets, scales, and metrics.
 ---
 
-## Scaffold status
+## Verified dataset view
 
-No benchmark result or paper comparison is recorded in this scaffold.
+Verified records assigned to this track appear in the
+[data-driven research-track view](/llm-optimizer-atlas/paper-notes/generated/by-research-track/).
+This page keeps the track's guiding questions without duplicating paper metadata.
 
 ## Purpose
 
@@ -20,7 +22,7 @@ budget, and resource metric actually used.
 - Are optimizer-state memory and matrix-operation overhead included?
 - Does a claimed gain persist under matched training and evaluation conditions?
 
-## Planned evidence
+## Evidence standard
 
 Detailed records will live in
 [Benchmark Comparisons](/llm-optimizer-atlas/benchmark-comparisons/).
@@ -28,6 +30,7 @@ Conflicting results will be summarized in
 [Where Papers Disagree](/llm-optimizer-atlas/where-papers-disagree/) only after
 protocol differences are explicit.
 
-## Next step
+## Maintenance
 
-Define the benchmark record fields before entering any quantitative result.
+Track membership and paper-level evidence are maintained in `papers.yml`; update
+that canonical dataset rather than adding a second paper list here.

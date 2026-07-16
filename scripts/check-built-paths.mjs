@@ -1,4 +1,4 @@
-import { access, readdir, readFile, stat } from 'node:fs/promises';
+import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -43,15 +43,6 @@ async function collectFiles(directory, predicate) {
   }
 
   return files;
-}
-
-async function exists(target) {
-  try {
-    await access(target);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 async function targetExists(target) {

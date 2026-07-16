@@ -1,0 +1,174 @@
+---
+import {
+  getPaperDataset,
+  hasVerifiedUrl,
+  reportedStateLabel,
+} from '../lib/papers.mjs';
+
+const { paperId } = Astro.props;
+const paper = (await getPaperDataset()).find(
+  (entry: any) => entry.id === paperId,
+);
+
+if (!paper) {
+  throw new Error('Generated paper page references unknown id: ' + paperId);
+}
+
+const paperLinkAvailable = hasVerifiedUrl(paper.paper_url);
+const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
+---
+
+<div class="record-meta">
+  <span>{paper.year}</span>
+  <span class="status">{paper.status}</span>
+  <span>Last verified: {paper.last_verified ?? 'Not verified'}</span>
+</div>
+
+<ul class="tags" aria-label="Paper tags">
+  {paper.tags.map((tag: string) => <li>{tag}</li>)}
+</ul>
+
+<nav class="record-links" aria-label={`Source links for ${paper.title}`}>
+  {paperLinkAvailable && (
+    <a href={paper.paper_url} target="_blank" rel="noreferrer">Primary paper</a>
+  )}
+  {codeLinkAvailable && (
+    <a href={paper.code_url} target="_blank" rel="noreferrer">Official code</a>
+  )}
+</nav>
+
+<h2>Paper claim</h2>
+<p>{paper.core_claim}</p>
+
+<h2>Bibliographic record</h2>
+<dl>
+  <dt>Authors</dt>
+  <dd>{paper.authors.join(', ')}</dd>
+  <dt>Venue</dt>
+  <dd>{paper.venue || 'Not recorded'}</dd>
+  <dt>Publication date</dt>
+  <dd>{paper.publication_date}</dd>
+  <dt>Source version</dt>
+  <dd>{paper.source_version}</dd>
+  <dt>Reading status</dt>
+  <dd>{paper.reading_status}</dd>
+</dl>
+
+<h2>Exact update recorded from the source</h2>
+<pre class="formula-record">{paper.exact_update}</pre>
+
+<h2>Atlas interpretation: traditional optimization connections</h2>
+<ul>
+  {paper.traditional_optimization_link.map((connection: string) => <li>{connection}</li>)}
+</ul>
+
+<h2>Evidence conditions</h2>
+<dl class="evidence-grid">
+  <dt>Model scale</dt>
+  <dd>{paper.evidence.model_scales}</dd>
+  <dt>Datasets</dt>
+  <dd>{paper.evidence.datasets}</dd>
+  <dt>Token budget</dt>
+  <dd>{paper.evidence.token_budget}</dd>
+  <dt>Compute budget</dt>
+  <dd>{paper.evidence.compute_budget}</dd>
+  <dt>Baseline tuning</dt>
+  <dd>{paper.evidence.baseline_tuning}</dd>
+  <dt>Evaluation metric</dt>
+  <dd>{paper.evidence.evaluation_metric}</dd>
+  <dt>Wall-clock reporting</dt>
+  <dd>{reportedStateLabel(paper.evidence.wall_clock_reported)}</dd>
+  <dt>Optimizer-state reporting</dt>
+  <dd>{reportedStateLabel(paper.evidence.optimizer_state_reported)}</dd>
+</dl>
+
+<h2>Limitations</h2>
+<ul>
+  {paper.limitations.map((limitation: string) => <li>{limitation}</li>)}
+</ul>
+
+{
+  paper.human_notes && (
+    <>
+      <h2>Human notes</h2>
+      <pre class="human-notes">{paper.human_notes}</pre>
+    </>
+  )
+}
+
+<style>
+  .record-meta,
+  .record-links,
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .record-meta {
+    color: var(--sl-color-gray-2);
+    font-size: 0.85rem;
+  }
+
+  .status,
+  .tags li {
+    padding: 0.15rem 0.48rem;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+  }
+
+  .status {
+    font-weight: 650;
+  }
+
+  .tags {
+    margin: 0.85rem 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tags li {
+    color: var(--sl-color-gray-2);
+    font-size: 0.75rem;
+  }
+
+  .record-links {
+    margin: 1rem 0 1.5rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+    gap: 0.5rem 1rem;
+  }
+
+  dt {
+    font-weight: 650;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .formula-record,
+  .human-notes {
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-gray-6);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 34rem) {
+    dl {
+      grid-template-columns: 1fr;
+    }
+
+    dd + dt {
+      margin-top: 0.5rem;
+    }
+  }
+</style>

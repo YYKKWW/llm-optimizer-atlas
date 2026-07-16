@@ -87,6 +87,18 @@ addition of a nonempty note. It compares the parsed string exactly and does not
 trim or normalize it. Generated pages are read-only consumers and may write
 only inside src/content/docs/paper-notes/generated.
 
+## Generated paper views
+
+`npm run generate:pages` creates deterministic MDX shells only inside
+`src/content/docs/paper-notes/generated`. Each shell stores a fixed view name
+or stable paper ID; Astro components load and validate `papers.yml` at build
+time, so generated pages do not become a second metadata source.
+
+`npm run check:generated` is read-only and fails when a generated route is
+missing, stale, or out of date. It also fails closed if a hand-written file is
+found inside the generated directory. The command is part of `npm run validate`
+and therefore runs before every production build.
+
 An intentional human edit may update human_notes directly after review. Record
 deletion or an ID change must also be a reviewed manual change so that notes can
 be archived first; the automated writer deliberately has no bypass.
@@ -94,7 +106,9 @@ be archived first; the automated writer deliberately has no bypass.
 ## Commands
 
 - npm run validate:papers validates the canonical dataset.
-- npm run validate validates both documentation content and paper data.
+- npm run validate checks documentation content, paper data, and generated-page drift.
+- npm run generate:pages updates generated paper routes after dataset changes.
+- npm run check:generated verifies that generated routes match the dataset.
 - npm run test:schema runs the schema and protection tests.
 - npm test runs all Node tests.
 - npm run build runs validation automatically before the Astro build.
