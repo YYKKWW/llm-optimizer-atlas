@@ -1,0 +1,33 @@
+- id: invalid-fixture
+  title: Invalid Schema Fixture
+  authors:
+    - Fixture Author
+  year: 2026
+  publication_date: 2026-02-31
+  status: submitted
+  venue: ""
+  paper_url: relative/paper
+  code_url: ftp://example.invalid/code
+  source_version: TODO_UNVERIFIED
+  tags:
+    - invalid-fixture
+  research_tracks:
+    - unknown-track
+  frontier_watch: TODO_UNVERIFIED
+  core_claim: TODO_UNVERIFIED
+  exact_update: TODO_UNVERIFIED
+  traditional_optimization_link:
+    - TODO_UNVERIFIED
+  evidence:
+    model_scales: TODO_UNVERIFIED
+    datasets: TODO_UNVERIFIED
+    token_budget: TODO_UNVERIFIED
+    baseline_tuning: TODO_UNVERIFIED
+    evaluation_metric: TODO_UNVERIFIED
+    wall_clock_reported: "false"
+    optimizer_state_reported: false
+  limitations:
+    - TODO_UNVERIFIED
+  reading_status: queued
+  last_verified: 2026-02-31
+  human_notes: 42

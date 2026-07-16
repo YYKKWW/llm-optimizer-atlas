@@ -1,0 +1,38 @@
+Inspect the repository and read AGENTS.md.
+
+Generate paper-library pages from the structured paper dataset.
+
+Required views:
+- all papers;
+- grouped by research track;
+- grouped by publication status;
+- grouped by year;
+- unread reading queue;
+- frontier preprint watchlist.
+
+Each paper card must show:
+- title;
+- year;
+- status;
+- tags;
+- one-sentence claim;
+- last verification date;
+- links to paper and code when available.
+
+Create a Claim–Evidence Matrix that exposes:
+- model scale;
+- token or compute budget;
+- baseline tuning;
+- wall-clock reporting;
+- optimizer-state reporting;
+- major limitations.
+
+Create a Where Papers Disagree page focused on:
+- scaling of optimizer gains;
+- hyperparameter transfer;
+- token efficiency versus wall-clock efficiency;
+- explicit norm constraints versus weight decay;
+- matrix-sign approximation.
+
+Do not duplicate paper metadata manually in MDX files.
+Run validation, tests, link checks if available, and production build.

@@ -1,0 +1,48 @@
+Inspect the repository and read AGENTS.md before editing.
+
+Add a validated schema for the paper dataset.
+
+Required fields:
+- id;
+- title;
+- authors;
+- year;
+- status;
+- venue;
+- paper_url;
+- code_url;
+- tags;
+- core_claim;
+- traditional_optimization_link;
+- evidence;
+- limitations;
+- reading_status;
+- last_verified;
+- human_notes.
+
+Allowed status values:
+- preprint;
+- accepted;
+- published.
+
+Evidence must support:
+- model_scales;
+- datasets;
+- token_budget;
+- compute_budget;
+- baseline_tuning;
+- wall_clock_reported;
+- optimizer_state_reported.
+
+Requirements:
+- protect human_notes from automated overwriting;
+- validate unique IDs;
+- validate status values;
+- validate URLs when nonempty;
+- allow TODO_UNVERIFIED;
+- add valid and invalid fixtures or tests;
+- add npm scripts for validation;
+- document how the schema is used.
+
+Run all validation, test, and production build commands.
+Report modified files, executed commands, and unresolved issues.

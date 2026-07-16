@@ -1,0 +1,29 @@
+Review the repository as a skeptical research editor and software maintainer.
+
+Look specifically for:
+- invented publication venues;
+- unsupported theorem descriptions;
+- unsupported numerical claims;
+- missing experimental conditions;
+- broken paper or code links;
+- preprints incorrectly labeled accepted or published;
+- duplicated metadata;
+- claims that say "outperforms" without identifying baseline and budget;
+- human notes accidentally modified;
+- inconsistent dates;
+- stale verification dates;
+- pages generated from hard-coded duplicate data;
+- build or validation commands that do not actually check their claims.
+
+Fix only high-confidence errors.
+Mark everything else TODO_UNVERIFIED.
+
+Run every available validation, test, link-check, and production-build command.
+
+Provide an audit report with:
+1. corrected issues;
+2. unresolved verification items;
+3. files modified;
+4. commands executed;
+5. checks passed or failed;
+6. recommendations for the next research batch.

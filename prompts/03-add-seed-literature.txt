@@ -1,0 +1,26 @@
+Inspect the repository and read AGENTS.md and seed-papers.md.
+
+Populate the paper dataset using only the papers listed in seed-papers.md.
+
+For every paper:
+- verify exact title, authors, date, and publication status from a primary
+  source;
+- save the primary paper URL;
+- add the official code repository only when verified;
+- separate the paper's stated claims from our interpretation;
+- identify the traditional optimization connection;
+- mark uncertain fields TODO_UNVERIFIED;
+- do not infer a venue from an author's wording;
+- do not add numerical performance claims unless model size, training budget,
+  baseline, and metric are recorded;
+- record the verification date;
+- preserve every human_notes field.
+
+Create a concise verification report containing:
+- successfully verified papers;
+- unresolved metadata;
+- conflicting claims across papers;
+- papers that remain preprints.
+
+Do not redesign the website in this task.
+Run validation and production build.

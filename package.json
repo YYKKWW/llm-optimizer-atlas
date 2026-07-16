@@ -1,0 +1,33 @@
+{
+  "name": "llm-optimizer-atlas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "prebuild": "npm run validate",
+    "build": "astro build",
+    "postbuild": "npm run check:built-paths",
+    "preview": "astro preview",
+    "check": "astro check",
+    "validate": "npm run validate:content && npm run validate:papers",
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:papers": "node scripts/validate-papers.mjs",
+    "generate:pages": "node scripts/generate-paper-pages.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "check:built-paths": "node scripts/check-built-paths.mjs",
+    "test": "node --test",
+    "test:schema": "node --test test/paper-schema.test.mjs"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.39.2",
+    "astro": "6.4.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "js-yaml": "4.3.0",
+    "zod": "4.4.3",
+    "typescript": "^6.0.3"
+  }
+}

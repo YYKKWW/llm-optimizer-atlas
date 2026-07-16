@@ -1,0 +1,37 @@
+Inspect the current repository before making changes.
+
+Build an Astro Starlight documentation site for a personal literature atlas on
+LLM optimizers and mathematical optimization.
+
+Create:
+- the navigation structure;
+- placeholder pages for five literature tracks;
+- a paper-note directory;
+- an open-problems directory;
+- a benchmark comparison directory;
+- an experiment-notes directory;
+- a watchlist directory;
+- scripts or placeholders for validation, page generation, and link checking.
+
+Constraints:
+- do not add unverified paper metadata yet;
+- do not introduce a database or server-side backend;
+- preserve AGENTS.md;
+- use Markdown/MDX and static generation;
+- keep the first version minimal and maintainable.
+
+Required top-level pages:
+- Home;
+- Literature Map;
+- Paper Library;
+- Claim–Evidence Matrix;
+- Open Problems;
+- Reading Queue;
+- Experiment Ledger;
+- Where Papers Disagree.
+
+Run the production build and report:
+1. files created or modified;
+2. commands executed;
+3. build result;
+4. remaining setup issues.

@@ -1,0 +1,35 @@
+- id: duplicate-key
+  id: duplicate-key-again
+  title: Duplicate YAML Key Fixture
+  authors:
+    - Fixture Author
+  year: TODO_UNVERIFIED
+  publication_date: TODO_UNVERIFIED
+  status: preprint
+  venue: ""
+  paper_url: ""
+  code_url: ""
+  source_version: TODO_UNVERIFIED
+  tags:
+    - schema-fixture
+  research_tracks:
+    - norm-duality
+  frontier_watch: false
+  core_claim: TODO_UNVERIFIED
+  exact_update: TODO_UNVERIFIED
+  traditional_optimization_link:
+    - TODO_UNVERIFIED
+  evidence:
+    model_scales: TODO_UNVERIFIED
+    datasets: TODO_UNVERIFIED
+    token_budget: TODO_UNVERIFIED
+    compute_budget: TODO_UNVERIFIED
+    baseline_tuning: TODO_UNVERIFIED
+    evaluation_metric: TODO_UNVERIFIED
+    wall_clock_reported: TODO_UNVERIFIED
+    optimizer_state_reported: TODO_UNVERIFIED
+  limitations:
+    - TODO_UNVERIFIED
+  reading_status: unread
+  last_verified: null
+  human_notes: ""
