@@ -109,6 +109,35 @@ const httpUrlSchema = z.string().superRefine((value, context) => {
   }
 });
 
+const arxivUrlSchema = httpUrlSchema.superRefine((value, context) => {
+  if (value === '' || value === TODO_UNVERIFIED) {
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(value);
+  } catch {
+    return;
+  }
+
+  if (
+    parsed.protocol !== 'https:' ||
+    parsed.hostname !== 'arxiv.org' ||
+    !/^\/abs\/(?:\d{4}\.\d{4,5}|[a-z-]+(?:\.[a-z-]+)?\/\d{7})(?:v[1-9]\d*)?$/i.test(
+      parsed.pathname,
+    ) ||
+    parsed.search !== '' ||
+    parsed.hash !== ''
+  ) {
+    context.addIssue({
+      code: 'custom',
+      message:
+        'must be empty, TODO_UNVERIFIED, or a canonical https://arxiv.org/abs/... URL',
+    });
+  }
+});
+
 function uniqueTextArray(itemSchema, label, { todoIsExclusive = false } = {}) {
   return z
     .array(itemSchema)
@@ -261,6 +290,7 @@ export const paperSchema = z
     status: z.enum(PAPER_STATUSES),
     venue: optionalMetadataTextSchema,
     paper_url: httpUrlSchema,
+    arxiv_url: arxivUrlSchema,
     code_url: httpUrlSchema,
     source_version: metadataTextSchema,
     tags: uniqueTextArray(
@@ -312,6 +342,34 @@ export const paperSchema = z
         path: ['publication_date'],
         message: 'year must match the year field',
       });
+    }
+
+    if (
+      paper.arxiv_url !== '' &&
+      paper.arxiv_url !== TODO_UNVERIFIED &&
+      paper.source_version !== TODO_UNVERIFIED
+    ) {
+      let arxivId;
+      try {
+        arxivId = new URL(paper.arxiv_url).pathname
+          .replace(/^\/abs\//, '')
+          .replace(/v\d+$/i, '');
+      } catch {
+        return;
+      }
+      const escapedArxivId = arxivId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (
+        !new RegExp(
+          'arXiv:' + escapedArxivId + '(?:v\\d+)?(?:\\b|$)',
+          'i',
+        ).test(paper.source_version)
+      ) {
+        context.addIssue({
+          code: 'custom',
+          path: ['arxiv_url'],
+          message: 'arXiv identifier must agree with source_version',
+        });
+      }
     }
   });
 

@@ -2,6 +2,7 @@
 import {
   hasVerifiedUrl,
   paperDetailRoute,
+  paperSourceLinks,
   withBase,
 } from '../lib/papers.mjs';
 
@@ -10,7 +11,7 @@ const detailHref = withBase(
   import.meta.env.BASE_URL,
   paperDetailRoute(paper.id),
 );
-const paperLinkAvailable = hasVerifiedUrl(paper.paper_url);
+const sourceLinks = paperSourceLinks(paper);
 const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
 ---
 
@@ -34,9 +35,9 @@ const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
       Last verified: {paper.last_verified ?? 'Not verified'}
     </span>
     <nav aria-label={`Links for ${paper.title}`}>
-      {paperLinkAvailable && (
-        <a href={paper.paper_url} target="_blank" rel="noreferrer">Paper</a>
-      )}
+      {sourceLinks.map((link) => (
+        <a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+      ))}
       {codeLinkAvailable && (
         <a href={paper.code_url} target="_blank" rel="noreferrer">Code</a>
       )}

@@ -40,7 +40,14 @@ track, or watchlist membership.
 - source_version and exact_update use TODO_UNVERIFIED until primary-source
   verification is complete.
 - paper_url and code_url accept an empty string, TODO_UNVERIFIED, or an
-  absolute HTTP(S) URL without embedded credentials.
+  absolute HTTP(S) URL without embedded credentials. paper_url preserves the
+  verified official, proceedings, or primary version that supports the
+  bibliographic status.
+- arxiv_url accepts the same empty and TODO states, or a canonical
+  https://arxiv.org/abs/... URL. Its identifier must agree with source_version.
+  Reader-facing pages show this link first for easier reading, while retaining
+  a distinct official-version link. The unversioned URL opens the latest arXiv
+  revision; source_version records the exact revision used by the atlas audit.
 - last_verified is null or a real, nonfuture YYYY-MM-DD date. Future-date
   checks use the project time zone, Asia/Shanghai.
 - wall_clock_reported and optimizer_state_reported accept true, false, or
@@ -110,8 +117,8 @@ be archived first; the automated writer deliberately has no bypass.
 - npm run validate checks documentation content, paper data, and generated-page drift.
 - npm run generate:pages updates generated paper routes after dataset changes.
 - npm run check:generated verifies that generated routes match the dataset.
-- npm run check:links checks source-level internal links; remote paper and code
-  URLs require a network-enabled research audit.
+- npm run check:links checks source-level internal links; remote paper, arXiv,
+  and code URLs require a network-enabled research audit.
 - npm run verify runs the type check, validation, full test suite, and internal
   link check used by the deployment quality gate.
 - npm run test:schema runs the schema and protection tests.

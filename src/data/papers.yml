@@ -10,6 +10,7 @@
     OPT2024: 16th International Workshop on Optimization for Machine Learning (NeurIPS 2024
     Workshop), accepted poster
   paper_url: https://opt-ml.org/papers/2024/paper93.pdf
+  arxiv_url: https://arxiv.org/abs/2409.20325
   code_url: TODO_UNVERIFIED
   source_version: OPT2024 accepted poster; arXiv:2409.20325v2
   tags:
@@ -76,6 +77,7 @@
   status: published
   venue: Proceedings of the 42nd International Conference on Machine Learning, PMLR 267:3920-3930
   paper_url: https://proceedings.mlr.press/v267/bernstein25a.html
+  arxiv_url: https://arxiv.org/abs/2410.21265
   code_url: https://github.com/modula-systems/modula
   source_version: ICML 2025 / PMLR 267 publisher version; arXiv:2410.21265v2
   tags:
@@ -142,6 +144,7 @@
   status: published
   venue: Proceedings of the 42nd International Conference on Machine Learning, PMLR 267:49069-49104
   paper_url: https://proceedings.mlr.press/v267/pethick25a.html
+  arxiv_url: https://arxiv.org/abs/2502.07529
   code_url: https://github.com/LIONS-EPFL/scion
   source_version: ICML 2025 / PMLR 267 publisher version; arXiv:2502.07529v2
   tags:
@@ -236,6 +239,7 @@
   status: preprint
   venue: ''
   paper_url: https://arxiv.org/abs/2502.16982
+  arxiv_url: https://arxiv.org/abs/2502.16982
   code_url: https://github.com/MoonshotAI/Moonlight
   source_version: arXiv:2502.16982v1
   tags:
@@ -306,6 +310,7 @@
   status: published
   venue: The Fourteenth International Conference on Learning Representations (ICLR 2026), Oral
   paper_url: https://openreview.net/forum?id=yRtgZ1K8hO
+  arxiv_url: https://arxiv.org/abs/2505.16932
   code_url: https://github.com/NoahAmsel/PolarExpress
   source_version: ICLR 2026 conference version; arXiv:2505.16932v5
   tags:
@@ -381,6 +386,7 @@
   venue: The Thirteenth International Conference on Learning Representations (ICLR 2025)
   paper_url: >-
     https://proceedings.iclr.cc/paper_files/paper/2025/hash/e988664070e9591f93fdcf605f7dc623-Abstract-Conference.html
+  arxiv_url: https://arxiv.org/abs/2409.11321
   code_url: https://github.com/nikhilvyas/SOAP
   source_version: ICLR 2025 proceedings version; arXiv:2409.11321v2
   tags:
@@ -464,6 +470,7 @@
   status: published
   venue: Proceedings of the 42nd International Conference on Machine Learning, PMLR 267:68746-68776
   paper_url: https://proceedings.mlr.press/v267/xie25j.html
+  arxiv_url: https://arxiv.org/abs/2503.10537
   code_url: TODO_UNVERIFIED
   source_version: ICML 2025 / PMLR 267 publisher version; arXiv:2503.10537v2
   tags:
@@ -531,6 +538,7 @@
   status: published
   venue: The Fourteenth International Conference on Learning Representations (ICLR 2026)
   paper_url: https://openreview.net/forum?id=pQQuC1nIQq
+  arxiv_url: https://arxiv.org/abs/2509.03378
   code_url: https://github.com/yorkerlin/KL-Methods
   source_version: ICLR 2026 proceedings version; extended arXiv:2509.03378v10
   tags:
@@ -604,6 +612,7 @@
   status: preprint
   venue: TODO_UNVERIFIED
   paper_url: https://arxiv.org/abs/2509.01440
+  arxiv_url: https://arxiv.org/abs/2509.01440
   code_url: https://github.com/epfml/llm-optimizer-benchmark
   source_version: arXiv:2509.01440v1
   tags:
@@ -675,6 +684,7 @@
   status: published
   venue: The Fourteenth International Conference on Learning Representations (ICLR 2026)
   paper_url: https://openreview.net/forum?id=2J51qUZ0iG
+  arxiv_url: https://arxiv.org/abs/2509.02046
   code_url: >-
     https://github.com/marin-community/marin/tree/f464fee2b6b88c04f47c32d5d2b386759fe993f3/experiments/optimizer_sweep
   source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
@@ -754,6 +764,7 @@
   venue: Advances in Neural Information Processing Systems 38 (NeurIPS 2025), Main Conference Track
   paper_url: >-
     https://proceedings.neurips.cc/paper_files/paper/2025/file/bdcd9f6327db5877dee502cdec183159-Paper-Conference.pdf
+  arxiv_url: https://arxiv.org/abs/2512.05620
   code_url: https://github.com/charliezchen/scaling-matrix-preconditioning
   source_version: NeurIPS 2025 proceedings version; arXiv:2512.05620v2
   tags:
@@ -842,6 +853,7 @@
   status: accepted
   venue: 43rd International Conference on Machine Learning (ICML 2026), final paper designated PMLR 306
   paper_url: https://openreview.net/pdf/b9ca84cc3b708b5d87723f4b63527fb35f937506.pdf
+  arxiv_url: https://arxiv.org/abs/2601.08393
   code_url: https://github.com/Unakar/Spectral-Sphere-Optimizer
   source_version: ICML 2026 final paper, designated PMLR 306; arXiv:2601.08393v3
   tags:
@@ -925,6 +937,7 @@
   status: preprint
   venue: ''
   paper_url: https://arxiv.org/abs/2605.04418
+  arxiv_url: https://arxiv.org/abs/2605.04418
   code_url: TODO_UNVERIFIED
   source_version: arXiv:2605.04418v1
   tags:
@@ -1016,6 +1029,7 @@
   status: preprint
   venue: ''
   paper_url: https://arxiv.org/abs/2606.16899
+  arxiv_url: https://arxiv.org/abs/2606.16899
   code_url: TODO_UNVERIFIED
   source_version: arXiv:2606.16899v1
   tags:
@@ -1098,6 +1112,7 @@
   status: preprint
   venue: ''
   paper_url: https://arxiv.org/abs/2605.12492
+  arxiv_url: https://arxiv.org/abs/2605.12492
   code_url: https://github.com/Sphere-AI-Lab/pion
   source_version: arXiv:2605.12492v1
   tags:

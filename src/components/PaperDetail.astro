@@ -2,6 +2,7 @@
 import {
   getPaperDataset,
   hasVerifiedUrl,
+  paperSourceLinks,
   reportedStateLabel,
 } from '../lib/papers.mjs';
 
@@ -14,7 +15,7 @@ if (!paper) {
   throw new Error('Generated paper page references unknown id: ' + paperId);
 }
 
-const paperLinkAvailable = hasVerifiedUrl(paper.paper_url);
+const sourceLinks = paperSourceLinks(paper);
 const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
 ---
 
@@ -29,9 +30,9 @@ const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
 </ul>
 
 <nav class="record-links" aria-label={`Source links for ${paper.title}`}>
-  {paperLinkAvailable && (
-    <a href={paper.paper_url} target="_blank" rel="noreferrer">Primary paper</a>
-  )}
+  {sourceLinks.map((link) => (
+    <a href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+  ))}
   {codeLinkAvailable && (
     <a href={paper.code_url} target="_blank" rel="noreferrer">Official code</a>
   )}

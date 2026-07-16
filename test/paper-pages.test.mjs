@@ -17,8 +17,10 @@ import {
 } from '../scripts/lib/paper-page-generation.mjs';
 import { loadPaperDataset } from '../scripts/lib/paper-data.mjs';
 import { DISAGREEMENT_TOPICS } from '../src/lib/disagreement-topics.mjs';
+import { TODO_UNVERIFIED } from '../src/data/paper-schema.mjs';
 import {
   createPaperView,
+  paperSourceLinks,
   reportedStateLabel,
 } from '../src/lib/paper-views.mjs';
 
@@ -121,6 +123,93 @@ test('reporting states remain distinct and disagreement IDs resolve', () => {
       );
     }
   }
+});
+
+test('reader links prefer arXiv while preserving distinct official sources', () => {
+  const published = {
+    status: 'published',
+    arxiv_url: 'https://arxiv.org/abs/2401.00001',
+    paper_url: 'https://example.invalid/proceedings/paper',
+  };
+  assert.deepEqual(paperSourceLinks(published), [
+    {
+      href: 'https://arxiv.org/abs/2401.00001',
+      label: 'Read on arXiv',
+    },
+    {
+      href: 'https://example.invalid/proceedings/paper',
+      label: 'Official version',
+    },
+  ]);
+
+  assert.deepEqual(
+    paperSourceLinks({
+      ...published,
+      arxiv_url: 'https://arxiv.org/abs/2401.00001v2',
+      paper_url: 'https://arxiv.org/abs/2401.00001',
+    }),
+    [
+      {
+        href: 'https://arxiv.org/abs/2401.00001v2',
+        label: 'Read on arXiv',
+      },
+    ],
+  );
+
+  assert.deepEqual(
+    paperSourceLinks({
+      status: 'published',
+      arxiv_url: TODO_UNVERIFIED,
+      paper_url: 'https://arxiv.org/abs/2401.00001',
+    }),
+    [
+      {
+        href: 'https://arxiv.org/abs/2401.00001',
+        label: 'Read on arXiv',
+      },
+    ],
+  );
+
+  assert.deepEqual(
+    paperSourceLinks({
+      status: 'preprint',
+      arxiv_url: 'https://arxiv.org/abs/2401.00001',
+      paper_url: 'https://openreview.net/forum?id=fixture',
+    }),
+    [
+      {
+        href: 'https://arxiv.org/abs/2401.00001',
+        label: 'Read on arXiv',
+      },
+      {
+        href: 'https://openreview.net/forum?id=fixture',
+        label: 'Primary source',
+      },
+    ],
+  );
+
+  assert.deepEqual(
+    paperSourceLinks({
+      status: 'published',
+      arxiv_url: TODO_UNVERIFIED,
+      paper_url: 'https://example.invalid/proceedings/paper',
+    }),
+    [
+      {
+        href: 'https://example.invalid/proceedings/paper',
+        label: 'Official version',
+      },
+    ],
+  );
+
+  assert.deepEqual(
+    paperSourceLinks({
+      status: 'preprint',
+      arxiv_url: TODO_UNVERIFIED,
+      paper_url: TODO_UNVERIFIED,
+    }),
+    [],
+  );
 });
 
 test('generated page synchronization detects drift and protects unowned files', async () => {

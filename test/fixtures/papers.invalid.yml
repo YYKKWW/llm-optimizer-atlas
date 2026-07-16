@@ -7,6 +7,7 @@
   status: submitted
   venue: ""
   paper_url: relative/paper
+  arxiv_url: https://example.invalid/not-arxiv
   code_url: ftp://example.invalid/code
   source_version: TODO_UNVERIFIED
   tags:

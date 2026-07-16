@@ -88,6 +88,51 @@ export function hasVerifiedUrl(value) {
   return typeof value === 'string' && /^https?:\/\//i.test(value);
 }
 
+function arxivWorkId(value) {
+  if (!hasVerifiedUrl(value)) {
+    return null;
+  }
+
+  try {
+    const parsed = new URL(value);
+    if (parsed.hostname !== 'arxiv.org') {
+      return null;
+    }
+    const match = parsed.pathname.match(/^\/abs\/(.+?)(?:v\d+)?$/i);
+    return match?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export function paperSourceLinks(paper) {
+  const paperAvailable = hasVerifiedUrl(paper.paper_url);
+  const arxivAvailable = hasVerifiedUrl(paper.arxiv_url);
+  const paperArxivId = arxivWorkId(paper.paper_url);
+  const arxivId = arxivWorkId(paper.arxiv_url);
+  const links = [];
+
+  if (arxivAvailable) {
+    links.push({ href: paper.arxiv_url, label: 'Read on arXiv' });
+  } else if (paperArxivId) {
+    links.push({ href: paper.paper_url, label: 'Read on arXiv' });
+  }
+
+  const paperAlreadyShown =
+    paperAvailable &&
+    (paper.paper_url === paper.arxiv_url ||
+      (paperArxivId !== null && paperArxivId === arxivId));
+
+  if (paperAvailable && !paperAlreadyShown && !paperArxivId) {
+    links.push({
+      href: paper.paper_url,
+      label: paper.status === 'preprint' ? 'Primary source' : 'Official version',
+    });
+  }
+
+  return links;
+}
+
 export function withBase(baseUrl, route) {
   const base = baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
   return base + '/' + route.replace(/^\/+/, '');

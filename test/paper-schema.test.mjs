@@ -51,6 +51,7 @@ test('invalid fixture reports status, URL, evidence, date, and type errors', asy
     (error) => {
       assert.match(error.message, /0\.status/);
       assert.match(error.message, /0\.paper_url/);
+      assert.match(error.message, /0\.arxiv_url/);
       assert.match(error.message, /0\.code_url/);
       assert.match(error.message, /0\.evidence\.compute_budget/);
       assert.match(error.message, /0\.evidence\.wall_clock_reported/);
@@ -79,6 +80,7 @@ test('all required paper and evidence fields are enforced', () => {
     'status',
     'venue',
     'paper_url',
+    'arxiv_url',
     'code_url',
     'source_version',
     'tags',
@@ -183,6 +185,53 @@ test('URLs allow empty and TODO values but reject unsafe nonempty values', () =>
       'expected invalid URL value: ' + value,
     );
   }
+});
+
+test('arXiv URLs use canonical abstract paths and match source_version', () => {
+  for (const value of [
+    '',
+    TODO_UNVERIFIED,
+    'https://arxiv.org/abs/2401.00001',
+    'https://arxiv.org/abs/2401.00001v2',
+    'https://arxiv.org/abs/math/0301234',
+  ]) {
+    const candidate = structuredClone(validPaper);
+    candidate.arxiv_url = value;
+    if (value.includes('2401.00001')) {
+      candidate.source_version = 'arXiv:2401.00001v2';
+    } else if (value.includes('math/0301234')) {
+      candidate.source_version = 'arXiv:math/0301234v1';
+    }
+    assert.equal(
+      paperDatasetSchema.safeParse([candidate]).success,
+      true,
+      'expected valid arXiv URL value: ' + value,
+    );
+  }
+
+  for (const value of [
+    'http://arxiv.org/abs/2401.00001',
+    'https://export.arxiv.org/abs/2401.00001',
+    'https://arxiv.org/pdf/2401.00001',
+    'https://arxiv.org/html/2401.00001',
+    'https://arxiv.org/abs/not-an-id',
+    'https://arxiv.org/abs/2401.00001/',
+    'https://arxiv.org/abs/2401.00001?download=1',
+    'https://arxiv.org/abs/2401.00001#page',
+  ]) {
+    const candidate = structuredClone(validPaper);
+    candidate.arxiv_url = value;
+    assert.equal(
+      paperDatasetSchema.safeParse([candidate]).success,
+      false,
+      'expected invalid arXiv URL value: ' + value,
+    );
+  }
+
+  const mismatched = structuredClone(validPaper);
+  mismatched.arxiv_url = 'https://arxiv.org/abs/2401.99999';
+  mismatched.source_version = 'arXiv:2401.00001v1';
+  assert.equal(paperDatasetSchema.safeParse([mismatched]).success, false);
 });
 
 test('TODO_UNVERIFIED is a valid evidence reporting state', () => {
