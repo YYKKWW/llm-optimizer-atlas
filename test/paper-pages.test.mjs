@@ -102,10 +102,6 @@ test('paper views classify every record from explicit dataset fields', () => {
       .map((paper) => paper.id)
       .sort(),
   );
-
-  assert.equal(papers.length, 15);
-  assert.equal(createPaperView(papers, 'unread').uniqueCount, 15);
-  assert.equal(createPaperView(papers, 'frontier').uniqueCount, 5);
 });
 
 test('reporting states remain distinct and disagreement IDs resolve', () => {

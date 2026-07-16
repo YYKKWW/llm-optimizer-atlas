@@ -7,8 +7,7 @@ optimizers and mathematical optimization.
 
 1. Install dependencies with npm install.
 2. Start the local site with npm run dev.
-3. Run npm run check, npm run validate, npm test, npm run check:links, and
-   npm run build before committing content changes.
+3. Run npm run verify and npm run build before committing content changes.
 
 The site is statically generated from Markdown, MDX, Astro components, and the
 validated YAML paper dataset. It has no database or server-side backend.

@@ -61,6 +61,14 @@ async function targetExists(target) {
   return false;
 }
 
+function isInsideDist(target) {
+  const relative = path.relative(distRoot, target);
+  return (
+    relative === '' ||
+    (!relative.startsWith('..' + path.sep) && !path.isAbsolute(relative))
+  );
+}
+
 function isExternalOrFragment(value) {
   return /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(value);
 }
@@ -116,6 +124,16 @@ async function checkReference(sourceFile, value) {
   }
 
   localReferencesChecked += 1;
+  if (!isInsideDist(target)) {
+    errors.push(
+      path.relative(distRoot, sourceFile) +
+        ': generated reference escapes the output directory "' +
+        value +
+        '"',
+    );
+    return;
+  }
+
   if (!(await targetExists(target))) {
     errors.push(
       path.relative(distRoot, sourceFile) +

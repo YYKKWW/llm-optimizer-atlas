@@ -1,8 +1,9 @@
 # Paper dataset contract
 
-papers.yml is the single structured source of truth for paper metadata. It is
-an empty array in stage 2 so that no unverified paper record enters the atlas.
-Stage 3 may add records only after checking primary sources.
+papers.yml is the single structured source of truth for paper metadata. The
+stage-2 baseline used an empty array so that no unverified record entered the
+atlas; subsequent research batches add records only after checking primary
+sources.
 
 ## Runtime schema
 
@@ -109,6 +110,10 @@ be archived first; the automated writer deliberately has no bypass.
 - npm run validate checks documentation content, paper data, and generated-page drift.
 - npm run generate:pages updates generated paper routes after dataset changes.
 - npm run check:generated verifies that generated routes match the dataset.
+- npm run check:links checks source-level internal links; remote paper and code
+  URLs require a network-enabled research audit.
+- npm run verify runs the type check, validation, full test suite, and internal
+  link check used by the deployment quality gate.
 - npm run test:schema runs the schema and protection tests.
 - npm test runs all Node tests.
 - npm run build runs validation automatically before the Astro build.

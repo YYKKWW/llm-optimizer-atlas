@@ -18,6 +18,7 @@
     "check:generated": "node scripts/generate-paper-pages.mjs --check",
     "check:links": "node scripts/check-links.mjs",
     "check:built-paths": "node scripts/check-built-paths.mjs",
+    "verify": "npm run check && npm run validate && npm run test && npm run check:links",
     "test": "node --test",
     "test:schema": "node --test test/paper-schema.test.mjs"
   },

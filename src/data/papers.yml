@@ -187,6 +187,10 @@
     optimizer_state_reported: true
   limitations:
     - >-
+      The convergence guarantees assume a norm-Lipschitz gradient, a lower-bounded objective, an
+      unbiased bounded-variance stochastic-gradient oracle, and theorem-specific step-size and
+      momentum schedules; the width-transfer derivation uses the simplified setting $\alpha=1$.
+    - >-
       Several comparisons also change initialization, activation, or parameter-group rules, so
       optimizer-only causality is not isolated.
     - Muon uses Adam on selected first and last layers while Scion can span the network.
@@ -291,7 +295,7 @@
   last_verified: 2026-07-16
   human_notes: ''
 - id: polar-express-matrix-sign
-  title: 'The Polar Express: Optimal Matrix Sign Methods and Their Application to the Muon Algorithm'
+  title: 'The Polar Express: Optimal Matrix Sign Methods and their Application to the Muon Algorithm'
   authors:
     - Noah Amsel
     - David Persson
@@ -390,7 +394,7 @@
   frontier_watch: false
   core_claim: >-
     In the paper's tuned C4 language-model experiments, applying Adam in a slowly refreshed Shampoo
-    eigenbasis preserves per-step adaptivity and reaches matched validation loss in fewer iterations
+    eigenbasis preserves per-step adaptivity and reaches matched final test loss in fewer iterations
     and lower estimated single-H100 time than the tuned AdamW and Distributed Shampoo baselines.
   exact_update: >-
     $G'_t=Q_{L,t}^\top G_tQ_{R,t}$ and
@@ -429,7 +433,9 @@
     baseline_tuning: >-
       Learning-rate sweeps are followed by two-dimensional optimizer-specific sweeps; baselines are
       PyTorch AdamW and Distributed Shampoo.
-    evaluation_metric: C4 validation loss, iterations to matched loss, and estimated single-H100 wall-clock time.
+    evaluation_metric: >-
+      C4 training loss and final test loss, iterations to matched final test loss, and estimated
+      single-H100 wall-clock time.
     wall_clock_reported: true
     optimizer_state_reported: true
   limitations:
@@ -539,7 +545,7 @@
   core_claim: >-
     In the paper's bfloat16 language-model experiments with equal iteration counts and per-method
     random-search tuning, joint KL-based covariance estimation yields KL-Shampoo, which avoids Adam
-    grafting and attains lower validation loss than the evaluated Shampoo, SOAP, and KL-SOAP
+    grafting and attains lower test loss than the evaluated Shampoo, SOAP, and KL-SOAP
     implementations while retaining similar per-iteration runtime to SOAP.
   exact_update: |-
     For $G=\operatorname{Mat}(g)$ and EMA weight $\rho$,
@@ -572,8 +578,8 @@
       All available optimizer hyperparameters are tuned with a two-stage random search; comparisons
       include Shampoo, SOAP, KL-SOAP, and implementation-aligned variants.
     evaluation_metric: >-
-      Language-model test or validation loss at equal iterations, per-iteration runtime, and
-      selected wall-clock comparisons in the extended appendix.
+      Language-model test loss at equal iterations, per-iteration runtime, and selected wall-clock
+      comparisons in the extended appendix.
     wall_clock_reported: true
     optimizer_state_reported: true
   limitations:
@@ -669,7 +675,8 @@
   status: published
   venue: The Fourteenth International Conference on Learning Representations (ICLR 2026)
   paper_url: https://openreview.net/forum?id=2J51qUZ0iG
-  code_url: https://github.com/marin-community/marin/tree/kaiyue/optimizers
+  code_url: >-
+    https://github.com/marin-community/marin/tree/f464fee2b6b88c04f47c32d5d2b386759fe993f3/experiments/optimizer_sweep
   source_version: ICLR 2026 proceedings version; arXiv:2509.02046v2
   tags:
     - benchmark
@@ -759,9 +766,10 @@
     - benchmarking
   frontier_watch: false
   core_claim: >-
-    The paper claims that optimizer-specific maximal-update learning-rate rules and width-scaled
-    independent weight decay are necessary to preserve the tested matrix-preconditioned optimizers'
-    compute-efficiency gains across model scales.
+    Within the paper's tested 190M–1.4B FineWeb setup at 20 tokens per parameter and the alternative
+    scaling rules it ablates, optimizer-specific maximal-update learning-rate rules together with
+    $1/D$-scaled independent weight decay are needed to retain the reported forward/backward-FLOP
+    efficiency gains over tuned AdamW.
   exact_update: >-
     The representative matrix-preconditioned update is
 
@@ -807,6 +815,9 @@
     - >-
       Conclusions depend on parameterization, weight-decay scaling, blocking, grafting, batch size,
       and the base-model tuning protocol.
+    - >-
+      The authors note that the learning-rate scaling rule may fail at still larger scales, and the
+      main scaling configurations are single runs without error bars or significance tests.
     - The official proceedings page does not provide an unambiguous single-day publication date.
   reading_status: unread
   last_verified: 2026-07-16
@@ -981,6 +992,10 @@
     - >-
       The paper states that the spectral sphere is not a manifold, so its compact smooth-manifold
       convergence theorem does not cover that constraint.
+    - >-
+      The spectral $\Theta(1)$ activation-control result assumes $\Theta(1)$ input RMS, full-rank
+      weights, and $\sigma_{\min}(W)=\Omega(1)$; without the lower-singular-value condition, the
+      spectral constraint gives only an $O(1)$ upper bound.
     - The paper explicitly omits wall-clock comparisons.
     - >-
       The normalization-free experiment also changes activation and parameter-free normalization
@@ -1039,8 +1054,9 @@
     - hyperparameter transfer
   evidence:
     model_scales: >-
-      Qwen3-style models up to 1.2B parameters, selected 8B experiments, and width or depth transfer
-      sweeps.
+      Main full-model experiments use Qwen3-style models up to 1.2B parameters. The isolated 8B,
+      159B-token comparison applies Hyperball only to the layer-9 value-projection matrix with
+      manually chosen hyperparameters; width- and depth-transfer sweeps are also reported.
     datasets: A mixture of DCLM-baseline, StarCoder V2, and ProofPile 2; selected runs use FineWeb-Edu.
     token_budget: >-
       Main comparisons cover 1x-8x Chinchilla ratios; transfer sweeps use 10B tokens per run; a
@@ -1061,6 +1077,9 @@
       Frobenius control approximates spectral control only when the matrix has sufficiently high
       stable rank.
     - The main efficiency measure is token-equivalent rather than wall-clock or full-system cost.
+    - >-
+      The 8B result is not a full-model Hyperball evaluation and does not establish an 8B
+      end-to-end optimizer gain.
     - No official accompanying code repository is linked by the arXiv record or paper.
   reading_status: unread
   last_verified: 2026-07-16
@@ -1123,14 +1142,16 @@
     token_budget: >-
       54B C4 tokens for the 1.3B pretraining experiment, 9.6B tokens for normalization-free
       training, and 50B tokens for the 200-layer study.
-    compute_budget: TODO_UNVERIFIED
+    compute_budget: >-
+      Per-step runtime and peak memory are measured on eight NVIDIA H100 GPUs with NVLink using DDP
+      and no gradient accumulation; aggregate training FLOPs and accelerator-hours are not reported.
     baseline_tuning: >-
       The paper compares Pion with AdamW and Muon across pretraining, SFT, and RLVR protocols;
       complete matched tuning cost is not captured in this record.
     evaluation_metric: >-
       Validation loss, downstream accuracy, stability diagnostics, SFT in-domain and out-of-domain
       accuracy, and RLVR avg-at-k accuracy.
-    wall_clock_reported: false
+    wall_clock_reported: true
     optimizer_state_reported: true
   limitations:
     - >-
@@ -1139,6 +1160,9 @@
     - >-
       Evidence spans several distinct protocols and does not establish universal superiority over
       AdamW or Muon.
+    - >-
+      In the reported eight-H100 per-step comparison, full Pion is slower and uses more peak memory
+      than both AdamW and Muon; this is not an end-to-end training-cost comparison.
     - >-
       The official repository provides core implementations but does not yet present a tagged
       release.
