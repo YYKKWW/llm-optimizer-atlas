@@ -1,17 +1,14 @@
 ---
 import { getOpenProblemDataset, sortOpenProblems } from '../lib/open-problems.mjs';
+import { getCandidatePaperDataset } from '../lib/candidate-papers.mjs';
 import { getPaperDataset, withBase } from '../lib/papers.mjs';
 
 const papers = await getPaperDataset();
+const candidates = await getCandidatePaperDataset();
 const problems = sortOpenProblems(await getOpenProblemDataset());
-const trackCount = new Set(
-  papers.flatMap((paper: any) => paper.research_tracks),
-).size;
-const verifiedDates = [
-  ...papers.map((paper: any) => paper.last_verified).filter(Boolean),
-  ...problems.map((problem: any) => problem.last_verified),
-].sort();
-const latestVerification = verifiedDates.at(-1);
+const approvedCandidates = candidates.filter(
+  (candidate: any) => candidate.decision === 'include',
+);
 const baseUrl = import.meta.env.BASE_URL;
 const paths = [
   {
@@ -23,13 +20,20 @@ const paths = [
   },
   {
     number: '02',
+    title: 'Choose the next paper to read',
+    copy: `Start from ${approvedCandidates.length} approved full-reading candidates, then filter by venue, research track, and review decision.`,
+    label: `Browse all ${candidates.length} candidates`,
+    href: withBase(baseUrl, 'candidate-papers/'),
+  },
+  {
+    number: '03',
     title: 'Trace a paper claim',
     copy: 'Move from an optimizer update rule to its exact source version, experimental conditions, and stated limitations.',
     label: 'Browse paper records',
     href: withBase(baseUrl, 'paper-notes/'),
   },
   {
-    number: '03',
+    number: '04',
     title: 'Compare the evidence',
     copy: 'Read protocol-aware comparisons that keep model scale, tuning, compute, and wall-clock reporting visible.',
     label: 'Open the evidence matrix',
@@ -45,16 +49,16 @@ const paths = [
       <span>validated paper records</span>
     </div>
     <div>
+      <strong>{candidates.length}</strong>
+      <span>screened candidate papers</span>
+    </div>
+    <div>
+      <strong>{approvedCandidates.length}</strong>
+      <span>approved for full reading</span>
+    </div>
+    <div>
       <strong>{problems.length}</strong>
       <span>reviewed problem records</span>
-    </div>
-    <div>
-      <strong>{trackCount}</strong>
-      <span>research tracks</span>
-    </div>
-    <div>
-      <strong>{latestVerification}</strong>
-      <span>latest evidence review</span>
     </div>
   </section>
 
@@ -178,7 +182,7 @@ const paths = [
 
   .workflow-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.85rem;
   }
 
@@ -324,14 +328,17 @@ const paths = [
     text-transform: uppercase;
   }
 
-  @media (max-width: 52rem) {
+  @media (max-width: 64rem) {
     .workflow-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .workflow-grid article {
       min-height: 0;
     }
+  }
+
+  @media (max-width: 52rem) {
 
     .verification-contract {
       grid-template-columns: 1fr;
@@ -339,6 +346,10 @@ const paths = [
   }
 
   @media (max-width: 38rem) {
+    .workflow-grid {
+      grid-template-columns: 1fr;
+    }
+
     .atlas-stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

@@ -11,10 +11,12 @@ const outputPath = path.join(
   'candidate-papers',
   'index.html',
 );
+const homeOutputPath = path.join(projectRoot, 'dist', 'index.html');
 
-const [candidateSource, html] = await Promise.all([
+const [candidateSource, html, homeHtml] = await Promise.all([
   fs.readFile(candidatePath, 'utf8'),
   fs.readFile(outputPath, 'utf8'),
+  fs.readFile(homeOutputPath, 'utf8'),
 ]);
 const dataset = yaml.load(candidateSource, {
   filename: candidatePath,
@@ -23,6 +25,12 @@ const dataset = yaml.load(candidateSource, {
 const errors = [];
 const cardCount =
   (html.match(/<li\b[^>]*\sdata-candidate-card(?:\s|>)/g) ?? []).length;
+const approvedCount = dataset.candidates.filter(
+  (candidate) => candidate.recommendation === 'include',
+).length;
+const hasStat = (value, label) =>
+  new RegExp('<strong\\b[^>]*>' + value + '</strong>').test(homeHtml) &&
+  homeHtml.includes(label);
 
 if (cardCount !== dataset.candidates.length) {
   errors.push(
@@ -61,6 +69,17 @@ if (
 ) {
   errors.push('canonical duplicate link is missing the configured base path');
 }
+if (!hasStat(dataset.candidates.length, 'screened candidate papers')) {
+  errors.push('home page does not expose the screened candidate count');
+}
+if (!hasStat(approvedCount, 'approved for full reading')) {
+  errors.push('home page does not expose the approved full-reading count');
+}
+if (
+  !homeHtml.includes('href="/llm-optimizer-atlas/candidate-papers/"')
+) {
+  errors.push('home page candidate link is missing the configured base path');
+}
 
 if (errors.length > 0) {
   console.error(
@@ -73,5 +92,5 @@ if (errors.length > 0) {
 console.log(
   'Candidate build inspection passed: ' +
     cardCount +
-    ' reviewed cards, search window and evidence boundary present, and canonical duplicate link base-safe.',
+    ' reviewed cards, home counts present, evidence boundary present, and candidate links base-safe.',
 );
