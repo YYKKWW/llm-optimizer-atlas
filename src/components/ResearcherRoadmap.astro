@@ -1,0 +1,1122 @@
+---
+import { getCandidatePaperDataset } from '../lib/candidate-papers.mjs';
+import { candidateVenueLabel } from '../lib/candidate-paper-filter.mjs';
+import {
+  getOpenProblemDataset,
+  openProblemDetailRoute,
+} from '../lib/open-problems.mjs';
+import {
+  getPaperDataset,
+  paperDetailRoute,
+  withBase,
+} from '../lib/papers.mjs';
+import {
+  ROADMAP_COMPETENCIES,
+  ROADMAP_FRONTIER_HEAT_THRESHOLDS,
+  ROADMAP_FRONTIER_REVIEWED_ON,
+  ROADMAP_RESOURCES,
+  resolveResearcherRoadmap,
+} from '../lib/researcher-roadmap.mjs';
+
+const [papers, problems, candidates] = await Promise.all([
+  getPaperDataset(),
+  getOpenProblemDataset(),
+  getCandidatePaperDataset(),
+]);
+const { phases, ladders, frontiers, checkpointCount, paperCoverage } =
+  resolveResearcherRoadmap(papers, problems, candidates);
+const approvedCandidateCount = candidates.filter(
+  (candidate: any) => candidate.decision === 'include',
+).length;
+const baseUrl = import.meta.env.BASE_URL;
+const candidateBase = withBase(baseUrl, 'candidate-papers/');
+const candidateTrackHref = (track: string) =>
+  `${candidateBase}?decision=include&track=${encodeURIComponent(track)}`;
+const candidateHref = (candidateId: string) =>
+  `${candidateBase}?decision=include#candidate-title-${candidateId}`;
+---
+
+<div
+  class="researcher-roadmap"
+  data-researcher-roadmap
+  data-total-checkpoints={checkpointCount}
+>
+  <section class="roadmap-hero" aria-labelledby="roadmap-hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow atlas-meta">Personal research operating system</p>
+      <h2 id="roadmap-hero-title">Become fluent from theorem to training run</h2>
+      <p>
+        Excellence here means more than knowing optimizer names. You should be able to derive an
+        update, identify its numerical approximation, measure its systems cost, design a fair
+        comparison, and turn the remaining uncertainty into a falsifiable research question.
+      </p>
+      <div class="hero-actions">
+        <a class="primary-action" href="#phase-baseline">Start phase 1</a>
+        <a href="#frontier-radar">Explore frontier directions</a>
+      </div>
+    </div>
+
+    <aside class="progress-panel" aria-labelledby="roadmap-progress-title">
+      <div class="progress-heading">
+        <div>
+          <span class="atlas-meta">Local progress</span>
+          <strong id="roadmap-progress-title" data-roadmap-progress-text aria-live="polite">
+            0 of {checkpointCount} checkpoints
+          </strong>
+        </div>
+        <span class="progress-percent" data-roadmap-progress-percent>0%</span>
+      </div>
+      <progress
+        data-roadmap-progress
+        max={checkpointCount}
+        value="0"
+        aria-label="Researcher roadmap progress"
+      >0%</progress>
+      <dl>
+        <div><dt>Phases</dt><dd>{phases.length}</dd></div>
+        <div><dt>Verified papers</dt><dd>{paperCoverage}</dd></div>
+        <div><dt>Full-read candidates</dt><dd>{approvedCandidateCount}</dd></div>
+      </dl>
+      <p>Your checklist is stored only in this browser. It is a planning aid, not a credential.</p>
+      <button type="button" data-roadmap-reset>Reset local progress</button>
+    </aside>
+  </section>
+
+  <nav class="phase-nav" aria-label="Roadmap phases">
+    {phases.map((phase) => (
+      <a href={`#phase-${phase.id}`}>
+        <span class="atlas-meta">{phase.number}</span>
+        <strong>{phase.title}</strong>
+        <small>{phase.duration}</small>
+      </a>
+    ))}
+  </nav>
+
+  <section class="competency-section" aria-labelledby="competency-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow atlas-meta">Mastery map</p>
+        <h2 id="competency-title">Eight capabilities you need to integrate</h2>
+      </div>
+      <p>
+        The proof column is the important one: it turns passive familiarity into an observable
+        research skill.
+      </p>
+    </div>
+    <div class="competency-grid">
+      {ROADMAP_COMPETENCIES.map((competency, index) => (
+        <article>
+          <span class="competency-number atlas-meta">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3>{competency.title}</h3>
+          <p>{competency.focus}</p>
+          <div>
+            <strong>Evidence of mastery</strong>
+            <span>{competency.proof}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="phases-section" aria-labelledby="phases-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow atlas-meta">Core curriculum</p>
+        <h2 id="phases-title">A staged path through the verified library</h2>
+      </div>
+      <p>
+        The sequence covers every verified paper once. Candidate papers remain a separate full-read
+        queue until their claims receive canonical evidence review.
+      </p>
+    </div>
+
+    <div class="phase-list">
+      {phases.map((phase) => (
+        <article class="phase-card" id={`phase-${phase.id}`}>
+          <header>
+            <div class="phase-index">
+              <span class="atlas-meta">Phase {phase.number}</span>
+              <small>{phase.duration}</small>
+            </div>
+            <div>
+              <h3>{phase.title}</h3>
+              <p>{phase.purpose}</p>
+            </div>
+          </header>
+
+          <div class="phase-body">
+            <fieldset>
+              <legend>Completion checkpoints</legend>
+              {phase.checkpoints.map((checkpoint) => (
+                <label for={`roadmap-${checkpoint.id}`}>
+                  <input
+                    id={`roadmap-${checkpoint.id}`}
+                    type="checkbox"
+                    value={checkpoint.id}
+                    data-roadmap-checkpoint
+                  />
+                  <span>{checkpoint.label}</span>
+                </label>
+              ))}
+            </fieldset>
+
+            <div class="phase-readings">
+              <div class="reading-heading">
+                <h4>Verified reading order</h4>
+                <span>{phase.papers.length} paper{phase.papers.length === 1 ? '' : 's'}</span>
+              </div>
+              <ol>
+                {phase.papers.map((paper: any) => (
+                  <li>
+                    <a href={withBase(baseUrl, paperDetailRoute(paper.id))}>{paper.title}</a>
+                    <small>{paper.status} · {paper.year}</small>
+                  </li>
+                ))}
+              </ol>
+              <a class="candidate-track-link" href={candidateTrackHref(phase.candidateTrack)}>
+                Continue with approved candidates in this track
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+
+          <footer>
+            <strong>Phase deliverable</strong>
+            <span>{phase.deliverable}</span>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="frontier-section" id="frontier-radar" aria-labelledby="frontier-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow atlas-meta">
+          Frontier radar · Editorial review {ROADMAP_FRONTIER_REVIEWED_ON}
+        </p>
+        <h2 id="frontier-title">Potential directions ranked for your background</h2>
+      </div>
+      <p>
+        Heat counts active candidates in the direction's track that share at least one declared
+        signal tag: {ROADMAP_FRONTIER_HEAT_THRESHOLDS.veryHigh}+ is very high,
+        {ROADMAP_FRONTIER_HEAT_THRESHOLDS.high}–{ROADMAP_FRONTIER_HEAT_THRESHOLDS.veryHigh - 1}
+        is high, and fewer is emerging. Priority, fit, and tag selection are dated editorial
+        judgments—not citation metrics.
+      </p>
+    </div>
+
+    <div class="frontier-list">
+      {frontiers.map((frontier) => (
+        <article class="frontier-card">
+          <header>
+            <span class="frontier-rank atlas-meta">Personal priority #{frontier.rank}</span>
+            <div class="frontier-tags" aria-label="Direction assessment">
+              <span class:list={['heat-badge', frontier.heat === 'Very high' && 'very-high']}>
+                Heat: {frontier.heat} · {frontier.signalCount} matches
+              </span>
+              <span class="fit-badge">{frontier.fit}</span>
+            </div>
+          </header>
+          <h3>{frontier.title}</h3>
+          <dl>
+            <div>
+              <dt>Why now</dt>
+              <dd>{frontier.whyNow}</dd>
+            </div>
+            <div>
+              <dt>Research opening</dt>
+              <dd>{frontier.opportunity}</dd>
+            </div>
+          </dl>
+          <div class="frontier-evidence">
+            <strong>Recent papers to screen</strong>
+            <ol>
+              {frontier.candidates.map((candidate: any) => (
+                <li>
+                  <a href={candidateHref(candidate.candidate_id)}>{candidate.title}</a>
+                  <small>{candidateVenueLabel(candidate.venue)} · {candidate.year}</small>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <footer>
+            <a href={withBase(baseUrl, openProblemDetailRoute(frontier.problem.id))}>
+              Open research question: {frontier.problem.title}
+            </a>
+            <a href={candidateTrackHref(frontier.candidateTrack)}>
+              Browse this candidate track <span aria-hidden="true">→</span>
+            </a>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="research-ladders" aria-labelledby="ladders-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow atlas-meta">From reading to contribution</p>
+        <h2 id="ladders-title">Four small first moves into research</h2>
+      </div>
+      <p>Each move is narrow enough to start, but connected to a reviewed open problem.</p>
+    </div>
+    <div class="ladder-grid">
+      {ladders.map((ladder) => (
+        <article>
+          <span class="atlas-meta">{ladder.label}</span>
+          <h3>{ladder.title}</h3>
+          <p>{ladder.firstMove}</p>
+          <a href={withBase(baseUrl, openProblemDetailRoute(ladder.problem.id))}>
+            {ladder.problem.title} <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="resources-section" aria-labelledby="resources-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow atlas-meta">Prerequisite bridge</p>
+        <h2 id="resources-title">Authoritative resources outside the paper library</h2>
+      </div>
+      <p>
+        These fill gaps the current verified papers do not cover: foundations, implementation,
+        systems, and experimental practice.
+      </p>
+    </div>
+    <ul>
+      {ROADMAP_RESOURCES.map((resource) => (
+        <li>
+          <div>
+          <a href={resource.href} target="_blank" rel="noopener noreferrer">{resource.title}</a>
+            <span>{resource.provider}</span>
+          </div>
+          <p>{resource.purpose}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</div>
+
+<script>
+  const storageKey = 'llm-optimizer-atlas:researcher-roadmap:v1';
+
+  document.querySelectorAll('[data-researcher-roadmap]').forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+    const checkpoints = Array.from(
+      root.querySelectorAll('[data-roadmap-checkpoint]'),
+    ).filter((item) => item instanceof HTMLInputElement);
+    const progress = root.querySelector('[data-roadmap-progress]');
+    const progressText = root.querySelector('[data-roadmap-progress-text]');
+    const progressPercent = root.querySelector('[data-roadmap-progress-percent]');
+    const reset = root.querySelector('[data-roadmap-reset]');
+    if (
+      !(progress instanceof HTMLProgressElement) ||
+      !(progressText instanceof HTMLElement) ||
+      !(progressPercent instanceof HTMLElement) ||
+      !(reset instanceof HTMLButtonElement)
+    ) return;
+
+    let stored = new Set<string>();
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(storageKey) ?? '[]');
+      if (Array.isArray(parsed)) {
+        stored = new Set(parsed.filter((value) => typeof value === 'string'));
+      }
+    } catch {
+      stored = new Set();
+    }
+
+    for (const checkpoint of checkpoints) {
+      checkpoint.checked = stored.has(checkpoint.value);
+    }
+
+    const updateProgress = ({ persist = true } = {}) => {
+      const completed = checkpoints.filter((checkpoint) => checkpoint.checked);
+      const completedIds = completed.map((checkpoint) => checkpoint.value);
+      const percent = checkpoints.length === 0
+        ? 0
+        : Math.round((completed.length / checkpoints.length) * 100);
+      progress.value = completed.length;
+      progressText.textContent = `${completed.length} of ${checkpoints.length} checkpoints`;
+      progressPercent.textContent = `${percent}%`;
+      if (persist) {
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(completedIds));
+        } catch {
+          // The checklist still works for this page view when storage is unavailable.
+        }
+      }
+    };
+
+    checkpoints.forEach((checkpoint) => {
+      checkpoint.addEventListener('change', () => updateProgress());
+    });
+    reset.addEventListener('click', () => {
+      if (!window.confirm('Reset all locally saved roadmap checkpoints?')) return;
+      checkpoints.forEach((checkpoint) => {
+        checkpoint.checked = false;
+      });
+      updateProgress();
+    });
+    updateProgress({ persist: false });
+  });
+</script>
+
+<style>
+  .researcher-roadmap {
+    display: grid;
+    gap: clamp(3.5rem, 8vw, 6rem);
+    padding: 0.5rem 0 3rem;
+  }
+
+  .roadmap-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    gap: 1.4rem;
+    align-items: stretch;
+  }
+
+  .hero-copy,
+  .progress-panel {
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    box-shadow: var(--atlas-shadow-small);
+  }
+
+  .hero-copy {
+    padding: clamp(1.4rem, 4vw, 2.4rem);
+    border-top: 0.28rem solid var(--atlas-burgundy);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.45rem;
+    color: var(--atlas-burgundy);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  h2,
+  h3,
+  h4,
+  p {
+    margin-top: 0;
+  }
+
+  h2,
+  h3,
+  h4 {
+    font-family: var(--atlas-display-font);
+  }
+
+  .hero-copy h2 {
+    max-width: 42rem;
+    margin-bottom: 0.85rem;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.03;
+  }
+
+  .hero-copy > p:not(.eyebrow) {
+    max-width: 46rem;
+    color: var(--atlas-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.3rem;
+  }
+
+  .hero-actions a {
+    display: inline-flex;
+    min-height: 2.7rem;
+    padding: 0.68rem 0.9rem;
+    align-items: center;
+    border: 1px solid var(--atlas-border-strong);
+    border-radius: 0.55rem;
+    color: var(--sl-color-accent-high);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .hero-actions .primary-action {
+    border-color: var(--atlas-action-bg);
+    background: var(--atlas-action-bg);
+    color: var(--atlas-action-text);
+  }
+
+  .progress-panel {
+    display: grid;
+    gap: 1rem;
+    padding: 1.3rem;
+    background: linear-gradient(145deg, var(--atlas-blue-soft), var(--atlas-paper));
+  }
+
+  .progress-heading {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  .progress-heading > div {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .progress-heading span:first-child {
+    color: var(--atlas-muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .progress-heading strong,
+  .progress-percent {
+    color: var(--atlas-ink);
+  }
+
+  .progress-percent {
+    font-family: var(--atlas-display-font);
+    font-size: 1.65rem;
+    font-weight: 700;
+  }
+
+  progress {
+    width: 100%;
+    height: 0.7rem;
+    accent-color: var(--atlas-burgundy);
+  }
+
+  .progress-panel dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .progress-panel dl div {
+    padding: 0.65rem;
+    border: 1px solid var(--atlas-blue-border);
+    border-radius: 0.55rem;
+    background: color-mix(in srgb, var(--atlas-paper) 82%, transparent);
+  }
+
+  .progress-panel dt {
+    color: var(--atlas-muted);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .progress-panel dd {
+    margin: 0.1rem 0 0;
+    font-family: var(--atlas-display-font);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .progress-panel > p {
+    margin: 0;
+    color: var(--atlas-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .progress-panel button {
+    justify-self: start;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--sl-color-accent-high);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    cursor: pointer;
+  }
+
+  .phase-nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-block: 1px solid var(--atlas-border-strong);
+  }
+
+  .phase-nav a {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+    padding: 0.9rem;
+    color: var(--atlas-ink);
+    text-decoration: none;
+  }
+
+  .phase-nav a + a {
+    border-inline-start: 1px solid var(--atlas-border);
+  }
+
+  .phase-nav span {
+    color: var(--atlas-burgundy);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .phase-nav strong {
+    font-family: var(--atlas-display-font);
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .phase-nav small {
+    color: var(--atlas-muted);
+    font-size: 0.65rem;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.62fr);
+    gap: 1.5rem;
+    align-items: end;
+    margin-bottom: 1.4rem;
+  }
+
+  .section-heading h2 {
+    max-width: 48rem;
+    margin-bottom: 0;
+    font-size: clamp(1.7rem, 4vw, 2.45rem);
+    line-height: 1.12;
+  }
+
+  .section-heading > p {
+    margin: 0;
+    color: var(--atlas-muted);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .competency-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .competency-grid article,
+  .ladder-grid article {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 0.7rem;
+    background: var(--atlas-paper);
+  }
+
+  .competency-number {
+    color: var(--atlas-burgundy);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .competency-grid h3 {
+    margin: 0.75rem 0 0.45rem;
+    font-size: 1.05rem;
+  }
+
+  .competency-grid p {
+    flex: 1;
+    color: var(--atlas-muted);
+    font-size: 0.77rem;
+    line-height: 1.55;
+  }
+
+  .competency-grid article > div {
+    display: grid;
+    gap: 0.15rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--atlas-border);
+  }
+
+  .competency-grid article > div strong {
+    color: var(--atlas-burgundy);
+    font-size: 0.61rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .competency-grid article > div span {
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .phase-list,
+  .frontier-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .phase-card {
+    scroll-margin-top: 5rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    box-shadow: var(--atlas-shadow-small);
+    overflow: hidden;
+  }
+
+  .phase-card > header {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: 1.2rem;
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--atlas-border);
+    background: var(--atlas-paper-muted);
+  }
+
+  .phase-index {
+    display: grid;
+    align-content: start;
+    gap: 0.2rem;
+  }
+
+  .phase-index span {
+    color: var(--atlas-burgundy);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .phase-index small,
+  .phase-card header p {
+    color: var(--atlas-muted);
+  }
+
+  .phase-card h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.4rem;
+  }
+
+  .phase-card header p {
+    max-width: 49rem;
+    margin: 0;
+    font-size: 0.83rem;
+    line-height: 1.55;
+  }
+
+  .phase-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.85fr);
+    gap: 1.4rem;
+    padding: 1.2rem;
+  }
+
+  fieldset {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  legend,
+  .reading-heading h4,
+  .frontier-evidence > strong {
+    margin-bottom: 0.6rem;
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  fieldset label {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: start;
+    padding: 0.62rem 0.7rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 0.55rem;
+    cursor: pointer;
+  }
+
+  fieldset label:has(input:checked) {
+    border-color: var(--atlas-green-border);
+    background: var(--atlas-green-soft);
+  }
+
+  fieldset input {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.1rem;
+    accent-color: var(--atlas-burgundy);
+  }
+
+  fieldset label span {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .phase-readings {
+    min-width: 0;
+    padding-inline-start: 1.2rem;
+    border-inline-start: 1px solid var(--atlas-border);
+  }
+
+  .reading-heading {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .reading-heading h4 {
+    margin: 0;
+  }
+
+  .reading-heading span {
+    color: var(--atlas-muted);
+    font-size: 0.66rem;
+  }
+
+  .phase-readings ol,
+  .frontier-evidence ol {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.65rem 0 0;
+    padding-inline-start: 1.25rem;
+  }
+
+  .phase-readings li,
+  .frontier-evidence li {
+    padding-inline-start: 0.15rem;
+    font-size: 0.77rem;
+    line-height: 1.4;
+  }
+
+  .phase-readings li a,
+  .frontier-evidence li a {
+    color: var(--atlas-ink);
+    font-weight: 650;
+    text-decoration-color: color-mix(in srgb, var(--atlas-burgundy) 35%, transparent);
+    text-underline-offset: 0.15em;
+  }
+
+  .phase-readings li small,
+  .frontier-evidence li small {
+    display: block;
+    margin-top: 0.08rem;
+    color: var(--atlas-muted);
+    font-size: 0.62rem;
+    text-transform: capitalize;
+  }
+
+  .candidate-track-link {
+    display: inline-flex;
+    gap: 0.35rem;
+    margin-top: 0.9rem;
+    color: var(--sl-color-accent-high);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .phase-card > footer {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: 1.2rem;
+    padding: 0.85rem 1.2rem;
+    border-top: 1px solid var(--atlas-amber-border);
+    background: var(--atlas-amber-soft);
+    font-size: 0.76rem;
+  }
+
+  .phase-card > footer strong {
+    color: var(--atlas-burgundy);
+  }
+
+  .frontier-section {
+    scroll-margin-top: 5rem;
+  }
+
+  .frontier-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(18rem, 1.08fr);
+    gap: 0.8rem 1.5rem;
+    padding: 1.2rem;
+    border: 1px solid var(--atlas-border);
+    border-inline-start: 0.3rem solid var(--atlas-burgundy);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+  }
+
+  .frontier-card > header,
+  .frontier-card > h3 {
+    grid-column: 1;
+  }
+
+  .frontier-card > header {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .frontier-rank {
+    color: var(--atlas-burgundy);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .frontier-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .frontier-tags span {
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 999px;
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+
+  .heat-badge {
+    background: var(--atlas-amber-soft);
+  }
+
+  .heat-badge.very-high,
+  .fit-badge {
+    background: var(--atlas-green-soft);
+  }
+
+  .frontier-card h3 {
+    margin: 0.3rem 0 0;
+    font-size: 1.35rem;
+    line-height: 1.2;
+  }
+
+  .frontier-card > dl {
+    grid-column: 1;
+    display: grid;
+    gap: 0.65rem;
+    margin: 0.35rem 0 0;
+  }
+
+  .frontier-card dl div {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .frontier-card dt {
+    color: var(--atlas-burgundy);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .frontier-card dd {
+    margin: 0;
+    color: var(--atlas-muted);
+    font-size: 0.77rem;
+    line-height: 1.52;
+  }
+
+  .frontier-evidence {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    min-width: 0;
+    padding-inline-start: 1.2rem;
+    border-inline-start: 1px solid var(--atlas-border);
+  }
+
+  .frontier-evidence ol {
+    margin-top: 0.45rem;
+  }
+
+  .frontier-card > footer {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--atlas-border);
+  }
+
+  .frontier-card > footer a,
+  .ladder-grid a {
+    color: var(--sl-color-accent-high);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .ladder-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .ladder-grid article > span {
+    color: var(--atlas-burgundy);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .ladder-grid h3 {
+    margin: 0.8rem 0 0.45rem;
+    font-size: 1.05rem;
+  }
+
+  .ladder-grid p {
+    flex: 1;
+    color: var(--atlas-muted);
+    font-size: 0.75rem;
+    line-height: 1.55;
+  }
+
+  .resources-section ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .resources-section li {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.75fr) minmax(0, 1.25fr);
+    gap: 1rem;
+    padding: 0.9rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 0.65rem;
+    background: var(--atlas-paper);
+  }
+
+  .resources-section li > div {
+    display: grid;
+    align-content: start;
+    gap: 0.12rem;
+  }
+
+  .resources-section a {
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-weight: 700;
+    text-underline-offset: 0.16em;
+  }
+
+  .resources-section li span,
+  .resources-section li p {
+    color: var(--atlas-muted);
+    font-size: 0.7rem;
+  }
+
+  .resources-section li p {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 68rem) {
+    .roadmap-hero,
+    .section-heading {
+      grid-template-columns: 1fr;
+    }
+
+    .competency-grid,
+    .ladder-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .phase-nav {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .phase-nav a:nth-child(4) {
+      border-inline-start: 0;
+    }
+
+    .phase-nav a:nth-child(n + 4) {
+      border-top: 1px solid var(--atlas-border);
+    }
+  }
+
+  @media (max-width: 50rem) {
+    .phase-body,
+    .frontier-card {
+      grid-template-columns: 1fr;
+    }
+
+    .phase-readings,
+    .frontier-evidence {
+      padding: 1rem 0 0;
+      border-inline-start: 0;
+      border-top: 1px solid var(--atlas-border);
+    }
+
+    .frontier-evidence {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .resources-section ul {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 36rem) {
+    .phase-nav,
+    .competency-grid,
+    .ladder-grid,
+    .progress-panel dl {
+      grid-template-columns: 1fr;
+    }
+
+    .phase-nav a + a,
+    .phase-nav a:nth-child(4) {
+      border-inline-start: 0;
+    }
+
+    .phase-nav a:nth-child(n + 2) {
+      border-top: 1px solid var(--atlas-border);
+    }
+
+    .phase-card > header,
+    .phase-card > footer,
+    .resources-section li {
+      grid-template-columns: 1fr;
+    }
+
+    .frontier-card > header,
+    .progress-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .hero-copy,
+    .progress-panel,
+    .phase-card,
+    .frontier-card,
+    .competency-grid article,
+    .ladder-grid article,
+    .resources-section li,
+    fieldset label {
+      border-color: CanvasText;
+    }
+  }
+</style>

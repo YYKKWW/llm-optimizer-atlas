@@ -21,7 +21,10 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Overview',
-          items: [{ label: 'Home', link: '/' }],
+          items: [
+            { label: 'Home', link: '/' },
+            { label: 'Researcher Roadmap', link: '/researcher-roadmap/' },
+          ],
         },
         {
           label: 'Literature Map',

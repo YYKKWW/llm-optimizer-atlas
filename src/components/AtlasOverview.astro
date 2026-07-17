@@ -43,6 +43,25 @@ const paths = [
 ---
 
 <div class="atlas-overview">
+  <section class="researcher-entry" aria-labelledby="researcher-entry-title">
+    <div>
+      <p class="eyebrow atlas-meta">New · Personal researcher pathway</p>
+      <h2 id="researcher-entry-title">Turn the atlas into a deliberate training plan</h2>
+      <p>
+        Follow five stages from trustworthy baselines to manifold and closed-set research,
+        track twenty practical checkpoints locally, and inspect six recent frontier directions.
+      </p>
+    </div>
+    <div class="researcher-entry-actions">
+      <a class="primary" href={withBase(baseUrl, 'researcher-roadmap/')}>
+        Open the researcher roadmap <span aria-hidden="true">→</span>
+      </a>
+      <a href={withBase(baseUrl, 'researcher-roadmap/#frontier-radar')}>
+        View frontier radar
+      </a>
+    </div>
+  </section>
+
   <section class="atlas-stats" aria-label="Atlas collection summary">
     <div>
       <strong>{papers.length}</strong>
@@ -127,6 +146,56 @@ const paths = [
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     border-block: 1px solid var(--atlas-border-strong);
+  }
+
+  .researcher-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: end;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--atlas-blue-border);
+    border-inline-start: 0.3rem solid var(--atlas-burgundy);
+    border-radius: var(--atlas-radius);
+    background: linear-gradient(140deg, var(--atlas-blue-soft), var(--atlas-paper));
+    box-shadow: var(--atlas-shadow-small);
+  }
+
+  .researcher-entry h2 {
+    margin-bottom: 0.55rem;
+  }
+
+  .researcher-entry p:not(.eyebrow) {
+    max-width: 48rem;
+    margin: 0;
+    color: var(--atlas-muted);
+    line-height: 1.6;
+  }
+
+  .researcher-entry-actions {
+    display: grid;
+    gap: 0.45rem;
+    justify-items: stretch;
+  }
+
+  .researcher-entry-actions a {
+    display: inline-flex;
+    gap: 0.35rem;
+    min-height: 2.75rem;
+    padding: 0.7rem 0.9rem;
+    align-items: center;
+    border-radius: 0.55rem;
+    border: 1px solid var(--atlas-border-strong);
+    color: var(--sl-color-accent-high);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .researcher-entry-actions .primary {
+    border-color: var(--atlas-action-bg);
+    background: var(--atlas-action-bg);
+    color: var(--atlas-action-text);
   }
 
   .atlas-stats div {
@@ -339,6 +408,15 @@ const paths = [
   }
 
   @media (max-width: 52rem) {
+
+    .researcher-entry {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .researcher-entry-actions {
+      justify-self: start;
+    }
 
     .verification-contract {
       grid-template-columns: 1fr;
