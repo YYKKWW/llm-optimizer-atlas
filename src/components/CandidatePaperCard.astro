@@ -1,0 +1,389 @@
+---
+import { RESEARCH_TRACK_LABELS } from '../lib/paper-views.mjs';
+import { candidateVenueLabel } from '../lib/candidate-paper-filter.mjs';
+import { paperDetailRoute, withBase } from '../lib/papers.mjs';
+
+const { candidate, originalOrder = 0 } = Astro.props;
+const humanize = (value: string) =>
+  value
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+const decisionLabels = {
+  include: 'Include',
+  watch: 'Watch',
+  exclude: 'Exclude',
+  pending: 'Decision pending',
+};
+const trackLabels = candidate.research_tracks.map(
+  (track: string) => RESEARCH_TRACK_LABELS.get(track) ?? humanize(track),
+);
+const titleId = `candidate-title-${candidate.candidate_id}`;
+const officialAvailable = /^https:\/\//i.test(candidate.official_url ?? '');
+const arxivAvailable = /^https:\/\//i.test(candidate.arxiv_url ?? '');
+const officialAlreadyShown =
+  officialAvailable && arxivAvailable && candidate.official_url === candidate.arxiv_url;
+const canonicalDuplicateHref = candidate.canonical_duplicate_of
+  ? withBase(
+      import.meta.env.BASE_URL,
+      paperDetailRoute(candidate.canonical_duplicate_of),
+    )
+  : null;
+const reviewNotesAvailable =
+  candidate.unresolved_metadata.length > 0 ||
+  candidate.possible_conflicts.length > 0 ||
+  candidate.canonical_duplicate_of !== null ||
+  Boolean(candidate.decision_rationale);
+const searchText = [
+  candidate.title,
+  ...candidate.authors,
+  candidate.venue,
+  candidateVenueLabel(candidate.venue),
+  candidate.publication_status,
+  ...candidate.research_tracks,
+  ...trackLabels,
+  ...candidate.tags,
+  candidate.recommendation,
+  candidate.reading_priority,
+  candidate.review_level,
+  candidate.review_summary,
+  ...candidate.unresolved_metadata,
+  ...candidate.possible_conflicts,
+  candidate.decision,
+  candidate.decision_rationale,
+].join(' ');
+---
+
+<li
+  class="candidate-item"
+  data-candidate-card
+  data-search-text={searchText}
+  data-title={candidate.title}
+  data-venue={candidate.venue}
+  data-tracks={candidate.research_tracks.join(',')}
+  data-decision={candidate.decision}
+  data-reading-priority={candidate.reading_priority}
+  data-last-reviewed={candidate.last_reviewed}
+  data-original-order={originalOrder}
+>
+  <article class:list={['candidate-card', `decision-${candidate.decision}`]} aria-labelledby={titleId}>
+    <div class="candidate-card__topline atlas-meta">
+      <span class:list={['decision', `decision-badge-${candidate.decision}`]}>
+        {decisionLabels[candidate.decision as keyof typeof decisionLabels]}
+      </span>
+      <span>{candidateVenueLabel(candidate.venue)} {candidate.year}</span>
+      <span>{humanize(candidate.publication_status)}</span>
+      <span>{humanize(candidate.reading_priority)}</span>
+      <span>{humanize(candidate.discovery_method)}</span>
+    </div>
+
+    <div class="candidate-card__heading">
+      <div>
+        <h3 id={titleId}>{candidate.title}</h3>
+        <p class="authors">{candidate.authors.join(', ')}</p>
+      </div>
+      <span class="recommendation">
+        Analyst recommendation: <strong>{humanize(candidate.recommendation)}</strong>
+      </span>
+    </div>
+
+    <p class="review-summary">{candidate.review_summary}</p>
+
+    <ul class="tags" aria-label={`Topics for ${candidate.title}`}>
+      {candidate.tags.map((tag: string) => <li>{tag}</li>)}
+    </ul>
+
+    {reviewNotesAvailable && (
+      <details>
+        <summary>Review notes and unresolved items</summary>
+        <div class="review-notes">
+          {candidate.decision_rationale && (
+            <p><strong>Human decision rationale:</strong> {candidate.decision_rationale}</p>
+          )}
+          {candidate.canonical_duplicate_of && (
+            <p>
+              <strong>Canonical duplicate:</strong>{' '}
+              <a href={canonicalDuplicateHref}><code>{candidate.canonical_duplicate_of}</code></a>
+            </p>
+          )}
+          {candidate.unresolved_metadata.length > 0 && (
+            <div>
+              <strong>Unresolved metadata</strong>
+              <ul>
+                {candidate.unresolved_metadata.map((item: string) => <li>{item}</li>)}
+              </ul>
+            </div>
+          )}
+          {candidate.possible_conflicts.length > 0 && (
+            <div>
+              <strong>Possible literature tensions</strong>
+              <ul>
+                {candidate.possible_conflicts.map((item: string) => <li>{item}</li>)}
+              </ul>
+            </div>
+          )}
+        </div>
+      </details>
+    )}
+
+    <footer>
+      <div class="record-facts">
+        <span>{trackLabels.join(' | ')}</span>
+        <span>Review level: {humanize(candidate.review_level)}</span>
+        <span>
+          Reviewed <time datetime={candidate.last_reviewed}>{candidate.last_reviewed}</time>
+        </span>
+        {candidate.decided_on && (
+          <span>
+            Decision <time datetime={candidate.decided_on}>{candidate.decided_on}</time>
+            {candidate.reviewer ? ` by ${candidate.reviewer}` : ''}
+          </span>
+        )}
+      </div>
+      <nav aria-label={`Sources for ${candidate.title}`}>
+        {arxivAvailable && (
+          <a href={candidate.arxiv_url} target="_blank" rel="noreferrer">Read on arXiv</a>
+        )}
+        {officialAvailable && !officialAlreadyShown && (
+          <a href={candidate.official_url} target="_blank" rel="noreferrer">Official source</a>
+        )}
+      </nav>
+    </footer>
+  </article>
+</li>
+
+<style>
+  .candidate-item {
+    min-width: 0;
+  }
+
+  .candidate-card {
+    display: grid;
+    gap: 0.75rem;
+    min-width: 0;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--atlas-border);
+    border-inline-start: 0.24rem solid var(--atlas-blue-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper);
+    box-shadow: var(--atlas-shadow-small);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .candidate-card:hover,
+  .candidate-card:focus-within {
+    border-color: color-mix(in srgb, var(--atlas-burgundy) 50%, var(--atlas-border));
+    box-shadow: var(--atlas-shadow);
+  }
+
+  .decision-include {
+    border-inline-start-color: var(--atlas-green-border);
+  }
+
+  .decision-watch {
+    border-inline-start-color: var(--atlas-amber-border);
+  }
+
+  .decision-exclude {
+    border-inline-start-color: var(--atlas-border-strong);
+  }
+
+  .candidate-card__topline,
+  .candidate-card__heading,
+  footer,
+  .record-facts,
+  .tags,
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .candidate-card__topline {
+    gap: 0.45rem 0.8rem;
+    color: var(--atlas-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .decision {
+    padding: 0.2rem 0.48rem;
+    border: 1px solid var(--atlas-blue-border);
+    border-radius: 999px;
+    background: var(--atlas-blue-soft);
+    color: var(--atlas-ink);
+    font-weight: 700;
+  }
+
+  .decision-badge-include {
+    border-color: var(--atlas-green-border);
+    background: var(--atlas-green-soft);
+  }
+
+  .decision-badge-watch {
+    border-color: var(--atlas-amber-border);
+    background: var(--atlas-amber-soft);
+  }
+
+  .decision-badge-exclude {
+    border-color: var(--atlas-border-strong);
+    background: var(--atlas-paper-muted);
+  }
+
+  .candidate-card__heading {
+    gap: 0.75rem 1rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .candidate-card__heading > div {
+    min-width: 0;
+  }
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h3 {
+    max-width: 48rem;
+    overflow-wrap: anywhere;
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.12rem, 1.6vw, 1.34rem);
+    line-height: 1.3;
+    letter-spacing: -0.014em;
+  }
+
+  .authors {
+    margin-top: 0.3rem;
+    color: var(--atlas-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .recommendation {
+    flex: none;
+    max-width: 15rem;
+    color: var(--atlas-muted);
+    font-size: 0.73rem;
+    text-align: end;
+  }
+
+  .review-summary {
+    max-width: 50rem;
+    color: var(--atlas-muted);
+    font-size: 0.92rem;
+    line-height: 1.62;
+  }
+
+  .tags {
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tags li {
+    padding: 0.18rem 0.48rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 999px;
+    background: var(--atlas-paper-muted);
+    color: var(--atlas-muted);
+    font-size: 0.7rem;
+  }
+
+  details {
+    border-top: 1px solid var(--atlas-border);
+    padding-top: 0.65rem;
+    color: var(--atlas-muted);
+    font-size: 0.79rem;
+  }
+
+  summary {
+    width: fit-content;
+    color: var(--sl-color-accent-high);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .review-notes {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 0.65rem;
+    padding: 0.75rem;
+    border-radius: 0.55rem;
+    background: var(--atlas-paper-muted);
+    line-height: 1.55;
+  }
+
+  .review-notes ul {
+    margin: 0.25rem 0 0;
+  }
+
+  footer {
+    gap: 0.75rem 1rem;
+    justify-content: space-between;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--atlas-border);
+    color: var(--atlas-muted);
+    font-size: 0.72rem;
+  }
+
+  .record-facts {
+    min-width: 0;
+    gap: 0.3rem 0.85rem;
+  }
+
+  .record-facts span {
+    overflow-wrap: anywhere;
+  }
+
+  nav {
+    flex: none;
+    gap: 0.65rem;
+  }
+
+  nav a {
+    min-height: 2.1rem;
+    padding: 0.32rem 0;
+    color: var(--sl-color-accent-high);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  @media (max-width: 38rem) {
+    .candidate-card {
+      padding: 1rem;
+    }
+
+    .candidate-card__heading,
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .recommendation {
+      max-width: none;
+      text-align: start;
+    }
+
+    .record-facts {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .candidate-card,
+    .decision,
+    .tags li {
+      border-color: CanvasText;
+    }
+  }
+</style>

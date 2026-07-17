@@ -1,0 +1,1216 @@
+schema_version: 1
+decision_scope: >-
+  Screening decisions only; include means approved for full reading and canonical-ingestion review,
+  not promoted as verified evidence.
+decisions:
+  - candidate_id: candidate-17619dc6d9834d67
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct theory for the Shampoo
+      Kronecker approximation and its relation to one power-iteration step makes this a
+      high-priority preconditioning read.
+    canonical_promotion: false
+  - candidate_id: candidate-1413c01b13e23d99
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: The official abstract directly
+      covers pretraining, adaptive low-rank Adam moments, randomized SVD, optimizer-state memory,
+      and convergence.
+    canonical_promotion: false
+  - candidate_id: candidate-3b14aedab99654e1
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct FP8
+      optimizer-state/activation compression for LLM training; quantitative conditions need
+      checking.
+    canonical_promotion: false
+  - candidate_id: candidate-411d5a4483119ba5
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: A direct comparison of SGD,
+      Adafactor, Adam, Lion, and Sophia across autoregressive model scales is central to optimizer
+      benchmarking and hyperparameter robustness.
+    canonical_promotion: false
+  - candidate_id: candidate-7126388f712dc222
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct LLM pretraining plus
+      low-rank manifold steepest descent.
+    canonical_promotion: false
+  - candidate_id: candidate-b774d7fec247b218
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct GPT pretraining,
+      low-rank projection, error feedback, and convergence-preserving communication compression
+      connect optimization and systems costs.
+    canonical_promotion: false
+  - candidate_id: candidate-97917eccdfad0ac0
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: This direct language-model
+      optimizer paper studies the benefit and cost of long-memory gradient exponential moving
+      averages.
+    canonical_promotion: false
+  - candidate_id: candidate-b0c590840b3ff75c
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct LLM subspace
+      optimization, memory, convergence, and communication.
+    canonical_promotion: false
+  - candidate_id: candidate-1bd82b69734f1f11
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct manifold, feasibility,
+      stochastic, and compressed distributed optimization.
+    canonical_promotion: false
+  - candidate_id: candidate-31ddd670bcafe59f
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Attention-model motivation
+      plus adaptive/state/communication tradeoffs.
+    canonical_promotion: false
+  - candidate_id: candidate-938b0fda13cba29a
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: The randomized Riemannian
+      submanifold method directly addresses scalable retraction costs and stochastic
+      orthogonality-constrained updates.
+    canonical_promotion: false
+  - candidate_id: candidate-fca2d98e7b2cd1a8
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct scalable pretraining
+      and optimizer-state reduction.
+    canonical_promotion: false
+  - candidate_id: candidate-ecc4a21f6b3e4497
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: A GaLore counterexample,
+      explicit convergence conditions, and the proposed GoLore method make this central to low-rank
+      LLM training.
+    canonical_promotion: false
+  - candidate_id: candidate-905a39c3aa74b9d6
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Rank-one matrix computations
+      and linear convergence over the spectrahedron directly connect LMOs, low rank, and spectral
+      feasible sets.
+    canonical_promotion: false
+  - candidate_id: candidate-c45fd66a1c3af92d
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: The method decouples
+      bounded-rank closed sets and orthogonally invariant constraints into smooth-manifold
+      optimization with tangent-cone analysis.
+    canonical_promotion: false
+  - candidate_id: candidate-8b5c5539b1f3a52d
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct LMO and Frank-Wolfe
+      theory, affine-invariant rates, norm-ball experiments, and open-loop step sizes merit full
+      reading; its correction is merged into this record.
+    canonical_promotion: false
+  - candidate_id: candidate-b79dd3ac91230a72
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Projected and inexact
+      constrained first-order methods derived from nonsmooth dynamics are directly relevant to PGD
+      and closed-set algorithm design.
+    canonical_promotion: false
+  - candidate_id: candidate-9fe334fbf0b73f6b
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Anisotropic and Bregman
+      geometry with nonlinear preconditioning is a direct theoretical bridge to norm-induced updates
+      and structured preconditioning.
+    canonical_promotion: false
+  - candidate_id: candidate-08efa8ab1b0fd95c
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Exponential convergence rates
+      with fixed learning rate, friction, and a local PL regime provide direct momentum-optimizer
+      theory, although no LLM benchmark is reported.
+    canonical_promotion: false
+  - candidate_id: candidate-710388b85e43b29a
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Biased probabilistic zeroth-,
+      first-, and second-order oracles with heavy-tailed stationarity bounds directly address
+      inexact stochastic-oracle theory.
+    canonical_promotion: false
+  - candidate_id: candidate-8862bd215845e758
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Persistent additive oracle
+      errors, nonconvex semialgebraic geometry, and distance-to-critical-set bounds directly support
+      inexact-oracle and nonsmooth work.
+    canonical_promotion: false
+  - candidate_id: candidate-59a8f2016b44369e
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Nonsmooth optimization over a
+      spectrahedron with approximate mirror-prox steps and two low-rank SVDs per iteration is
+      directly relevant to spectral, low-rank, and inexact-oracle research.
+    canonical_promotion: false
+  - candidate_id: candidate-c6ca6e9083182033
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Tangent-cone geometry, bounded
+      Tucker-rank varieties, provable line-search methods, and rank adaptation directly support
+      closed low-rank research.
+    canonical_promotion: false
+  - candidate_id: candidate-b81eeac27547d50c
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Low-rank spectral constraints,
+      convexification, rank bounds, and pricing oracles are central to spectral closed-set research.
+    canonical_promotion: false
+  - candidate_id: candidate-4b941a5588876123
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: The paper directly compares
+      projection and LMO access with cheaper quadratic-program oracles under functional constraints,
+      making it a strong oracle-design bridge.
+    canonical_promotion: false
+  - candidate_id: candidate-8627cad7905ca902
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct conditional-gradient
+      and LMO theory with proximal bundles offers a relevant primal-dual bridge for norm-constrained
+      oracle methods.
+    canonical_promotion: false
+  - candidate_id: candidate-83037070d1889e6c
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: The paper provides direct
+      geometric analysis of conventional momentum failure modes and low-rank-aware updates.
+    canonical_promotion: false
+  - candidate_id: candidate-9d1966f9a12e2ed4
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: SPlus directly addresses stale
+      Shampoo inverses, shape-aware learning-rate transfer, and wall-clock Transformer training.
+    canonical_promotion: false
+  - candidate_id: candidate-3fe6cf6f16330f63
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Module-wise spectral
+      heterogeneity and direct pretraining experiments bear on weight-decay transfer and the limits
+      of uniform layerwise decay.
+    canonical_promotion: false
+  - candidate_id: candidate-413aab9e9e5ba037
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct pretraining evidence
+      and a convergence-motivated alternative to frozen dominant low-rank subspaces make this a
+      high-priority read.
+    canonical_promotion: false
+  - candidate_id: candidate-0593e6dc4c1bfcbe
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: This is approved as matched
+      systems context for communication and wall-clock efficiency, not as evidence that one
+      optimizer is intrinsically better.
+    canonical_promotion: false
+  - candidate_id: candidate-b0f7f7e87a5e2545
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Fixed-rank Riemannian
+      optimization and adaptive metrics are highly relevant despite experiments focusing on
+      fine-tuning and compression.
+    canonical_promotion: false
+  - candidate_id: candidate-d6dff783568c35f9
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Finite-time
+      Goldstein-stationarity guarantees and a zeroth-order variant are especially important for
+      nonsmooth manifold and closed-set research.
+    canonical_promotion: false
+  - candidate_id: candidate-6ca04cc68937bfdb
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct theory for optimizer
+      memory and implicit loss perturbation.
+    canonical_promotion: false
+  - candidate_id: candidate-5943f8855b0993c0
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct norm-based theory for
+      spectral descent and Muon merits full reading, with the multiclass separable linear setting
+      kept explicit.
+    canonical_promotion: false
+  - candidate_id: candidate-7ed4c0eed6a385b2
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct distributed LLM
+      optimization with low-rank approximate gradients and measured throughput robustness makes this
+      strong systems evidence.
+    canonical_promotion: false
+  - candidate_id: candidate-0a34095abe41f059
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct LLM
+      pretraining/fine-tuning, module sampling, state memory, and stochastic theory.
+    canonical_promotion: false
+  - candidate_id: candidate-aa96eb95ba15974a
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: It directly separates Shampoo
+      eigenvalue and eigenbasis errors and studies grafting, stale preconditioners, and adaptive
+      update frequency.
+    canonical_promotion: false
+  - candidate_id: candidate-34afaaf14baeb200
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct Grassmannian subspace
+      tracking and projection-aware Adam for scalable LLM training connects manifold geometry,
+      memory, and wall-clock behavior.
+    canonical_promotion: false
+  - candidate_id: candidate-036a6a180fd97df5
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Directly connects moment
+      orthogonalization, exact or approximate matrix operations, LLM training memory, and
+      optimization behavior.
+    canonical_promotion: false
+  - candidate_id: candidate-580a468840e2a0f3
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Direct theory and experiments
+      for schedule-free AdamW under continuously scaling workloads bear on tuning fairness and
+      training horizon.
+    canonical_promotion: false
+  - candidate_id: candidate-65a637efc4f7ec5f
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Distributed LM training,
+      learning-rate/momentum interaction, and communication.
+    canonical_promotion: false
+  - candidate_id: candidate-9e6a2c8e1d118653
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Constrained nonsmooth
+      nonconvex theory, inexact subproblem tolerance, and block projected-gradient consequences are
+      relevant to closed-set iterative schemes.
+    canonical_promotion: false
+  - candidate_id: candidate-496506815392773e
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Nonsmooth spectral-function
+      and spectral-set optimality via limiting subdifferentials and strictly convex norms directly
+      supports spectral analysis.
+    canonical_promotion: false
+  - candidate_id: candidate-905c45d0c0b27788
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Embedded-manifold structure
+      yields weaker constraint qualifications and global KKT convergence, providing a strong
+      Euclidean and Riemannian bridge.
+    canonical_promotion: false
+  - candidate_id: candidate-b686bb2e80f85023
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Normal-cone and M-stationarity
+      theory for a nonconvex union of closed convex sets is directly relevant to stratified and
+      union feasible geometry.
+    canonical_promotion: false
+  - candidate_id: candidate-6366ce42f70c929c
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: General set-constrained
+      directional and second-order optimality can sharpen stationarity criteria for nonsmooth
+      spectral feasible sets.
+    canonical_promotion: false
+  - candidate_id: candidate-1d4681457d7704c3
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: The paper treats PGD on
+      arbitrary nonempty closed subsets and proves B-stationarity of accumulation points, making it
+      highest-priority closed-set theory.
+    canonical_promotion: false
+  - candidate_id: candidate-71c9511b1e47e103
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Large-scale ML motivation,
+      decentralized heavy-tailed gradients, bias-aware clipping, and error feedback directly inform
+      communication and inexactness design.
+    canonical_promotion: false
+  - candidate_id: candidate-eaebc1392c1c0dd1
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Using one LMO per intersecting
+      compact convex set with nonconvex convergence is a direct projection-free oracle bridge.
+    canonical_promotion: false
+  - candidate_id: candidate-d204757bf0efc128
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Stochastic weakly convex
+      optimization over prox-smooth closed sets with simplified models and retractions is a direct
+      closed-set algorithmic foundation.
+    canonical_promotion: false
+  - candidate_id: candidate-495218f83949907f
+    decision: include
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Approved for full-paper reading and canonical-ingestion review: Global and local error bounds
+      plus exact penalties for sign and orthogonality constraints directly support Stiefel and
+      closed-set feasibility analysis.
+    canonical_promotion: false
+  - candidate_id: candidate-94944b4213669b09
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Low-effective-rank and
+      communication theory, but federated fine-tuning.
+    canonical_promotion: false
+  - candidate_id: candidate-f8adbfdc9deeca7a
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The mixed first- and zeroth-order
+      oracle design is useful, but applies to fine-tuning rather than pretraining.
+    canonical_promotion: false
+  - candidate_id: candidate-b4667eee9e90fff4
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Useful Local Adam/SGDM and
+      communication theory; no direct pretraining benchmark.
+    canonical_promotion: false
+  - candidate_id: candidate-e0d4216a82a0830c
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The low-rank gradient-oracle
+      theory is relevant, but the evidence remains fine-tuning only.
+    canonical_promotion: false
+  - candidate_id: candidate-42b54e4211c6bbad
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The paper offers relevant general
+      oracle and variance-reduction theory without direct LLM-pretraining or constraint evidence.
+    canonical_promotion: false
+  - candidate_id: candidate-9a5202fe1732cc97
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Diagonal-Hessian zeroth-order
+      method; fine-tuning-only evidence.
+    canonical_promotion: false
+  - candidate_id: candidate-acfa5a3960d5078f
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Momentum tracking, compression,
+      and error feedback; indirect to LLM/manifold questions.
+    canonical_promotion: false
+  - candidate_id: candidate-246b01f3c14be9eb
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Adaptive-step theory is
+      potentially useful but indirect to current algorithms and constraints.
+    canonical_promotion: false
+  - candidate_id: candidate-440a04a263085ee4
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The approximate-oracle, sparsity,
+      and quantization interaction is relevant, but not pretraining evidence.
+    canonical_promotion: false
+  - candidate_id: candidate-a9b322d072f0f085
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Float8, stochastic rounding, and
+      memory are relevant; domain is extreme multilabel classification.
+    canonical_promotion: false
+  - candidate_id: candidate-d027502cea9ffd2f
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Relaxed proximal-subproblem
+      accuracy may inform inexact-oracle work; no direct LMO/closed-set result.
+    canonical_promotion: false
+  - candidate_id: candidate-ff342d4f74311c12
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Low-precision matrix products, but
+      post-training quantization rather than optimizer training.
+    canonical_promotion: false
+  - candidate_id: candidate-9fcee468b47e6abe
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Systems context for activation
+      memory/throughput; not an optimizer.
+    canonical_promotion: false
+  - candidate_id: candidate-385c0099bac454ee
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: General-manifold decentralized
+      theory; non-LLM experiments.
+    canonical_promotion: false
+  - candidate_id: candidate-8c49c97a2534ce14
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Low-rank factorization, projected
+      rank adjustment, and escape from spurious local minima are relevant, while the polynomial-SOS
+      application lowers immediate priority.
+    canonical_promotion: false
+  - candidate_id: candidate-8a7be03c5c274d05
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Distributed stochastic momentum is
+      relevant to communication-aware optimizer theory, but no LLM, matrix, or manifold evidence was
+      verified; its correction is merged.
+    canonical_promotion: false
+  - candidate_id: candidate-5b252cd415194ffd
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Projection-free nonconvex
+      separable optimization is LMO-adjacent, but the current link to matrix and spectral LLM
+      optimizers is indirect.
+    canonical_promotion: false
+  - candidate_id: candidate-43f53f9e2854742d
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Trajectory prediction for batch,
+      step-size, and noise choices is useful methodology, but the verified setting is a narrow
+      rank-one matrix-sensing model rather than cross-scale LLM transfer.
+    canonical_promotion: false
+  - candidate_id: candidate-f69eb1d05eb1b962
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Weakly convex stochastic
+      composition and Moreau-envelope stationarity are relevant general theory, but the bridge to
+      target optimizers remains indirect.
+    canonical_promotion: false
+  - candidate_id: candidate-6b4446eb52bbf0be
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Dual Frank-Wolfe projection theory
+      is relevant to LMO and projection design, but hyperbolicity cones are an indirect application
+      domain.
+    canonical_promotion: false
+  - candidate_id: candidate-886b580ddfb3693d
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Random-function iteration
+      convergence may transfer to machine learning, but the verified application is X-FEL imaging
+      and is remote from the target optimizers.
+    canonical_promotion: false
+  - candidate_id: candidate-7ee72ed0ec9193fd
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Nonsmooth limiting geometry and
+      optimality at infinity may inform closed-set variational analysis, but the bridge to spectral
+      constraints is indirect.
+    canonical_promotion: false
+  - candidate_id: candidate-1ea77dd9654c8a9e
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Matrix compression relevance, but
+      ViT post-training quantization rather than optimizer-state training.
+    canonical_promotion: false
+  - candidate_id: candidate-6d11459b71fe1c9c
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Tuning-budget methodology; not
+      optimizer hyperparameter transfer.
+    canonical_promotion: false
+  - candidate_id: candidate-aeefe34c5827d663
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The momentum and adaptive-step
+      robustness theory is useful, but no direct LLM or matrix/manifold evidence was verified.
+    canonical_promotion: false
+  - candidate_id: candidate-cb825cb5ce3a6830
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: General generative fine-tuning
+      theory, not pretraining optimizer evidence.
+    canonical_promotion: false
+  - candidate_id: candidate-211bdd1dda4087ef
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Geometry language and fine-tuning
+      relevance; no explicit manifold/closed-set result in the abstract.
+    canonical_promotion: false
+  - candidate_id: candidate-0c3a901617e8b9f9
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The projection and
+      approximate-oracle design is relevant, but the evidence is limited to LLM fine-tuning.
+    canonical_promotion: false
+  - candidate_id: candidate-e017eaf74ee78ee5
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Strong preconditioned zeroth-order
+      theory, but LLM fine-tuning only.
+    canonical_promotion: false
+  - candidate_id: candidate-24301623d81f08e7
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Specialized temporal-gradient
+      optimizer, but deep fine-tuning rather than pretraining.
+    canonical_promotion: false
+  - candidate_id: candidate-9b74fd4e8c4f3eda
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: LLM and alternating optimization,
+      but federated fine-tuning.
+    canonical_promotion: false
+  - candidate_id: candidate-a3c08962bfbb8d86
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Approximate-gradient error and
+      sparse updates are relevant, but the evidence is limited to LLM fine-tuning.
+    canonical_promotion: false
+  - candidate_id: candidate-ed023fd77f421089
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Explicit Stiefel geometry and
+      Riemannian optimization are relevant, but the method is limited to adapter fine-tuning.
+    canonical_promotion: false
+  - candidate_id: candidate-2d01aaf1129824fc
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Inference-energy methodology may
+      inform systems benchmarks; not training optimization.
+    canonical_promotion: false
+  - candidate_id: candidate-e467fb82ca259e6c
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Partially separable distributed
+      conic optimization may provide useful constrained theory, but no direct LLM or
+      matrix-optimizer system evidence was verified.
+    canonical_promotion: false
+  - candidate_id: candidate-206f169a732585e6
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Algebraic critical-point
+      complexity for manifold optimization is useful context but not directly an optimizer update or
+      convergence result.
+    canonical_promotion: false
+  - candidate_id: candidate-f3350ee6d1024d24
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: This is an important complexity
+      boundary for manifold optimization, but not an algorithm or direct LLM optimizer result.
+    canonical_promotion: false
+  - candidate_id: candidate-eb11e388ab35e313
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The paper shows how
+      parameterization can alter first- and second-order stationarity, useful for factorized
+      constraints but indirect to spectral-sphere methods.
+    canonical_promotion: false
+  - candidate_id: candidate-8fc107d22c3c8f8f
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: The distributed robustness theory
+      is relevant context, but no direct LLM, matrix, manifold, or communication-cost experiment was
+      verified.
+    canonical_promotion: false
+  - candidate_id: candidate-6266335dc60ac3ff
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: Variational stratification of
+      definable families may inform nonsmooth spectral strata and singular limits, but the
+      algorithmic bridge is not established.
+    canonical_promotion: false
+  - candidate_id: candidate-ec22482565d9a271
+    decision: watch
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Retained on the watchlist pending a stronger direct bridge: This is direct approximate-oracle
+      and quasi-Newton theory, but no verified LLM, spectral, low-rank, or matrix-sign setting was
+      found.
+    canonical_promotion: false
+  - candidate_id: candidate-caf5eb676e685468
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Learned QP solver, not target
+      optimizer or closed-set theory.
+    canonical_promotion: false
+  - candidate_id: candidate-529d5e94a744356f
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Visual-language prompt
+      method; “optimization” is task naming.
+    canonical_promotion: false
+  - candidate_id: candidate-6110f095b093a09a
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Biological diffusion reward
+      tuning, outside scope.
+    canonical_promotion: false
+  - candidate_id: candidate-0148f1d82a6933a6
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Offline black-box design
+      benchmark, unrelated domain.
+    canonical_promotion: false
+  - candidate_id: candidate-8b1ed0af3036c5b3
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: DP-specific learning-rate
+      automation is too indirect for the atlas.
+    canonical_promotion: false
+  - candidate_id: candidate-691d1594d49924c6
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Image-diffusion tuning, not
+      model-parameter optimizer research.
+    canonical_promotion: false
+  - candidate_id: candidate-1f1f375efaaf02e8
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Data-mixture selection, not
+      parameter optimization.
+    canonical_promotion: false
+  - candidate_id: candidate-ffabc7d9eed10ab5
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Cryptographic distributed-DP
+      matrix mechanism, not matrix preconditioning.
+    canonical_promotion: false
+  - candidate_id: candidate-59d5a0a02c3c6615
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Secure KNN communication
+      protocol.
+    canonical_promotion: false
+  - candidate_id: candidate-854e8120de4a1c48
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Vision-language prompt
+      evaluation/tuning, outside optimizer scope.
+    canonical_promotion: false
+  - candidate_id: candidate-ea00260adb2b718f
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: The memory match comes from
+      algorithmic complexity in a tree-structured quadratic program, not optimizer-state or training
+      memory.
+    canonical_promotion: false
+  - candidate_id: candidate-e99236867a710c9c
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: The work is a convex-QP
+      solver with QP benchmarks, not a pretraining optimizer or a target closed-set method.
+    canonical_promotion: false
+  - candidate_id: candidate-9865e7bf3382e2e6
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: LP-specific error-ratio and
+      sharpness guarantees for restarted PDHG are currently too remote from the target optimizer and
+      spectral-constraint questions.
+    canonical_promotion: false
+  - candidate_id: candidate-1acc368da15fff77
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: The matrix language concerns
+      polynomial-matrix positivity and the Moment-SOS hierarchy, not matrix preconditioning,
+      spectral constraints, or LLM training.
+    canonical_promotion: false
+  - candidate_id: candidate-a627218853609947
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: The apparent distributed
+      match describes PDE structure rather than distributed model training; the paper is a
+      mixed-integer PDE optimization study.
+    canonical_promotion: false
+  - candidate_id: candidate-8654fda4e35ef50f
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: This is a public-transport
+      mixed-integer timetabling paper selected by a benchmark-related lexical match.
+    canonical_promotion: false
+  - candidate_id: candidate-84703c2edd997975
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: metadata
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: General complexity and
+      certificates for bilevel unboundedness have no concrete bridge to the current LLM optimizer or
+      closed-set algorithms.
+    canonical_promotion: false
+  - candidate_id: candidate-0b5e9b2fa17c6c9d
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Generative-model policy
+      fine-tuning, outside core scope.
+    canonical_promotion: false
+  - candidate_id: candidate-95457b933ab57234
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Vision-language token
+      pruning, not optimizer scaling.
+    canonical_promotion: false
+  - candidate_id: candidate-46cb8726727646db
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Urban-mobility
+      Bayesian-optimization benchmark.
+    canonical_promotion: false
+  - candidate_id: candidate-d5ec0ffe7d26ef8e
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Visual-instruction data
+      selection, not parameter optimization.
+    canonical_promotion: false
+  - candidate_id: candidate-967a492aaab66def
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Stellarator
+      dataset/benchmark, keyword false positive.
+    canonical_promotion: false
+  - candidate_id: candidate-f6ba0cd04fb58710
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Data-center workload
+      multi-objective benchmark, not LLM optimizer training.
+    canonical_promotion: false
+  - candidate_id: candidate-3bf3bfdb05a21c90
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Adversarial attack method,
+      not transfer of optimizer hyperparameters.
+    canonical_promotion: false
+  - candidate_id: candidate-a0c8dcc1a7d5cae1
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Domain-specific DP/federated
+      benchmark; too distant from priorities.
+    canonical_promotion: false
+  - candidate_id: candidate-15397e729e9b047e
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Appearance transfer; keyword
+      false positive.
+    canonical_promotion: false
+  - candidate_id: candidate-d4d280eb3f89eeab
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Exact work already exists as
+      canonical `hyperparameter-transfer-matrix-preconditioners`; no new version.
+    canonical_promotion: false
+  - candidate_id: candidate-e27361e4ead56e52
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Liquid-cooling control
+      benchmark, not model training.
+    canonical_promotion: false
+  - candidate_id: candidate-61be88e0d4fbf028
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: General meta-black-box
+      optimization platform, outside current atlas.
+    canonical_promotion: false
+  - candidate_id: candidate-07f0ef7c8044268d
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Conversation policy
+      optimization, not optimizer research.
+    canonical_promotion: false
+  - candidate_id: candidate-c9e46dba0778a68b
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: LLM-driven scene layout
+      generation; “optimization/scale” is not optimizer scaling.
+    canonical_promotion: false
+  - candidate_id: candidate-637e950bf08286eb
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: KV-cache inference
+      quantization; “polar” is a semantic false hit.
+    canonical_promotion: false
+  - candidate_id: candidate-ebe01f6121151ae5
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Diffusion motion transfer,
+      not optimizer transfer.
+    canonical_promotion: false
+  - candidate_id: candidate-20f466eb20b0640d
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Test-time combinatorial
+      search using an LLM, not LLM training optimization.
+    canonical_promotion: false
+  - candidate_id: candidate-b0432c8d2afe9a55
+    decision: exclude
+    decided_on: '2026-07-17'
+    reviewer: project-owner-delegated review
+    review_level: abstract
+    rationale: >-
+      Excluded from the active queue while preserving the audit trail: Inference-stage combinatorial
+      optimization, not training memory/optimizer evidence.
+    canonical_promotion: false

@@ -1,0 +1,4604 @@
+schema_version: 1
+search_window:
+  start: '2025-01-01'
+  end: '2026-07-17'
+  reviewed_on: '2026-07-17'
+candidates:
+  - title: A New Perspective on Shampoo's Preconditioner
+    authors:
+      - Depen Morwani
+      - Itai Shapira
+      - Nikhil Vyas
+      - Eran Malach
+      - Sham Kakade
+      - Lucas Janson
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/11332b6b6cf4485b84afadb1352d3a9a-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - norm-duality
+    tags:
+      - approximation
+      - kronecker-preconditioning
+      - power-iteration
+      - shampoo
+    possible_conflicts:
+      - >-
+        Its one-step power-iteration perspective may refine how canonical Shampoo records explain
+        approximation quality.
+    candidate_id: candidate-17619dc6d9834d67
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct theory for the Shampoo Kronecker approximation and its relation to one power-iteration
+      step makes this a high-priority preconditioning read.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: >-
+      AdaRankGrad: Adaptive Gradient Rank and Moments for Memory-Efficient LLMs Training and
+      Fine-Tuning
+    authors:
+      - Yehonathan Refael
+      - Jonathan Svirsky
+      - Boris Shustin
+      - Wasim Huleihel
+      - Ofir Lindenbaum
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/fe99ca7c293fe083c8fe7e85dce2f814-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - adaptive-rank
+      - convergence
+      - llm-pretraining
+      - optimizer-state
+      - randomized-svd
+    candidate_id: candidate-1413c01b13e23d99
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      The official abstract directly covers pretraining, adaptive low-rank Adam moments, randomized
+      SVD, optimizer-state memory, and convergence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-3b14aedab99654e1
+    title: 'COAT: Compressing Optimizer states and Activations for Memory-Efficient FP8 Training'
+    authors:
+      - Han Cai
+      - Haocheng Xi
+      - Jianfei Chen
+      - Kurt Keutzer
+      - Ligeng Zhu
+      - Song Han
+      - Yao Lu
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/6ac807c9b296964409b277369e55621a-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - fp8
+      - llm-pretraining
+      - memory
+      - optimizer-state
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct FP8 optimizer-state/activation compression for LLM training; quantitative conditions
+      need checking.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: Deconstructing What Makes a Good Optimizer for Autoregressive Language Models
+    authors:
+      - Rosie Zhao
+      - Depen Morwani
+      - David Brandfonbrener
+      - Nikhil Vyas
+      - Sham Kakade
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/07ea874e9e4f71ec6680a3574a485a36-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - benchmarking
+    tags:
+      - autoregressive-language-model
+      - hyperparameter-robustness
+      - llm-pretraining
+      - optimizer-benchmarking
+    possible_conflicts:
+      - >-
+        Optimizer rankings may differ from canonical benchmarks when model scale, tuning budget, or
+        training horizon changes.
+    candidate_id: candidate-411d5a4483119ba5
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      A direct comparison of SGD, Adafactor, Adam, Lion, and Sophia across autoregressive model
+      scales is central to optimizer benchmarking and hyperparameter robustness.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-7126388f712dc222
+    title: Parameter and Memory Efficient Pretraining via Low-rank Riemannian Optimization
+    authors:
+      - Long-Kai Huang
+      - Sinno Jialin Pan
+      - Zhanfeng Mo
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/16fafdc5e8ab22780873d607ce4387a8-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - manifold-constraints
+      - preconditioning
+      - systems
+    tags:
+      - llm-pretraining
+      - low-rank
+      - memory
+      - riemannian-optimization
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Direct LLM pretraining plus low-rank manifold steepest descent.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: >-
+      SEPARATE: A Simple Low-rank Projection for Gradient Compression in Modern Large-scale Model
+      Training Process
+    authors:
+      - Hanzhen Zhao
+      - Xingyu Xie
+      - Cong Fang
+      - Zhouchen Lin
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/3d09a88c3372cdb79401fde592ca4db8-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - systems
+      - preconditioning
+    tags:
+      - communication
+      - error-feedback
+      - gradient-compression
+      - llm-pretraining
+      - low-rank
+    candidate_id: candidate-b774d7fec247b218
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct GPT pretraining, low-rank projection, error feedback, and convergence-preserving
+      communication compression connect optimization and systems costs.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'The AdEMAMix Optimizer: Better, Faster, Older'
+    authors:
+      - Matteo Pagliardini
+      - Pierre Ablin
+      - David Grangier
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/a2cf225ba392627529efef14dc857e22-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - llm-pretraining
+      - momentum
+      - optimizer-memory
+      - scaling
+    candidate_id: candidate-97917eccdfad0ac0
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      This direct language-model optimizer paper studies the benefit and cost of long-memory
+      gradient exponential moving averages.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-b0c590840b3ff75c
+    title: A Memory Efficient Randomized Subspace Optimization Method for Training Large Language Models
+    authors:
+      - Kun Yuan
+      - Yiming Chen
+      - Yin Liu
+      - Yuan Zhang
+      - Zaiwen Wen
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/chen25cj.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - communication
+      - convergence
+      - llm-pretraining
+      - memory
+      - subspace-optimization
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Direct LLM subspace optimization, memory, convergence, and communication.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-1bd82b69734f1f11
+    title: Distributed Retraction-Free and Communication-Efficient Optimization on the Stiefel Manifold
+    authors:
+      - Bin Gao
+      - Kun Yuan
+      - Peijin Li
+      - Yilong Song
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/song25c.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - manifold-constraints
+      - systems
+    tags:
+      - compression
+      - distributed-optimization
+      - error-feedback
+      - stiefel
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Direct manifold, feasibility, stochastic, and compressed distributed optimization.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-31ddd670bcafe59f
+    title: Efficient Distributed Optimization under Heavy-Tailed Noise
+    authors:
+      - Manzil Zaheer
+      - Su Hyeong Lee
+      - Tian Li
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/lee25ak.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - clipping
+      - distributed-optimization
+      - heavy-tailed-noise
+      - stochastic-optimization
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Attention-model motivation plus adaptive/state/communication tradeoffs.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Efficient Optimization with Orthogonality Constraint: a Randomized Riemannian Submanifold
+      Method
+    authors:
+      - Andi Han
+      - Pierre-Louis Poirion
+      - Akiko Takeda
+    year: 2025
+    published_date: null
+    doi: null
+    venue: icml
+    official_url: https://proceedings.mlr.press/v267/han25f.html
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - orthogonality-constraints
+      - randomized-submanifolds
+      - riemannian-optimization
+      - stochastic-theory
+    candidate_id: candidate-938b0fda13cba29a
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      The randomized Riemannian submanifold method directly addresses scalable retraction costs and
+      stochastic orthogonality-constrained updates.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-fca2d98e7b2cd1a8
+    title: 'FRUGAL: Memory-Efficient Optimization by Reducing State Overhead for Scalable Training'
+    authors:
+      - Aleksandr Beznosikov
+      - Martin Takáč
+      - Philip Zmushko
+      - Samuel Horváth
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/zmushko25a.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - full-rank-updates
+      - llm-pretraining
+      - low-rank
+      - memory
+      - optimizer-state
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Direct scalable pretraining and optimizer-state reduction.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: Subspace Optimization for Large Language Models with Convergence Guarantees
+    authors:
+      - Yutong He
+      - Pengrui Li
+      - Yipeng Hu
+      - Chuyan Chen
+      - Kun Yuan
+    year: 2025
+    published_date: null
+    doi: null
+    venue: icml
+    official_url: https://proceedings.mlr.press/v267/he25i.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - galore
+      - llm-pretraining
+      - low-rank
+      - stochastic-convergence
+      - subspace-optimization
+    possible_conflicts:
+      - >-
+        Its GaLore counterexample challenges convergence assumptions for fixed or insufficiently
+        randomized gradient subspaces.
+    candidate_id: candidate-ecc4a21f6b3e4497
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      A GaLore counterexample, explicit convergence conditions, and the proposed GoLore method make
+      this central to low-rank LLM training.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-905a39c3aa74b9d6
+    title: >-
+      A Randomized Linearly Convergent Frank-Wolfe-type Method for Smooth Convex Minimization over
+      the Spectrahedron
+    authors:
+      - Dan Garber
+    published_date: '2026-04-13'
+    doi: 10.1007/s10107-026-02343-3
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - norm-duality
+      - manifold-constraints
+    tags:
+      - frank-wolfe
+      - low-rank
+      - randomized-method
+      - spectrahedron
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-026-02343-3
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Rank-one matrix computations and linear convergence over the spectrahedron directly connect
+      LMOs, low rank, and spectral feasible sets.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-c45fd66a1c3af92d
+    title: >-
+      A space-decoupling framework for optimization on bounded-rank matrices with orthogonally
+      invariant constraints
+    authors:
+      - Yan Yang
+      - Bin Gao
+      - Ya-xiang Yuan
+    published_date: '2026-02-04'
+    doi: 10.1007/s10107-026-02331-7
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - bounded-rank
+      - orthogonally-invariant
+      - riemannian-optimization
+      - tangent-cone
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-026-02331-7
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      The method decouples bounded-rank closed sets and orthogonally invariant constraints into
+      smooth-manifold optimization with tangent-cone analysis.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8b5c5539b1f3a52d
+    title: >-
+      Accelerated affine-invariant convergence rates of the Frank–Wolfe algorithm with open-loop
+      step-sizes
+    authors:
+      - Elias Wirth
+      - Javier Peña
+      - Sebastian Pokutta
+    published_date: '2025-01-06'
+    doi: 10.1007/s10107-024-02180-2
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - norm-duality
+    tags:
+      - affine-invariance
+      - frank-wolfe
+      - linear-minimization-oracle
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-024-02180-2
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Direct LMO and Frank-Wolfe theory, affine-invariant rates, norm-ball experiments, and
+      open-loop step sizes merit full reading; its correction is merged into this record.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-b79dd3ac91230a72
+    title: Accelerated first-order optimization under nonlinear constraints
+    authors:
+      - Michael Muehlebach
+      - Michael I. Jordan
+    published_date: '2025-04-21'
+    doi: 10.1007/s10107-025-02224-1
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - constrained-optimization
+      - differential-inclusion
+      - first-order-method
+      - projected-gradient
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02224-1
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Projected and inexact constrained first-order methods derived from nonsmooth dynamics are
+      directly relevant to PGD and closed-set algorithm design.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-9fe334fbf0b73f6b
+    title: Anisotropic proximal gradient
+    authors:
+      - Emanuel Laude
+      - Panagiotis Patrinos
+    published_date: '2025-04-07'
+    doi: 10.1007/s10107-025-02204-5
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - norm-duality
+      - preconditioning
+    tags:
+      - anisotropic-geometry
+      - bregman-divergence
+      - nonlinear-preconditioning
+      - proximal-gradient
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02204-5
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Anisotropic and Bregman geometry with nonlinear preconditioning is a direct theoretical bridge
+      to norm-induced updates and structured preconditioning.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-08efa8ab1b0fd95c
+    title: >-
+      Exponential convergence rates for momentum stochastic gradient descent in the overparametrized
+      setting
+    authors:
+      - Benjamin Gess
+      - Sebastian Kassing
+    venue: mathematical-programming
+    year: 2026
+    published_date: '2026-01-07'
+    publication_status: published
+    doi: 10.1007/s10107-025-02308-y
+    official_url: https://doi.org/10.1007/s10107-025-02308-y
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - momentum
+      - overparameterized
+      - stochastic-gradient
+      - hyperparameters
+    recommendation: include
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Exponential convergence rates with fixed learning rate, friction, and a local PL regime
+      provide direct momentum-optimizer theory, although no LLM benchmark is reported.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-710388b85e43b29a
+    title: >-
+      High Probability Complexity Bounds of Trust-Region Stochastic Sequential Quadratic Programming
+      with Heavy-Tailed Noise
+    authors:
+      - Javad Lavaei
+      - Sen Na
+      - Yuchen Fang
+    venue: mathematical-programming
+    year: 2026
+    published_date: '2026-04-13'
+    publication_status: published
+    doi: 10.1007/s10107-026-02357-x
+    official_url: https://doi.org/10.1007/s10107-026-02357-x
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+      - manifold-constraints
+    tags:
+      - biased-oracle
+      - heavy-tailed-noise
+      - stochastic-sqp
+      - trust-region
+    recommendation: include
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Biased probabilistic zeroth-, first-, and second-order oracles with heavy-tailed stationarity
+      bounds directly address inexact stochastic-oracle theory.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8862bd215845e758
+    title: Inexact subgradient methods for semialgebraic functions
+    authors:
+      - Jérôme Bolte
+      - Tam Le
+      - Eric Moulines
+      - Edouard Pauwels
+    published_date: '2025-06-20'
+    doi: 10.1007/s10107-025-02245-w
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - inexact-oracle
+      - nonsmooth-nonconvex
+      - semialgebraic
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02245-w
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Persistent additive oracle errors, nonconvex semialgebraic geometry, and
+      distance-to-critical-set bounds directly support inexact-oracle and nonsmooth work.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-59a8f2016b44369e
+    title: Low-rank mirror-prox methods for nonsmooth and low-rank matrix optimization problems
+    authors:
+      - Atara Kaplan
+      - Dan Garber
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-09-04'
+    publication_status: published
+    doi: 10.1007/s10107-025-02267-4
+    official_url: https://doi.org/10.1007/s10107-025-02267-4
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - manifold-constraints
+      - preconditioning
+    tags:
+      - approximate-svd
+      - low-rank
+      - mirror-prox
+      - nonsmooth
+      - spectrahedron
+    recommendation: include
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Nonsmooth optimization over a spectrahedron with approximate mirror-prox steps and two
+      low-rank SVDs per iteration is directly relevant to spectral, low-rank, and inexact-oracle
+      research.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-c6ca6e9083182033
+    title: Low-rank optimization on Tucker tensor varieties
+    authors:
+      - Bin Gao
+      - Renfeng Peng
+      - Ya-xiang Yuan
+    published_date: '2025-01-27'
+    doi: 10.1007/s10107-024-02186-w
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - bounded-rank
+      - tangent-cone
+      - tucker-tensor
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-024-02186-w
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Tangent-cone geometry, bounded Tucker-rank varieties, provable line-search methods, and rank
+      adaptation directly support closed low-rank research.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-b81eeac27547d50c
+    title: 'On the partial convexification for low-rank spectral optimization: rank bounds and algorithms'
+    authors:
+      - Yongchun Li
+      - Weijun Xie
+    published_date: '2025-12-22'
+    doi: 10.1007/s10107-025-02316-y
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+      - norm-duality
+    tags:
+      - convexification
+      - low-rank
+      - pricing-oracle
+      - spectral-optimization
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02316-y
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Low-rank spectral constraints, convexification, rank bounds, and pricing oracles are central
+      to spectral closed-set research.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-4b941a5588876123
+    title: Primal methods for variational inequality problems with functional constraints
+    authors:
+      - Liang Zhang
+      - Michael Muehlebach
+      - Niao He
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-03-20'
+    publication_status: published
+    doi: 10.1007/s10107-025-02206-3
+    official_url: https://doi.org/10.1007/s10107-025-02206-3
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - norm-duality
+      - manifold-constraints
+    tags:
+      - functional-constraints
+      - linear-minimization-oracle
+      - projection
+      - variational-inequality
+    recommendation: include
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      The paper directly compares projection and LMO access with cheaper quadratic-program oracles
+      under functional constraints, making it a strong oracle-design bridge.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8627cad7905ca902
+    title: Primal-dual proximal bundle and conditional gradient methods for convex problems
+    authors:
+      - Jiaming Liang
+    published_date: '2025-12-01'
+    doi: 10.1007/s10107-025-02307-z
+    venue: mathematical-programming
+    recommendation: include
+    research_tracks:
+      - norm-duality
+    tags:
+      - conditional-gradient
+      - primal-dual
+      - proximal-bundle
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02307-z
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Direct conditional-gradient and LMO theory with proximal bundles offers a relevant primal-dual
+      bridge for norm-constrained oracle methods.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: A geometric framework for momentum-based optimizers for low-rank training
+    authors:
+      - Steffen Schotthöfer
+      - Timon Klein
+      - Jonas Kusch
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/81f1ae463ed30c5d44ff416d134f9071-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+      - preconditioning
+    tags:
+      - dynamical-low-rank
+      - low-rank
+      - manifold
+      - momentum
+    candidate_id: candidate-83037070d1889e6c
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      The paper provides direct geometric analysis of conventional momentum failure modes and
+      low-rank-aware updates.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: A Stable Whitening Optimizer for Efficient Neural Network Training
+    authors:
+      - Kevin Frans
+      - Sergey Levine
+      - Pieter Abbeel
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/fe722dac731f46d30b043c6b0db9a3ef-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - benchmarking
+      - systems
+    tags:
+      - learning-rate-transfer
+      - shampoo
+      - transformer-benchmarking
+      - wall-clock
+      - whitening
+    possible_conflicts:
+      - >-
+        Its stability analysis may qualify claims that infrequent inverse-root updates are harmless
+        across Shampoo-like methods.
+    candidate_id: candidate-9d1966f9a12e2ed4
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      SPlus directly addresses stale Shampoo inverses, shape-aware learning-rate transfer, and
+      wall-clock Transformer training.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'AlphaDecay: Module-wise Weight Decay for Heavy-Tailed Balancing in LLMs'
+    authors:
+      - Di He
+      - Songjun Tu
+      - Ajay Jaiswal
+      - Li Shen
+      - Ganzhao Yuan
+      - Shiwei Liu
+      - Lu Yin
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/2aacf95ddc1ebd79832474bb41d13943-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - norm-duality
+      - benchmarking
+    tags:
+      - heavy-tailed
+      - hyperparameter-transfer
+      - llm-pretraining
+      - spectral-analysis
+      - weight-decay
+    possible_conflicts:
+      - It challenges the use of one uniform weight-decay value across modules and scales.
+    candidate_id: candidate-3fe6cf6f16330f63
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Module-wise spectral heterogeneity and direct pretraining experiments bear on weight-decay
+      transfer and the limits of uniform layerwise decay.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'Breaking the Frozen Subspace: Importance Sampling for Low-Rank Optimization in LLM Pretraining'
+    authors:
+      - Haochen Zhang
+      - Junze Yin
+      - Guanchu Wang
+      - Zirui Liu
+      - Lin F. Yang
+      - Tianyi Zhang
+      - Anshumali Shrivastava
+      - Vladimir Braverman
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/0edd294b7632fc96903abfbf3b264fc1-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - convergence
+      - importance-sampling
+      - llm-pretraining
+      - low-rank
+    possible_conflicts:
+      - >-
+        Its frozen-subspace failure mode should be reconciled with low-rank methods that reuse or
+        slowly refresh a dominant subspace.
+    candidate_id: candidate-413aab9e9e5ba037
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct pretraining evidence and a convergence-motivated alternative to frozen dominant
+      low-rank subspaces make this a high-priority read.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Efficient Pre-Training of LLMs via Topology-Aware Communication Alignment on More Than 9600
+      GPUs
+    authors:
+      - Guoliang He
+      - Youhe Jiang
+      - Wencong Xiao
+      - Jiang Kaihua
+      - Shuguang Wang
+      - Jun Wang
+      - Du Zixian
+      - Zhuo Jiang
+      - Xinlei Zhang
+      - Binhang Yuan
+      - Eiko Yoneki
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/d82c24b7a4237aa4283b38e12047dc38-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - systems
+    tags:
+      - communication
+      - llm-pretraining
+      - systems-context
+      - topology
+      - wall-clock
+    candidate_id: candidate-0593e6dc4c1bfcbe
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      This is approved as matched systems context for communication and wall-clock efficiency, not
+      as evidence that one optimizer is intrinsically better.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'Finding Low-Rank Matrix Weights in DNNs via Riemannian Optimization: RAdaGrad and RAdamW'
+    authors:
+      - Fengmiao Bian
+      - Jinyang ZHENG
+      - Ziyun Liu
+      - Jianzhou Luo
+      - Jian-Feng CAI
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/5679173c400b332796426e443ab5ea0d-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+      - preconditioning
+    tags:
+      - adaptive-preconditioning
+      - fixed-rank-manifold
+      - riemannian-optimization
+    candidate_id: candidate-b0f7f7e87a5e2545
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Fixed-rank Riemannian optimization and adaptive metrics are highly relevant despite
+      experiments focusing on fine-tuning and compression.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Finite-Time Analysis of Stochastic Nonconvex Nonsmooth Optimization on the Riemannian
+      Manifolds
+    authors:
+      - Emre Sahinoglu
+      - Youbang Sun
+      - Shahin Shahrampour
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/c2bd9242609219deb380f161682f4568-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+      - benchmarking
+    tags:
+      - nonsmooth-optimization
+      - riemannian-optimization
+      - stationarity
+      - stochastic-theory
+      - zeroth-order
+    candidate_id: candidate-d6dff783568c35f9
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Finite-time Goldstein-stationarity guarantees and a zeroth-order variant are especially
+      important for nonsmooth manifold and closed-set research.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-6ca04cc68937bfdb
+    title: How Memory in Optimization Algorithms Implicitly Modifies the Loss
+    authors:
+      - Boris Shigida
+      - Matias Cattaneo
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/e4cc8ab4a64e99f962f36d07a7723d94-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - norm-duality
+      - benchmarking
+    tags:
+      - implicit-regularization
+      - memory
+      - momentum
+      - optimizer-theory
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Direct theory for optimizer memory and implicit loss perturbation.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: Implicit Bias of Spectral Descent and Muon on Multiclass Separable Data
+    authors:
+      - Chen Fan
+      - Mark Schmidt
+      - Christos Thrampoulidis
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/386432c7534eec9a1cd7cbeea90d7e9f-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - norm-duality
+      - preconditioning
+    tags:
+      - implicit-bias
+      - muon
+      - norm-duality
+      - spectral-descent
+    possible_conflicts:
+      - >-
+        Its implicit-bias result is narrow theory and must not be generalized to nonlinear LLM
+        pretraining without new evidence.
+    candidate_id: candidate-5943f8855b0993c0
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct norm-based theory for spectral descent and Muon merits full reading, with the
+      multiclass separable linear setting kept explicit.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'MeCeFO: Enhancing LLM Training Robustness via Fault-Tolerant Optimization'
+    authors:
+      - Rizhen Hu
+      - Yutong He
+      - Ran Yan
+      - Mou Sun
+      - Binhang Yuan
+      - Kun Yuan
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/fd1eff9dd295df50a41f2521942fa31d-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - systems
+      - preconditioning
+    tags:
+      - distributed-optimization
+      - fault-tolerance
+      - llm-pretraining
+      - low-rank-gradient
+      - systems
+    candidate_id: candidate-7ed4c0eed6a385b2
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct distributed LLM optimization with low-rank approximate gradients and measured
+      throughput robustness makes this strong systems evidence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-0a34095abe41f059
+    title: 'MISA: Memory-Efficient LLMs Optimization with Module-wise Importance Sampling'
+    authors:
+      - Kun Yuan
+      - Renjia Deng
+      - Tao Yao
+      - xue wang
+      - Yutong He
+      - Yuxi Liu
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/73efab19ebde03ff0958f4f155483f57-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - llm-pretraining
+      - memory
+      - module-sampling
+      - stochastic-optimization
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Direct LLM pretraining/fine-tuning, module sampling, state memory, and stochastic theory.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: 'Purifying Shampoo: Investigating Shampoo''s Heuristics by Decomposing its Preconditioner'
+    authors:
+      - Runa Eschenhagen
+      - Aaron Defazio
+      - Tsung-Hsien Lee
+      - Richard E Turner
+      - Hao-Jun Shi
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/f14f4eda29a74c02c803699a09529bb9-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - approximation-error
+      - eigendecomposition
+      - shampoo
+      - structured-preconditioning
+    possible_conflicts:
+      - >-
+        The decomposition may qualify claims that Shampoo heuristics or fully refreshed coupled
+        preconditioners are uniformly necessary.
+    candidate_id: candidate-aa96eb95ba15974a
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      It directly separates Shampoo eigenvalue and eigenbasis errors and studies grafting, stale
+      preconditioners, and adaptive update frequency.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'SubTrack++ : Gradient Subspace Tracking for Scalable LLM Training'
+    authors:
+      - Sahar Rajabi
+      - Nayeema Nonta
+      - Sirisha Rambhatla
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/2d62cb71e87ae340e3ab0e874befcbc2-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+      - preconditioning
+      - systems
+    tags:
+      - grassmann
+      - llm-pretraining
+      - low-rank
+      - memory
+      - projection-aware-optimizers
+      - wall-clock
+    possible_conflicts:
+      - >-
+        Dynamic Grassmannian tracking should be compared with frozen, periodically refreshed, and
+        randomly sampled low-rank subspaces.
+    candidate_id: candidate-34afaaf14baeb200
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct Grassmannian subspace tracking and projection-aware Adam for scalable LLM training
+      connects manifold geometry, memory, and wall-clock behavior.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'SUMO: Subspace-Aware Moment-Orthogonalization for Accelerating Memory-Efficient LLM Training'
+    authors:
+      - Yehonathan Refael
+      - Guy Smorodinsky
+      - Tom Tirer
+      - Ofir Lindenbaum
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/d85a66edadd443ac2350e93c0287f4f9-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - preconditioning
+      - norm-duality
+      - systems
+    tags:
+      - llm-pretraining
+      - matrix-sign
+      - memory
+      - moment-orthogonalization
+      - svd
+    possible_conflicts:
+      - >-
+        Its exact-SVD and approximation analysis should be compared with canonical matrix-sign
+        approximation claims and their training-relevant accuracy assumptions.
+    candidate_id: candidate-036a6a180fd97df5
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Directly connects moment orthogonalization, exact or approximate matrix operations, LLM
+      training memory, and optimization behavior.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Through the River: Understanding the Benefit of Schedule-Free Methods for Language Model
+      Training
+    authors:
+      - Minhak Song
+      - Beomhan Baek
+      - Kwangjun Ahn
+      - Chulhee Yun
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/b94ab4933fea38629a1308fb78cce2cc-Abstract-Conference.html
+    recommendation: include
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - llm-pretraining
+      - momentum
+      - optimizer-memory
+      - scaling
+      - schedule-free
+    possible_conflicts:
+      - >-
+        Schedule choice and horizon may change apparent optimizer rankings in canonical benchmark
+        comparisons.
+    candidate_id: candidate-580a468840e2a0f3
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: >-
+      Direct theory and experiments for schedule-free AdamW under continuously scaling workloads
+      bear on tuning fairness and training horizon.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-65a637efc4f7ec5f
+    title: 'Understanding Outer Optimizers in Local SGD: Learning Rates, Momentum, and Acceleration'
+    authors:
+      - Ahmed Khaled
+      - Arthur Douillard
+      - Chi Jin
+      - Manzil Zaheer
+      - Rob Fergus
+      - Satyen Kale
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/90ad0e850532986dff56da49bc599904-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - distributed-optimization
+      - hyperparameter-transfer
+      - local-sgd
+      - momentum
+    recommendation: include
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Distributed LM training, learning-rate/momentum interaction, and communication.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-9e6a2c8e1d118653
+    title: >-
+      Block Majorization-Minimization with Diminishing Radius for Constrained Nonsmooth Nonconvex
+      Optimization
+    authors:
+      - Hanbaek Lyu
+      - Yuchen Li
+    published_date: '2025-04-25'
+    doi: 10.1137/23m1604515
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - block-majorization
+      - inexact-subproblem
+      - nonsmooth-nonconvex
+      - trust-region
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/23m1604515
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Constrained nonsmooth nonconvex theory, inexact subproblem tolerance, and block
+      projected-gradient consequences are relevant to closed-set iterative schemes.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-496506815392773e
+    title: Commutation Principles for Nonsmooth Variational Problems on Euclidean Jordan Algebras
+    authors:
+      - Juyoung Jeong
+      - David Sossa
+    published_date: '2025-07-15'
+    doi: 10.1137/24m1646777
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - norm-duality
+      - manifold-constraints
+    tags:
+      - euclidean-jordan-algebra
+      - nonsmooth-analysis
+      - spectral-function
+      - spectral-set
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1646777
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Nonsmooth spectral-function and spectral-set optimality via limiting subdifferentials and
+      strictly convex norms directly supports spectral analysis.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-905c45d0c0b27788
+    title: >-
+      Global Convergence of an Augmented Lagrangian Method for Nonlinear Programming via Riemannian
+      Optimization
+    authors:
+      - Roberto Andreani
+      - Kelvin R. Couto
+      - Orizon P. Ferreira
+      - Gabriel Haeser
+      - Leandro F. Prudente
+    published_date: '2026-03-19'
+    doi: 10.1137/24m1692319
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - augmented-lagrangian
+      - constraint-qualification
+      - riemannian-optimization
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1692319
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Embedded-manifold structure yields weaker constraint qualifications and global KKT
+      convergence, providing a strong Euclidean and Riemannian bridge.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-b686bb2e80f85023
+    title: >-
+      Limiting Normal Cones to the Union of Two Convex Sets and M-Stationarity: Local Uniqueness and
+      Stability in Mathematical Programming
+    authors:
+      - Fabián Flores-Bazán
+      - Dinh Hoang Nguyen
+      - Filip Thiele
+    published_date: '2025-10-16'
+    doi: 10.1137/24m169850x
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - m-stationarity
+      - normal-cone
+      - union-of-convex-sets
+      - variational-analysis
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m169850x
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Normal-cone and M-stationarity theory for a nonconvex union of closed convex sets is directly
+      relevant to stratified and union feasible geometry.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-6366ce42f70c929c
+    title: >-
+      New Second-Order Optimality Conditions for Directional Optimality of a General Set-Constrained
+      Optimization Problem
+    authors:
+      - Wei Ouyang
+      - Jane J. Ye
+      - Binbin Zhang
+    published_date: '2025-06-10'
+    doi: 10.1137/24m1657493
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - directional-optimality
+      - second-order-conditions
+      - set-constraints
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1657493
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      General set-constrained directional and second-order optimality can sharpen stationarity
+      criteria for nonsmooth spectral feasible sets.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-1d4681457d7704c3
+    title: Projected Gradient Descent Accumulates at Bouligand Stationary Points
+    authors:
+      - Guillaume Olikier
+      - Irène Waldspurger
+    published_date: '2025-05-12'
+    doi: 10.1137/24m1692782
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - bouligand-stationarity
+      - closed-set
+      - projected-gradient
+      - tangent-cone
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1692782
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      The paper treats PGD on arbitrary nonempty closed subsets and proves B-stationarity of
+      accumulation points, making it highest-priority closed-set theory.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-71c9511b1e47e103
+    title: >-
+      Smoothed Gradient Clipping and Error Feedback for Decentralized Optimization under Symmetric
+      Heavy-Tailed Noise
+    authors:
+      - Shuhua Yu
+      - Dušan Jakovetic
+      - Soummya Kar
+    published_date: '2026-04-23'
+    doi: 10.1137/24m170747x
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - systems
+      - benchmarking
+    tags:
+      - decentralized-optimization
+      - error-feedback
+      - gradient-clipping
+      - heavy-tailed-noise
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m170747x
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Large-scale ML motivation, decentralized heavy-tailed gradients, bias-aware clipping, and
+      error feedback directly inform communication and inexactness design.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-eaebc1392c1c0dd1
+    title: Splitting the Conditional Gradient Algorithm
+    authors:
+      - Zev Woodstock
+      - Sebastian Pokutta
+    published_date: '2025-02-13'
+    doi: 10.1137/24m1638008
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - norm-duality
+      - manifold-constraints
+    tags:
+      - conditional-gradient
+      - intersection-constraints
+      - linear-minimization-oracle
+      - projection-free
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1638008
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Using one LMO per intersecting compact convex set with nonconvex convergence is a direct
+      projection-free oracle bridge.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-d204757bf0efc128
+    title: Stochastic Optimization Over Proximally Smooth Sets
+    authors:
+      - Damek Davis
+      - Dmitriy Drusvyatskiy
+      - Zhan Shi
+    published_date: '2025-01-10'
+    doi: 10.1137/20m1320225
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - proximally-smooth-set
+      - retraction
+      - stochastic-optimization
+      - weakly-convex
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/20m1320225
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Stochastic weakly convex optimization over prox-smooth closed sets with simplified models and
+      retractions is a direct closed-set algorithmic foundation.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-495218f83949907f
+    title: Tight Error Bounds for the Sign-Constrained Stiefel Manifold
+    authors:
+      - Xiaojun Chen
+      - Yifan He
+      - Zaikun Zhang
+    published_date: '2025-01-27'
+    doi: 10.1137/24m1659030
+    venue: siam-journal-on-optimization
+    recommendation: include
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - error-bounds
+      - exact-penalty
+      - sign-constraints
+      - stiefel-manifold
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1659030
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: full-read
+    review_level: metadata
+    review_summary: >-
+      Global and local error bounds plus exact penalties for sign and orthogonality constraints
+      directly support Stiefel and closed-set feasibility analysis.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-94944b4213669b09
+    title: Achieving Dimension-Free Communication in Federated Learning via Zeroth-Order Optimization
+    authors:
+      - Bicheng Ying
+      - Chaosheng Dong
+      - Haibo Yang
+      - Zhe Li
+      - Zidong Liu
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/3b62aa13a97d50ab75e6763750093386-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Low-effective-rank and communication theory, but federated fine-tuning.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Addax: Utilizing Zeroth-Order Gradients to Improve Memory Efficiency and Performance of SGD
+      for Fine-Tuning Language Models
+    authors:
+      - Zeman Li
+      - Xinwei Zhang
+      - Peilin Zhong
+      - Yuan Deng
+      - Meisam Razaviyayn
+      - Vahab Mirrokni
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/03560f68b1238221e7c07ad01c4b47aa-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - first-order
+      - llm-fine-tuning
+      - memory
+      - zeroth-order
+    candidate_id: candidate-f8adbfdc9deeca7a
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      The mixed first- and zeroth-order oracle design is useful, but applies to fine-tuning rather
+      than pretraining.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-b4667eee9e90fff4
+    title: Convergence of Distributed Adaptive Optimization with Local Updates
+    authors:
+      - Margalit Glasgow
+      - Ziheng Cheng
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/911ac8327812e919f97d36f4d08fd5f4-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Useful Local Adam/SGDM and communication theory; no direct pretraining benchmark.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: Enhancing Zeroth-order Fine-tuning for Language Models with Low-rank Structures
+    authors:
+      - Yiming Chen
+      - Yuan Zhang
+      - Liyuan Cao
+      - Kun Yuan
+      - Zaiwen Wen
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/9ccc9d814d3dee4750debaf23061e733-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - preconditioning
+      - benchmarking
+    tags:
+      - llm-fine-tuning
+      - low-rank
+      - subspace-optimization
+      - zeroth-order
+    candidate_id: candidate-e0d4216a82a0830c
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: screen
+    review_level: abstract
+    review_summary: The low-rank gradient-oracle theory is relevant, but the evidence remains fine-tuning only.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Revisiting Zeroth-Order Optimization: Minimum-Variance Two-Point Estimators and Directionally
+      Aligned Perturbations
+    authors:
+      - Shaocong Ma
+      - Heng Huang
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/2345275663a15ee92a06bc957be54a2c-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - benchmarking
+    tags:
+      - inexact-oracles
+      - stochastic-theory
+      - variance-reduction
+      - zeroth-order
+    candidate_id: candidate-42b54e4211c6bbad
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      The paper offers relevant general oracle and variance-reduction theory without direct
+      LLM-pretraining or constraint evidence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-9a5202fe1732cc97
+    title: 'Second-Order Fine-Tuning without Pain for LLMs: A Hessian Informed Zeroth-Order Optimizer'
+    authors:
+      - Guang Dai
+      - Haishan Ye
+      - Ivor Tsang
+      - Sizhe Dang
+      - Yanjun Zhao
+      - Yi Qian
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/6bf82cc56a5fa0287c438baa8be65a70-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+      - preconditioning
+    tags:
+      - hessian
+      - llm-fine-tuning
+      - zeroth-order
+    recommendation: watch
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Diagonal-Hessian zeroth-order method; fine-tuning-only evidence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-acfa5a3960d5078f
+    title: Towards Faster Decentralized Stochastic Optimization with Communication Compression
+    authors:
+      - Rustem Islamov
+      - Sebastian Stich
+      - Yuan Gao
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/39b77b5e422b4e070e2811b73ea9bcf7-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Momentum tracking, compression, and error feedback; indirect to LLM/manifold questions.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-246b01f3c14be9eb
+    title: 'Tuning-Free Bilevel Optimization: New Algorithms and Convergence Analysis'
+    authors:
+      - Hao Ban
+      - Kaiyi Ji
+      - Minhui Huang
+      - Shiqian Ma
+      - Yifan Yang
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/bcaebb606df0c8c714756660e4a3bd7c-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Adaptive-step theory is potentially useful but indirect to current algorithms and constraints.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: Zeroth-Order Fine-Tuning of LLMs with Transferable Static Sparsity
+    authors:
+      - Wentao Guo
+      - Jikai Long
+      - Yimeng Zeng
+      - Zirui Liu
+      - Xinyu Yang
+      - Yide Ran
+      - Jacob Gardner
+      - Osbert Bastani
+      - Christopher De Sa
+      - Xiaodong Yu
+      - Beidi Chen
+      - Zhaozhuo Xu
+    year: 2025
+    published_date: null
+    doi: null
+    venue: iclr
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/266983d0949aed78a16fa4782237dea7-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - llm-fine-tuning
+      - quantization
+      - sparsity
+      - zeroth-order
+    candidate_id: candidate-440a04a263085ee4
+    publication_status: published
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      The approximate-oracle, sparsity, and quantization interaction is relevant, but not
+      pretraining evidence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-a9b322d072f0f085
+    title: 'ELMO : Efficiency via Low-precision and Peak Memory Optimization in Large Output Spaces'
+    authors:
+      - Erik Schultheis
+      - Jinbin Zhang
+      - Nasib Ullah
+      - Rohit Babbar
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/zhang25bv.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      Float8, stochastic rounding, and memory are relevant; domain is extreme multilabel
+      classification.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-d027502cea9ffd2f
+    title: Exploiting Similarity for Computation and Communication-Efficient Decentralized Optimization
+    authors:
+      - Anton Rodomanov
+      - Sebastian U Stich
+      - Xiaowen Jiang
+      - Yuki Takezawa
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/takezawa25a.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      Relaxed proximal-subproblem accuracy may inform inexact-oracle work; no direct LMO/closed-set
+      result.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-ff342d4f74311c12
+    title: 'NestQuant: nested lattice quantization for matrix products and LLMs'
+    authors:
+      - Eitan Porat
+      - Or Ordentlich
+      - Semyon Savkin
+      - Yury Polyanskiy
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/savkin25a.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - low-precision-distributed-matrix-optimization
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Low-precision matrix products, but post-training quantization rather than optimizer training.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-9fcee468b47e6abe
+    title: 'PipeOffload: Improving Scalability of Pipeline Parallelism with Memory Optimization'
+    authors:
+      - Guangxing Huang
+      - Jialin Li
+      - Min Lin
+      - Penghui Qi
+      - Xinyi Wan
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/wan25c.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Systems context for activation memory/throughput; not an optimizer.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-385c0099bac454ee
+    title: Riemannian Diffusion Adaptation for Distributed Optimization on Manifolds
+    authors:
+      - Ali H. Sayed
+      - Cédric Richard
+      - Ricardo Augusto Borsoi
+      - Xiuheng Wang
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/wang25h.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - manifold-constraints
+      - systems
+    tags:
+      - decentralized-optimization
+      - manifolds
+      - riemannian-optimization
+    recommendation: watch
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: General-manifold decentralized theory; non-LLM experiments.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8c49c97a2534ce14
+    title: >-
+      A low-rank augmented Lagrangian method for polyhedral-SDP and moment-SOS relaxations of
+      polynomial optimization
+    authors:
+      - Di Hou
+      - Kim-Chuan Toh
+      - Tianyun Tang
+    venue: mathematical-programming
+    year: 2026
+    published_date: '2026-07-08'
+    publication_status: published
+    doi: 10.1007/s10107-026-02395-5
+    official_url: https://doi.org/10.1007/s10107-026-02395-5
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - manifold-constraints
+      - preconditioning
+    tags:
+      - augmented-lagrangian
+      - low-rank
+      - projected-gradient
+      - semidefinite
+    recommendation: watch
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Low-rank factorization, projected rank adjustment, and escape from spurious local minima are
+      relevant, while the polynomial-SOS application lowers immediate priority.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8a7be03c5c274d05
+    title: An accelerated distributed stochastic gradient method with momentum
+    authors:
+      - Kun Huang
+      - Shi Pu
+      - Angelia Nedić
+    published_date: '2025-03-26'
+    doi: 10.1007/s10107-025-02217-0
+    venue: mathematical-programming
+    recommendation: watch
+    research_tracks:
+      - systems
+      - benchmarking
+    tags:
+      - distributed-optimization
+      - momentum
+      - stochastic-gradient
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02217-0
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Distributed stochastic momentum is relevant to communication-aware optimizer theory, but no
+      LLM, matrix, or manifold evidence was verified; its correction is merged.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-5b252cd415194ffd
+    title: >-
+      Frank-Wolfe meets Shapley-Folkman: a systematic approach for solving nonconvex separable
+      problems with linear constraints
+    authors:
+      - Benjamin Dubois-Taine
+      - Alexandre d’Aspremont
+    published_date: '2025-08-12'
+    doi: 10.1007/s10107-025-02271-8
+    venue: mathematical-programming
+    recommendation: watch
+    research_tracks:
+      - norm-duality
+    tags:
+      - frank-wolfe
+      - linear-constraints
+      - nonconvex-separable
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-025-02271-8
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Projection-free nonconvex separable optimization is LMO-adjacent, but the current link to
+      matrix and spectral LLM optimizers is indirect.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-43f53f9e2854742d
+    title: >-
+      Hyperparameter tuning via trajectory predictions: stochastic prox-linear methods in matrix
+      sensing
+    authors:
+      - Ashwin Pananjady
+      - Kabir Aladin Verchand
+      - Mengqi Lou
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-09-17'
+    publication_status: published
+    doi: 10.1007/s10107-025-02279-0
+    official_url: https://doi.org/10.1007/s10107-025-02279-0
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+      - manifold-constraints
+    tags:
+      - hyperparameter-tuning
+      - matrix-sensing
+      - prox-linear
+      - stochastic
+    recommendation: watch
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Trajectory prediction for batch, step-size, and noise choices is useful methodology, but the
+      verified setting is a narrow rank-one matrix-sensing model rather than cross-scale LLM
+      transfer.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-f69eb1d05eb1b962
+    title: >-
+      Mean–semideviation–based distributionally robust learning with weakly convex losses:
+      convergence rates and finite-sample guarantees
+    authors:
+      - Andrzej Ruszczyński
+      - Landi Zhu
+      - Mert Gürbüzbalaban
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-03-21'
+    publication_status: published
+    doi: 10.1007/s10107-025-02218-z
+    official_url: https://doi.org/10.1007/s10107-025-02218-z
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - distributionally-robust
+      - moreau-envelope
+      - stochastic
+      - weakly-convex
+    recommendation: watch
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Weakly convex stochastic composition and Moreau-envelope stationarity are relevant general
+      theory, but the bridge to target optimizers remains indirect.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-6b4446eb52bbf0be
+    title: 'Projection onto hyperbolicity cones and beyond: a dual Frank-Wolfe approach'
+    authors:
+      - Takayuki Nagano
+      - Bruno F. Lourenço
+      - Akiko Takeda
+    published_date: '2026-06-19'
+    doi: 10.1007/s10107-026-02371-z
+    venue: mathematical-programming
+    recommendation: watch
+    research_tracks:
+      - norm-duality
+      - manifold-constraints
+    tags:
+      - dual-frank-wolfe
+      - hyperbolicity-cone
+      - projection
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-026-02371-z
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Dual Frank-Wolfe projection theory is relevant to LMO and projection design, but hyperbolicity
+      cones are an indirect application domain.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-886b580ddfb3693d
+    title: >-
+      Stochastic algorithms for large-scale composite optimization: the case of likelihood
+      maximization for X-FEL imaging
+    authors:
+      - D. Russell Luke
+      - Helmut Grubmüller
+      - Steffen Schultze
+    venue: mathematical-programming
+    year: 2026
+    published_date: '2026-01-12'
+    publication_status: published
+    doi: 10.1007/s10107-025-02319-9
+    official_url: https://doi.org/10.1007/s10107-025-02319-9
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - composite-optimization
+      - nonconvex
+      - stochastic-gradient
+      - xfel
+    recommendation: watch
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Random-function iteration convergence may transfer to machine learning, but the verified
+      application is X-FEL imaging and is remote from the target optimizers.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-7ee72ed0ec9193fd
+    title: Subdifferentials at infinity and applications in optimization
+    authors:
+      - Do Sang Kim
+      - Minh Tùng Nguyen
+      - Tien-Son Pham
+    published_date: '2025-01-04'
+    doi: 10.1007/s10107-024-02187-9
+    venue: mathematical-programming
+    recommendation: watch
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - closed-sets
+      - nonsmooth-analysis
+      - subdifferential
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1007/s10107-024-02187-9
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Nonsmooth limiting geometry and optimality at infinity may inform closed-set variational
+      analysis, but the bridge to spectral constraints is indirect.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-1ea77dd9654c8a9e
+    title: >-
+      Binary Quadratic Quantization: Beyond First-Order Quantization for Real-Valued Matrix
+      Compression
+    authors:
+      - Kazushi Kawamura
+      - Kyo Kuroki
+      - Masato Motomura
+      - Thiem Van Chu
+      - Yasuyuki Okoshi
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/e7cf82c8f34920d20299a84b16b720e8-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - low-precision-distributed-matrix-optimization
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      Matrix compression relevance, but ViT post-training quantization rather than optimizer-state
+      training.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-6d11459b71fe1c9c
+    title: Cost-Sensitive Freeze-thaw Bayesian Optimization for Efficient Hyperparameter Tuning
+    authors:
+      - Aoxuan Zhang
+      - Byungjoo Kim
+      - Dong Bok Lee
+      - Hae Beom Lee
+      - Juho Lee
+      - Junhyeon Park
+      - Steven Adriaensen
+      - Sung Ju Hwang
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/f7b75ff5fa544897ed71217de2aad865-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+      - hyperparameter-transfer
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Tuning-budget methodology; not optimizer hyperparameter transfer.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: 'Enhancing Optimizer Stability: Momentum Adaptation of The NGN Step-size'
+    authors:
+      - Rustem Islamov
+      - Niccolò Ajroldi
+      - Antonio Orvieto
+      - Aurelien Lucchi
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/1470947b2ecc3a877ef124b50efc4d37-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - benchmarking
+    tags:
+      - adaptive-step-size
+      - hyperparameter-robustness
+      - momentum
+      - stochastic-theory
+    candidate_id: candidate-aeefe34c5827d663
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      The momentum and adaptive-step robustness theory is useful, but no direct LLM or
+      matrix/manifold evidence was verified.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-cb825cb5ce3a6830
+    title: 'Flow Density Control: Generative Optimization Beyond Entropy-Regularized Fine-Tuning'
+    authors:
+      - Andreas Krause
+      - Marin Vlastelica
+      - Niao He
+      - Riccardo De Santi
+      - Ya-Ping Hsieh
+      - Zebang Shen
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/10715deb80d88a1ce801c313e983ff7e-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: General generative fine-tuning theory, not pretraining optimizer evidence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-211bdd1dda4087ef
+    title: >-
+      Geometry-Aware Collaborative Multi-Solutions Optimizer for Model Fine-Tuning with Parameter
+      Efficiency
+    authors:
+      - Dinh Phung
+      - Ehsan Abbasnejad
+      - Mehrtash Harandi
+      - Thanh-Toan Do
+      - Trung Le
+      - Van-Anh Nguyen
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/fd917c0ddb92616baa7dbf163f2432e5-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      Geometry language and fine-tuning relevance; no explicit manifold/closed-set result in the
+      abstract.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: >-
+      Harmony in Divergence: Towards Fast, Accurate, and Memory-efficient Zeroth-order LLM
+      Fine-tuning
+    authors:
+      - Qitao Tan
+      - Jun Liu
+      - Zheng Zhan
+      - Caiwen Ding
+      - Yanzhi Wang
+      - Xiaolong Ma
+      - Jaewoo Lee
+      - Jin Lu
+      - Geng Yuan
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/ffd4f5a2ea6b93e9bf5af9264d568cf2-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - llm-fine-tuning
+      - memory
+      - projections
+      - zeroth-order
+    reading_priority: full-read
+    candidate_id: candidate-0c3a901617e8b9f9
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    review_level: abstract
+    review_summary: >-
+      The projection and approximate-oracle design is relevant, but the evidence is limited to LLM
+      fine-tuning.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-e017eaf74ee78ee5
+    title: 'PaZO: Preconditioned Accelerated Zeroth-Order Optimization for Fine-Tuning LLMs'
+    authors:
+      - Cong Fang
+      - Ding Shihong
+      - Hanzhen Zhao
+      - Zhouchen Lin
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/a14193e9d9fb0b03af0b717de1cac8ac-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+      - preconditioning
+    tags:
+      - acceleration
+      - llm-fine-tuning
+      - preconditioning
+      - zeroth-order
+    recommendation: watch
+    reading_priority: full-read
+    review_level: abstract
+    review_summary: Strong preconditioned zeroth-order theory, but LLM fine-tuning only.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-24301623d81f08e7
+    title: 'PROFIT: A Specialized Optimizer for Deep Fine Tuning'
+    authors:
+      - Anirudh Chakravarthy
+      - Sachithra Hemachandra
+      - Shuai Zheng
+      - Xiao Zhang
+      - Xin Huang
+      - Yuning Chai
+      - Zhao Chen
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/130534d1b9f0a54bb59b529589123cb4-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Specialized temporal-gradient optimizer, but deep fine-tuning rather than pretraining.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-9b74fd4e8c4f3eda
+    title: Robust Federated Finetuning of LLMs via Alternating Optimization of LoRA
+    authors:
+      - Ashish Khisti
+      - Hardik Dalal
+      - Shuangyi Chen
+      - Yuanxin Guo
+      - Yue Ju
+      - Zhongwen Zhu
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/adf17e7346b6be4c2f2bb40de572e5bc-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: LLM and alternating optimization, but federated fine-tuning.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - title: 'Sparse MeZO: Less Parameters for Better Performance in Zeroth-Order LLM Fine-Tuning'
+    authors:
+      - Yong Liu
+      - Zirui Zhu
+      - Chaoyu Gong
+      - Minhao Cheng
+      - Cho-Jui Hsieh
+      - Yang You
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/1e5c2efbddc02c1d971e2f19ccdb07d0-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - llm-fine-tuning
+      - memory
+      - sparsity
+      - zeroth-order
+    candidate_id: candidate-a3c08962bfbb8d86
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    reading_priority: screen
+    review_level: abstract
+    review_summary: >-
+      Approximate-gradient error and sparse updates are relevant, but the evidence is limited to LLM
+      fine-tuning.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - title: 'StelLA: Subspace Learning in Low-rank Adaptation using Stiefel Manifold'
+    authors:
+      - Zhizhong Li
+      - Sina Sajadmanesh
+      - Jingtao Li
+      - Lingjuan Lyu
+    year: 2025
+    published_date: null
+    doi: null
+    venue: neurips
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/6cb0c6e7d50d5d65613f0456ca85e2db-Abstract-Conference.html
+    recommendation: watch
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - fine-tuning
+      - lora
+      - riemannian-optimization
+      - stiefel
+    reading_priority: full-read
+    candidate_id: candidate-ed023fd77f421089
+    publication_status: published
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    review_level: abstract
+    review_summary: >-
+      Explicit Stiefel geometry and Riemannian optimization are relevant, but the method is limited
+      to adapter fine-tuning.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-2d01aaf1129824fc
+    title: 'The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization'
+    authors:
+      - Jae-Won Chung
+      - Jeff J. Ma
+      - Jiachen Liu
+      - Mosharaf Chowdhury
+      - Oh Jun Kweon
+      - Ruofan Wu
+      - Yuxuan Xia
+      - Zhiyu Wu
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/9dc510e3d7b0b3b2a58ffed7a3ad6b0f-Abstract-Datasets_and_Benchmarks_Track.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: watch
+    reading_priority: screen
+    review_level: abstract
+    review_summary: Inference-energy methodology may inform systems benchmarks; not training optimization.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-e467fb82ca259e6c
+    title: Distributed Nonlinear Conic Optimization with Partially Separable Structure
+    authors:
+      - Guoqiang Zhang
+      - Richard Heusdens
+    venue: siam-journal-on-optimization
+    year: 2026
+    published_date: '2026-02-24'
+    publication_status: published
+    doi: 10.1137/24m1693581
+    official_url: https://doi.org/10.1137/24m1693581
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    research_tracks:
+      - systems
+      - manifold-constraints
+    tags:
+      - conic-optimization
+      - distributed-optimization
+      - partial-separability
+    recommendation: watch
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Partially separable distributed conic optimization may provide useful constrained theory, but
+      no direct LLM or matrix-optimizer system evidence was verified.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-206f169a732585e6
+    title: Euclidean Distance Degree in Manifold Optimization
+    authors:
+      - Zehua Lai
+      - Lek-Heng Lim
+      - Ke Ye
+    published_date: '2025-10-22'
+    doi: 10.1137/25m1735032
+    venue: siam-journal-on-optimization
+    recommendation: watch
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - algebraic-geometry
+      - critical-points
+      - manifold-optimization
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/25m1735032
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Algebraic critical-point complexity for manifold optimization is useful context but not
+      directly an optimizer update or convergence result.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-f3350ee6d1024d24
+    title: Grassmannian Optimization Is NP-Hard
+    authors:
+      - Zehua Lai
+      - Lek-Heng Lim
+      - Ke Ye
+    published_date: '2025-08-28'
+    doi: 10.1137/24m1672596
+    venue: siam-journal-on-optimization
+    recommendation: watch
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - complexity
+      - grassmannian
+      - manifold-optimization
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1672596
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      This is an important complexity boundary for manifold optimization, but not an algorithm or
+      direct LLM optimizer result.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-eb11e388ab35e313
+    title: On Squared-Variable Formulations
+    authors:
+      - Lijun Ding
+      - Stephen J. Wright
+    published_date: '2025-10-10'
+    doi: 10.1137/23m1608343
+    venue: siam-journal-on-optimization
+    recommendation: watch
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - constraint-reformulation
+      - factorization
+      - second-order-stationarity
+      - squared-variables
+    year: 2025
+    publication_status: published
+    official_url: https://doi.org/10.1137/23m1608343
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      The paper shows how parameterization can alter first- and second-order stationarity, useful
+      for factorized constraints but indirect to spectral-sphere methods.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8fc107d22c3c8f8f
+    title: On the Geometric Convergence of Byzantine-Resilient Distributed Optimization Algorithms
+    authors:
+      - Kananart Kuwaranancharoen
+      - Shreyas Sundaram
+    venue: siam-journal-on-optimization
+    year: 2025
+    published_date: '2025-01-13'
+    publication_status: published
+    doi: 10.1137/23m1573410
+    official_url: https://doi.org/10.1137/23m1573410
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    research_tracks:
+      - systems
+    tags:
+      - byzantine-robust
+      - distributed-optimization
+      - geometric-convergence
+    recommendation: watch
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      The distributed robustness theory is relevant context, but no direct LLM, matrix, manifold, or
+      communication-cost experiment was verified.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-6266335dc60ac3ff
+    title: The Gradient’s Limit of a Definable Family of Functions Admits a Variational Stratification
+    authors:
+      - Sholom Schechtman
+    published_date: '2026-06-22'
+    doi: 10.1137/24m1638306
+    venue: siam-journal-on-optimization
+    recommendation: watch
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - definable-functions
+      - nonsmooth-analysis
+      - variational-stratification
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1137/24m1638306
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      Variational stratification of definable families may inform nonsmooth spectral strata and
+      singular limits, but the algorithmic bridge is not established.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-ec22482565d9a271
+    title: Zeroth-Order Gradient and Quasi-Newton Methods for Nonsmooth Nonconvex Stochastic Optimization
+    authors:
+      - Luke Marrinan
+      - Uday V. Shanbhag
+      - Farzad Yousefian
+    published_date: '2026-04-02'
+    doi: 10.1137/23m1626724
+    venue: siam-journal-on-optimization
+    recommendation: watch
+    research_tracks:
+      - preconditioning
+      - benchmarking
+    tags:
+      - nonsmooth-stochastic
+      - quasi-newton
+      - zeroth-order
+    year: 2026
+    publication_status: published
+    official_url: https://doi.org/10.1137/23m1626724
+    arxiv_url: ''
+    source_version: SIAM Journal on Optimization online publication record
+    reading_priority: screen
+    review_level: metadata
+    review_summary: >-
+      This is direct approximate-oracle and quasi-Newton theory, but no verified LLM, spectral,
+      low-rank, or matrix-sign setting was found.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: manual-recall
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-caf5eb676e685468
+    title: Deep Distributed Optimization for Large-Scale Quadratic Programming
+    authors:
+      - Alex Oshin
+      - Arshiya Taj Abdul
+      - Augustinos Saravanos
+      - Evangelos Theodorou
+      - Hunter Kuperman
+      - Vincent Pacelli
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/e9df55bf67e499635908395931ed6ea9-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Learned QP solver, not target optimizer or closed-set theory.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-529d5e94a744356f
+    title: Divergence-enhanced Knowledge-guided Context Optimization for Visual-Language Prompt Tuning
+    authors:
+      - Miaomiao Cheng
+      - Wei Song
+      - Xu Han
+      - Yilun Li
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/0d0d75da30e2d81b928d793afe389ad4-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Visual-language prompt method; “optimization” is task naming.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-6110f095b093a09a
+    title: >-
+      Fine-Tuning Discrete Diffusion Models via Reward Optimization with Applications to DNA and
+      Protein Design
+    authors:
+      - Amy Wang
+      - Avantika Lal
+      - Aviv Regev
+      - Chenyu Wang
+      - Hanchen Wang
+      - Masatoshi Uehara
+      - Sergey Levine
+      - Tommaso Biancalani
+      - Tommi Jaakkola
+      - Yichun He
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/771e09dd204ea339da0d8114c48afd21-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Biological diffusion reward tuning, outside scope.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-0148f1d82a6933a6
+    title: 'SOO-Bench: Benchmarks for Evaluating the Stability of Offline Black-Box Optimization'
+    authors:
+      - Aimin Zhou
+      - Hong Qian
+      - Huakang LU
+      - Ke Tang
+      - Shuo Liu
+      - Xiang Shu
+      - Xin An
+      - Yang Yu
+      - Yaolin Wen
+      - Yiyi Zhu
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/cb44c21bb5f34ac43693014245eed66c-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Offline black-box design benchmark, unrelated domain.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8b1ed0af3036c5b3
+    title: Towards hyperparameter-free optimization with differential privacy
+    authors:
+      - Ruixuan Liu
+      - Zhiqi Bu
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/b619cd6dcc986856b8a8da2b08d89396-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - hyperparameter-transfer
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: DP-specific learning-rate automation is too indirect for the atlas.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-691d1594d49924c6
+    title: Tuning Timestep-Distilled Diffusion Model Using Pairwise Sample Optimization
+    authors:
+      - Kevin Lin
+      - Lijuan Wang
+      - Qiang Qiu
+      - Ze Wang
+      - Zhengyuan Yang
+      - Zichen Miao
+      - Zicheng Liu
+    venue: iclr
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.iclr.cc/paper_files/paper/2025/hash/243697ace81f57daef8737ff2c5cffd3-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: ICLR 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Image-diffusion tuning, not model-parameter optimizer research.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-1f1f375efaaf02e8
+    title: Data Mixing Optimization for Supervised Fine-Tuning of Large Language Models
+    authors:
+      - Eric Xing
+      - Yuan Li
+      - Zhengzhong Liu
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/li25bh.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Data-mixture selection, not parameter optimization.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-ffabc7d9eed10ab5
+    title: >-
+      DMM: Distributed Matrix Mechanism for Differentially-Private Federated Learning Based on
+      Constant-Overhead Linear Secret Resharing
+    authors:
+      - Alexander Bienstock
+      - Antigoni Polychroniadou
+      - Ujjwal Kumar
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/bienstock25a.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - low-precision-distributed-matrix-optimization
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Cryptographic distributed-DP matrix mechanism, not matrix preconditioning.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-59d5a0a02c3c6615
+    title: >-
+      Kona: An Efficient Privacy-Preservation Framework for KNN Classification by Communication
+      Optimization
+    authors:
+      - Guopeng Lin
+      - Jin Tan
+      - Lei Wang
+      - Ruisheng Zhou
+      - Shuyu Chen
+      - Tao Wei
+      - Weili Han
+      - Wenjing Fang
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/lin25o.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Secure KNN communication protocol.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-854e8120de4a1c48
+    title: 'OpenworldAUC: Towards Unified Evaluation and Optimization for Open-world Prompt Tuning'
+    authors:
+      - Cong Hua
+      - Qianqian Xu
+      - Qingming Huang
+      - Shilong Bao
+      - Zhiyong Yang
+      - Zitai Wang
+    venue: icml
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: https://proceedings.mlr.press/v267/hua25d.html
+    arxiv_url: ''
+    source_version: ICML 2025 PMLR proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Vision-language prompt evaluation/tuning, outside optimizer scope.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-ea00260adb2b718f
+    title: A parametric approach for solving convex quadratic optimization with indicators over trees
+    authors:
+      - Aaresh Bhathena
+      - Andrés Gómez
+      - Salar Fattahi
+      - Simge Küçükyavuz
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-05-02'
+    publication_status: published
+    doi: 10.1007/s10107-025-02222-3
+    official_url: https://doi.org/10.1007/s10107-025-02222-3
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - systems
+    tags:
+      - false-positive
+      - indicator-variables
+      - quadratic-programming
+      - tree-structure
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      The memory match comes from algorithmic complexity in a tree-structured quadratic program, not
+      optimizer-state or training memory.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-e99236867a710c9c
+    title: A Practical and Optimal First-Order Method for Large-Scale Convex Quadratic Programming
+    authors:
+      - Haihao Lu
+      - Jinwen Yang
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-07-02'
+    publication_status: published
+    doi: 10.1007/s10107-025-02241-0
+    official_url: https://doi.org/10.1007/s10107-025-02241-0
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - false-positive
+      - first-order
+      - quadratic-programming
+      - solver
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      The work is a convex-QP solver with QP benchmarks, not a pretraining optimizer or a target
+      closed-set method.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-9865e7bf3382e2e6
+    title: >-
+      Computational guarantees for restarted PDHG for LP based on “Limiting Error Ratios” and LP
+      sharpness
+    authors:
+      - Robert M. Freund
+      - Zikai Xiong
+    venue: mathematical-programming
+    year: 2026
+    published_date: '2026-05-26'
+    publication_status: published
+    doi: 10.1007/s10107-026-02358-w
+    official_url: https://doi.org/10.1007/s10107-026-02358-w
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - false-positive
+      - linear-programming
+      - pdhg
+      - restart
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      LP-specific error-ratio and sharpness guarantees for restarted PDHG are currently too remote
+      from the target optimizer and spectral-constraint questions.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-1acc368da15fff77
+    title: Finite convergence of the Moment-SOS hierarchy for polynomial matrix optimization
+    authors:
+      - Jiawang Nie
+      - Lei Huang
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-02-15'
+    publication_status: published
+    doi: 10.1007/s10107-025-02199-z
+    official_url: https://doi.org/10.1007/s10107-025-02199-z
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - manifold-constraints
+    tags:
+      - moment-sos
+      - polynomial-matrix
+      - false-positive
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      The matrix language concerns polynomial-matrix positivity and the Moment-SOS hierarchy, not
+      matrix preconditioning, spectral constraints, or LLM training.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-a627218853609947
+    title: McCormick envelopes in mixed-integer PDE-constrained optimization
+    authors:
+      - Paul Manns
+      - Sven Leyffer
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-01-06'
+    publication_status: published
+    doi: 10.1007/s10107-024-02181-1
+    official_url: https://doi.org/10.1007/s10107-024-02181-1
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - systems
+    tags:
+      - false-positive
+      - mccormick-envelope
+      - pde-constrained
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      The apparent distributed match describes PDE structure rather than distributed model training;
+      the paper is a mixed-integer PDE optimization study.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-8654fda4e35ef50f
+    title: On the split closure of the periodic timetabling polytope
+    authors:
+      - Berenike Masing
+      - Niels Lindner
+    venue: mathematical-programming
+    year: 2025
+    published_date: '2025-04-15'
+    publication_status: published
+    doi: 10.1007/s10107-025-02220-5
+    official_url: https://doi.org/10.1007/s10107-025-02220-5
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - false-positive
+      - mixed-integer
+      - timetabling
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      This is a public-transport mixed-integer timetabling paper selected by a benchmark-related
+      lexical match.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-84703c2edd997975
+    title: Unboundedness in Bilevel Optimization
+    authors:
+      - Bárbara Rodrigues
+      - Margarida Carvalho
+      - Miguel F. Anjos
+      - Nagisa Sugishita
+    venue: mathematical-programming
+    year: 2026
+    published_date: '2026-03-26'
+    publication_status: published
+    doi: 10.1007/s10107-026-02344-2
+    official_url: https://doi.org/10.1007/s10107-026-02344-2
+    arxiv_url: ''
+    source_version: Mathematical Programming online publication record
+    research_tracks:
+      - benchmarking
+    tags:
+      - bilevel
+      - complexity
+      - false-positive
+      - unboundedness
+    recommendation: exclude
+    reading_priority: archive
+    review_level: metadata
+    review_summary: >-
+      General complexity and certificates for bilevel unboundedness have no concrete bridge to the
+      current LLM optimizer or closed-set algorithms.
+    unresolved_metadata:
+      - The arXiv relationship has not been verified through an allowed official source.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-0b5e9b2fa17c6c9d
+    title: Adaptive Divergence Regularized Policy Optimization for Fine-tuning Generative Models
+    authors:
+      - Chaoran Cheng
+      - Ge Liu
+      - Jiajun Fan
+      - Tong Wei
+      - Yuxin Chen
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/b396d8821d3ac740db8b887b5eda6f18-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Generative-model policy fine-tuning, outside core scope.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-95457b933ab57234
+    title: 'Balanced Token Pruning: Accelerating Vision Language Models Beyond Local Optimization'
+    authors:
+      - Chen Gao
+      - kaiyuan Li
+      - Xiaoyue Chen
+      - Xinlei Chen
+      - Yong Li
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/5aab3631d0d3131281fb88265db69480-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - optimizer-gains-at-scale
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Vision-language token pruning, not optimizer scaling.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-46cb8726727646db
+    title: 'BO4Mob: Bayesian Optimization Benchmarks for High-Dimensional Urban Mobility Problem'
+    authors:
+      - Aryan Deshwal
+      - Carolina Osorio
+      - Donghoon Kwon
+      - Seongjin Choi
+      - Seunghee Ryu
+      - Seungmo Kang
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/1ed2ed8667fe667174117686d338519a-Abstract-Datasets_and_Benchmarks_Track.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Urban-mobility Bayesian-optimization benchmark.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-d5ec0ffe7d26ef8e
+    title: >-
+      CoIDO: Efficient Data Selection for Visual Instruction Tuning via Coupled Importance-Diversity
+      Optimization
+    authors:
+      - Huan Li
+      - Jinpeng Chen
+      - Ming Zhong
+      - Qi Zhu
+      - Xiaoling Gu
+      - Yichen Yan
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/f3f2ff9579ba6deeb89caa2fe1f0b99c-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Visual-instruction data selection, not parameter optimization.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-967a492aaab66def
+    title: >-
+      ConStellaration: A dataset of QI-like stellarator plasma boundaries and optimization
+      benchmarks
+    authors:
+      - Alexander Bauer
+      - Andrea Merlo
+      - Atul Agrawal
+      - Emanuel Laude
+      - Enrico Guiraud
+      - Lukas Bonauer
+      - Maria Pascu
+      - Marija Savtchouk
+      - Markus Kaiser
+      - Santiago Cadena
+      - Stuart Hudson
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/16ad312fea1c72be0fc72be04e8c8555-Abstract-Datasets_and_Benchmarks_Track.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Stellarator dataset/benchmark, keyword false positive.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-f6ba0cd04fb58710
+    title: >-
+      DCcluster-Opt: Benchmarking Dynamic Multi-Objective Optimization for Geo-Distributed Data
+      Center Workloads
+    authors:
+      - Antonio Guillen-Perez
+      - Ashwin Ramesh Babu
+      - Avisek Naug
+      - Damien Fay
+      - Eoin Essink
+      - Munther Salim
+      - Ricardo Luna Gutierrez
+      - Sahand Ghorbanpour
+      - Shubhanker Banerjee
+      - Soumyendu Sarkar
+      - Vineet Gundecha
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/075661dddd5afc49e905b24e12e6a968-Abstract-Datasets_and_Benchmarks_Track.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+      - systems
+    tags:
+      - fair-optimizer-benchmarking
+      - token-versus-system-efficiency
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Data-center workload multi-objective benchmark, not LLM optimizer training.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-3bf3bfdb05a21c90
+    title: >-
+      Dual-Flow: Transferable Multi-Target, Instance-Agnostic Attacks via $\textit{In-the-wild}$
+      Cascading Flow Optimization
+    authors:
+      - Jianshu Li
+      - Junliang Xing
+      - Ruoyu Li
+      - Shikun Sun
+      - Yixiao Chen
+      - Zhe Li
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/6542b594cc49412ba4c0dd7e26d8a7ea-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - hyperparameter-transfer
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Adversarial attack method, not transfer of optimizer hyperparameters.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-a0c8dcc1a7d5cae1
+    title: >-
+      Enabling Differentially Private Federated Learning for Speech Recognition: Benchmarks,
+      Adaptive Optimizers, and Gradient Clipping
+    authors:
+      - Christopher Brinton
+      - Jan Silovsky
+      - Kunal Talwar
+      - Martin Pelikan
+      - Shams Azam
+      - Tatiana Likhomanenko
+      - Vitaly Feldman
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/a0f30168b3acb17101cbb1ea46e76aac-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Domain-specific DP/federated benchmark; too distant from priorities.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-15397e729e9b047e
+    title: 'GuideFlow3D: Optimization-Guided Rectified Flow For Appearance Transfer'
+    authors:
+      - Iro Armeni
+      - Sayan Deb Sarkar
+      - Sinisa Stekovic
+      - Vincent Lepetit
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/5cd5952bb53bd8bca9e5b0b76c687e54-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - hyperparameter-transfer
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Appearance transfer; keyword false positive.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-d4d280eb3f89eeab
+    title: >-
+      Hyperparameter Transfer Enables Consistent Gains of Matrix-Preconditioned Optimizers Across
+      Scales
+    authors:
+      - Andrew Gordon Wilson
+      - Charlie Chen
+      - Hoang Phan
+      - Qi Lei
+      - Shikai Qiu
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/bdcd9f6327db5877dee502cdec183159-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+      - preconditioning
+    tags:
+      - canonical-duplicate
+      - hyperparameter-transfer
+      - matrix-preconditioning
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: >-
+      Exact work already exists as canonical `hyperparameter-transfer-matrix-preconditioners`; no
+      new version.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: hyperparameter-transfer-matrix-preconditioners
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-e27361e4ead56e52
+    title: >-
+      LC-Opt: Benchmarking Reinforcement Learning and Agentic AI for End-to-End Liquid Cooling
+      Optimization in Data Centers
+    authors:
+      - Antonio Guillen-Perez
+      - Ashwin Ramesh Babu
+      - Avisek Naug
+      - Ricardo Luna Gutierrez
+      - Sahand Ghorbanpour
+      - Scott Greenwood
+      - Soumyendu Sarkar
+      - Vineet Gundecha
+      - Vineet Kumar
+      - Wesley Brewer
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/e9c55f6c6876a29162e53f51209c1a1d-Abstract-Datasets_and_Benchmarks_Track.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Liquid-cooling control benchmark, not model training.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-61be88e0d4fbf028
+    title: 'MetaBox-v2: A Unified Benchmark Platform for Meta-Black-Box Optimization'
+    authors:
+      - Chen Wang
+      - Guojun Peng
+      - Hongqiao Lian
+      - Hongshu Guo
+      - Jiajun Zhan
+      - Kaixu Chen
+      - Ran Cheng
+      - Sijie Ma
+      - Wenjie Qiu
+      - Yining Ma
+      - Yue-Jiao Gong
+      - Zechuan Huang
+      - Zeyuan Ma
+      - Zhiyang Huang
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/dcb23dcf61a943df050b7b4d94da1b29-Abstract-Datasets_and_Benchmarks_Track.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: General meta-black-box optimization platform, outside current atlas.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-07f0ef7c8044268d
+    title: Offline RL by Reward-Weighted Fine-Tuning for Conversation Optimization
+    authors:
+      - Anup B. Rao
+      - Branislav Kveton
+      - Jayakumar Subramanian
+      - Raghavendra Addanki
+      - Ryan Rossi
+      - Seunghyun Yoon
+      - Subhojyoti Mukherjee
+      - Trung Bui
+      - Viet Lai
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/37d77ddb9e6db685db57d4d18470de17-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - fair-optimizer-benchmarking
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Conversation policy optimization, not optimizer research.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-c9e46dba0778a68b
+    title: >-
+      OptiScene: LLM-driven Indoor Scene Layout Generation via Scaled Human-aligned Data Synthesis
+      and Multi-Stage Preference Optimization
+    authors:
+      - Feng Zheng
+      - Jinyu Yang
+      - Junru Lu
+      - Mingqi Gao
+      - Tongsheng Ding
+      - Victor Sanchez
+      - Yixuan Yang
+      - Zhen Luo
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/3ca6d336ddaa316a6ae953a20b9477cf-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - optimizer-gains-at-scale
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: LLM-driven scene layout generation; “optimization/scale” is not optimizer scaling.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-637e950bf08286eb
+    title: >-
+      PolarQuant: Leveraging Polar Transformation for Key Cache Quantization and Decoding
+      Acceleration
+    authors:
+      - Ang Lv
+      - Guojun Yin
+      - Rui Yan
+      - Songhao Wu
+      - Wei Lin
+      - xiao feng
+      - Xun Zhang
+      - Yufei zhang
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/48aa1c882f99f5cdd3c76f7c0ede44a7-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - preconditioning
+      - systems
+    tags:
+      - low-precision-distributed-matrix-optimization
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: KV-cache inference quantization; “polar” is a semantic false hit.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-ebe01f6121151ae5
+    title: >-
+      RoPECraft: Training-Free Motion Transfer with Trajectory-Guided RoPE Optimization on Diffusion
+      Transformers
+    authors:
+      - Ahmet Berke Gökmen
+      - Aysegul Dundar
+      - Bahri Batuhan Bilecen
+      - Yiğit Ekin
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/1f04bedf43be0ee5be9d0d42123069dc-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - hyperparameter-transfer
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Diffusion motion transfer, not optimizer transfer.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-20f466eb20b0640d
+    title: 'SolverLLM: Leveraging Test-Time Scaling for Optimization Problem via LLM-Guided Search'
+    authors:
+      - Chen Zhao
+      - Dong Li
+      - Feng Chen
+      - Haifeng Chen
+      - Linlin Yu
+      - Wei Cheng
+      - Xujiang Zhao
+      - Yanchi Liu
+      - Zhengzhang Chen
+      - Zhong Chen
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/903475a4d33d21bfd75d4fa0d124abfe-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - benchmarking
+    tags:
+      - optimizer-gains-at-scale
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Test-time combinatorial search using an LLM, not LLM training optimization.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'
+  - candidate_id: candidate-b0432c8d2afe9a55
+    title: >-
+      StruDiCO: Structured Denoising Diffusion with Gradient-free Inference-stage Boosting for
+      Memory and Time Efficient Combinatorial Optimization
+    authors:
+      - Junchi Yan
+      - Yang Li
+      - Yi Chang
+      - Yu Wang
+    venue: neurips
+    year: 2025
+    published_date: null
+    publication_status: published
+    doi: null
+    official_url: >-
+      https://proceedings.neurips.cc/paper_files/paper/2025/hash/6728fcf94660c59c938319a6833a6073-Abstract-Conference.html
+    arxiv_url: ''
+    source_version: NeurIPS 2025 official proceedings version
+    research_tracks:
+      - systems
+    tags:
+      - token-versus-system-efficiency
+    recommendation: exclude
+    reading_priority: archive
+    review_level: abstract
+    review_summary: Inference-stage combinatorial optimization, not training memory/optimizer evidence.
+    unresolved_metadata:
+      - Exact publication date, DOI, and arXiv relationship have not been verified.
+      - >-
+        Automated discovery normalized the author list; official author order must be restored
+        before canonical promotion.
+    possible_conflicts: []
+    canonical_duplicate_of: null
+    discovery_method: automatic
+    last_reviewed: '2026-07-17'

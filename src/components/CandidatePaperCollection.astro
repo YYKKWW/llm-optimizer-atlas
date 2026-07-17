@@ -1,0 +1,599 @@
+---
+import CandidatePaperCard from './CandidatePaperCard.astro';
+import {
+  getCandidatePaperDataset,
+  getCandidateSearchWindow,
+} from '../lib/candidate-papers.mjs';
+import { RESEARCH_TRACK_LABELS } from '../lib/paper-views.mjs';
+import { candidateVenueLabel } from '../lib/candidate-paper-filter.mjs';
+
+const candidates = await getCandidatePaperDataset();
+const searchWindow = await getCandidateSearchWindow();
+const humanize = (value: string) =>
+  value
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+const venues: string[] = [...new Set<string>(
+  candidates.map((candidate: any) => String(candidate.venue)),
+)]
+  .sort((left, right) =>
+    candidateVenueLabel(left).localeCompare(candidateVenueLabel(right), 'en-US'),
+  );
+const tracks: string[] = [...new Set<string>(
+  candidates.flatMap((candidate: any) => candidate.research_tracks as string[]),
+)]
+  .sort((left, right) =>
+    (RESEARCH_TRACK_LABELS.get(left) ?? left).localeCompare(
+      RESEARCH_TRACK_LABELS.get(right) ?? right,
+      'en-US',
+    ),
+  );
+const activeCount = candidates.filter((candidate: any) => candidate.decision !== 'exclude').length;
+const fullReadCount = candidates.filter((candidate: any) => candidate.reading_priority === 'full-read').length;
+const pendingCount = candidates.filter((candidate: any) => candidate.decision === 'pending').length;
+const excludedCount = candidates.filter((candidate: any) => candidate.decision === 'exclude').length;
+---
+
+<section class="candidate-explorer" data-candidate-explorer aria-labelledby="candidate-explorer-title">
+  <header class="explorer-header">
+    <div>
+      <p class="eyebrow atlas-meta">
+        Search window {searchWindow.start} to {searchWindow.end}
+      </p>
+      <h2 id="candidate-explorer-title">Browse candidate papers</h2>
+      <p class="explorer-copy">
+        Inspect screened literature before it is promoted into the verified paper library.
+        Analyst recommendations and human decisions are shown separately.
+      </p>
+    </div>
+    <dl class="collection-stats" aria-label="Candidate collection summary">
+      <div>
+        <dt>Active</dt>
+        <dd>{activeCount}</dd>
+      </div>
+      <div>
+        <dt>Full read</dt>
+        <dd>{fullReadCount}</dd>
+      </div>
+      <div>
+        <dt>Pending</dt>
+        <dd>{pendingCount}</dd>
+      </div>
+      <div>
+        <dt>Excluded</dt>
+        <dd>{excludedCount}</dd>
+      </div>
+    </dl>
+  </header>
+
+  <aside class="boundary-note" aria-labelledby="candidate-boundary-title">
+    <strong id="candidate-boundary-title">Candidates are not canonical evidence.</strong>
+    Metadata on this page has been screened for review, but paper claims are not treated as
+    verified atlas claims. A recommendation is not a human decision, and an include decision never
+    modifies the canonical paper dataset automatically.
+  </aside>
+
+  <form
+    class="explorer-controls"
+    data-candidate-controls
+    role="search"
+    aria-label="Filter candidate papers"
+    hidden
+  >
+    <label class="search-field">
+      <span>Search candidates</span>
+      <input
+        type="search"
+        name="q"
+        data-candidate-query
+        placeholder="Titles, authors, tags, review notes..."
+        autocomplete="off"
+        aria-controls="candidate-results"
+      />
+    </label>
+
+    <label>
+      <span>Human decision</span>
+      <select name="decision" data-candidate-decision aria-controls="candidate-results">
+        <option value="active">Active candidates</option>
+        <option value="all">All decisions</option>
+        <option value="pending">Decision pending</option>
+        <option value="include">Include</option>
+        <option value="watch">Watch</option>
+        <option value="exclude">Exclude archive</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Venue</span>
+      <select name="venue" data-candidate-venue aria-controls="candidate-results">
+        <option value="">All venues</option>
+        {venues.map((venue) => <option value={venue}>{candidateVenueLabel(venue)}</option>)}
+      </select>
+    </label>
+
+    <label>
+      <span>Research track</span>
+      <select name="track" data-candidate-track aria-controls="candidate-results">
+        <option value="">All research tracks</option>
+        {tracks.map((track) => (
+          <option value={track}>{RESEARCH_TRACK_LABELS.get(track) ?? humanize(track)}</option>
+        ))}
+      </select>
+    </label>
+
+    <label>
+      <span>Sort</span>
+      <select name="sort" data-candidate-sort aria-controls="candidate-results">
+        <option value="priority">Reading priority</option>
+        <option value="reviewed">Recently reviewed</option>
+        <option value="title">Title A-Z</option>
+        <option value="venue">Venue</option>
+      </select>
+    </label>
+
+    <button type="button" class="clear-button" data-candidate-clear hidden>
+      Clear all
+    </button>
+  </form>
+
+  <noscript>
+    <p class="noscript-note">
+      Filtering requires JavaScript; all reviewed candidate records, including exclusions, are
+      shown below.
+    </p>
+  </noscript>
+
+  <div class="active-filters" data-candidate-active-filters hidden aria-label="Active filters"></div>
+
+  <div class="results-heading">
+    <p role="status" aria-live="polite" aria-atomic="true" data-candidate-status>
+      Showing <strong>{candidates.length}</strong> of {candidates.length} reviewed candidate records
+    </p>
+    <span class="results-hint">The default enhanced view hides only excluded records.</span>
+  </div>
+
+  <div class="empty-state" data-candidate-empty hidden>
+    <p><strong>No reviewed candidates match these filters.</strong></p>
+    <p>Try a broader search or include the exclusion archive.</p>
+    <button type="button" data-candidate-empty-clear>Clear filters</button>
+  </div>
+
+  <ol class="candidate-list" id="candidate-results" data-candidate-list>
+    {candidates.map((candidate: any, originalOrder: number) => (
+      <CandidatePaperCard candidate={candidate} originalOrder={originalOrder} />
+    ))}
+  </ol>
+</section>
+
+<script>
+  import {
+    DEFAULT_CANDIDATE_PAPER_FILTER_STATE,
+    matchesCandidatePaperFilter,
+    parseCandidatePaperFilterState,
+    serializeCandidatePaperFilterState,
+    sortCandidatePaperFilterRecords,
+  } from '../lib/candidate-paper-filter.mjs';
+
+  type FilterState = {
+    query: string;
+    decision: string;
+    venue: string;
+    track: string;
+    sort: string;
+  };
+
+  type ActiveFilter = {
+    key: 'query' | 'decision' | 'venue' | 'track';
+    label: string;
+  };
+
+  document.querySelectorAll('[data-candidate-explorer]').forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+    const form = root.querySelector('[data-candidate-controls]');
+    const queryInput = root.querySelector('[data-candidate-query]');
+    const decisionSelect = root.querySelector('[data-candidate-decision]');
+    const venueSelect = root.querySelector('[data-candidate-venue]');
+    const trackSelect = root.querySelector('[data-candidate-track]');
+    const sortSelect = root.querySelector('[data-candidate-sort]');
+    const list = root.querySelector('[data-candidate-list]');
+    const status = root.querySelector('[data-candidate-status]');
+    const empty = root.querySelector('[data-candidate-empty]');
+    const activeFilters = root.querySelector('[data-candidate-active-filters]');
+    const clearButtons = root.querySelectorAll(
+      '[data-candidate-clear], [data-candidate-empty-clear]',
+    );
+    if (
+      !(form instanceof HTMLFormElement) ||
+      !(queryInput instanceof HTMLInputElement) ||
+      !(decisionSelect instanceof HTMLSelectElement) ||
+      !(venueSelect instanceof HTMLSelectElement) ||
+      !(trackSelect instanceof HTMLSelectElement) ||
+      !(sortSelect instanceof HTMLSelectElement) ||
+      !(list instanceof HTMLOListElement) ||
+      !(status instanceof HTMLElement) ||
+      !(empty instanceof HTMLElement) ||
+      !(activeFilters instanceof HTMLElement)
+    ) return;
+
+    const records = Array.from(list.querySelectorAll('[data-candidate-card]'))
+      .filter((element) => element instanceof HTMLLIElement)
+      .map((element, index) => ({
+        element,
+        title: element.dataset.title ?? '',
+        searchText: element.dataset.searchText ?? '',
+        venue: element.dataset.venue ?? '',
+        tracks: (element.dataset.tracks ?? '').split(',').filter(Boolean),
+        decision: element.dataset.decision ?? 'pending',
+        readingPriority: element.dataset.readingPriority ?? 'screen',
+        lastReviewed: element.dataset.lastReviewed ?? '',
+        originalOrder: Number(element.dataset.originalOrder ?? index),
+      }));
+
+    let state: FilterState = { ...DEFAULT_CANDIDATE_PAPER_FILTER_STATE };
+    const optionExists = (select: HTMLSelectElement, value: string) =>
+      Array.from(select.options).some((option) => option.value === value);
+    const readControls = (): FilterState => ({
+      query: queryInput.value.trim(),
+      decision: decisionSelect.value,
+      venue: venueSelect.value,
+      track: trackSelect.value,
+      sort: sortSelect.value,
+    });
+    const setControls = (nextState: FilterState) => {
+      queryInput.value = nextState.query;
+      decisionSelect.value = optionExists(decisionSelect, nextState.decision)
+        ? nextState.decision
+        : 'active';
+      venueSelect.value = optionExists(venueSelect, nextState.venue) ? nextState.venue : '';
+      trackSelect.value = optionExists(trackSelect, nextState.track) ? nextState.track : '';
+      sortSelect.value = optionExists(sortSelect, nextState.sort) ? nextState.sort : 'priority';
+      state = readControls();
+    };
+    const updateUrl = () => {
+      const url = new URL(window.location.href);
+      url.search = serializeCandidatePaperFilterState(state).toString();
+      window.history.replaceState({}, '', url);
+    };
+    const renderActiveFilters = () => {
+      activeFilters.replaceChildren();
+      const filters: ActiveFilter[] = [];
+      if (state.query) filters.push({ key: 'query', label: `Search: ${state.query}` });
+      if (state.decision !== 'active') {
+        filters.push({
+          key: 'decision',
+          label: `Decision: ${decisionSelect.selectedOptions[0]?.textContent ?? state.decision}`,
+        });
+      }
+      if (state.venue) {
+        filters.push({
+          key: 'venue',
+          label: `Venue: ${venueSelect.selectedOptions[0]?.textContent ?? state.venue}`,
+        });
+      }
+      if (state.track) {
+        filters.push({
+          key: 'track',
+          label: `Track: ${trackSelect.selectedOptions[0]?.textContent ?? state.track}`,
+        });
+      }
+      for (const filter of filters) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = `${filter.label} x`;
+        button.setAttribute('aria-label', `Remove ${filter.label} filter`);
+        button.addEventListener('click', () => {
+          if (filter.key === 'query') queryInput.value = '';
+          if (filter.key === 'decision') decisionSelect.value = 'active';
+          if (filter.key === 'venue') venueSelect.value = '';
+          if (filter.key === 'track') trackSelect.value = '';
+          applyFilters();
+        });
+        activeFilters.append(button);
+      }
+      activeFilters.hidden = filters.length === 0;
+    };
+    const applyFilters = ({ writeUrl = true } = {}) => {
+      state = readControls();
+      const focusedCard =
+        document.activeElement instanceof Element
+          ? document.activeElement.closest('[data-candidate-card]')
+          : null;
+      const ordered = sortCandidatePaperFilterRecords(records, state.sort);
+      let visibleCount = 0;
+      for (const record of ordered) {
+        const matches = matchesCandidatePaperFilter(record, state);
+        record.element.hidden = !matches;
+        if (matches) visibleCount += 1;
+        list.append(record.element);
+      }
+      status.innerHTML = `Showing <strong>${visibleCount}</strong> of ${records.length} reviewed candidate records`;
+      empty.hidden = visibleCount !== 0;
+      const clearButton = root.querySelector('[data-candidate-clear]');
+      if (clearButton instanceof HTMLButtonElement) {
+        clearButton.hidden = !(
+          state.query ||
+          state.decision !== 'active' ||
+          state.venue ||
+          state.track ||
+          state.sort !== 'priority'
+        );
+      }
+      renderActiveFilters();
+      if (writeUrl) updateUrl();
+      if (focusedCard instanceof HTMLElement && focusedCard.hidden) queryInput.focus();
+    };
+    const clearFilters = () => {
+      setControls(DEFAULT_CANDIDATE_PAPER_FILTER_STATE);
+      applyFilters();
+      queryInput.focus();
+    };
+
+    form.addEventListener('submit', (event) => event.preventDefault());
+    queryInput.addEventListener('input', () => applyFilters());
+    decisionSelect.addEventListener('change', () => applyFilters());
+    venueSelect.addEventListener('change', () => applyFilters());
+    trackSelect.addEventListener('change', () => applyFilters());
+    sortSelect.addEventListener('change', () => applyFilters());
+    clearButtons.forEach((button) => button.addEventListener('click', clearFilters));
+    window.addEventListener('popstate', () => {
+      setControls(parseCandidatePaperFilterState(window.location.search));
+      applyFilters({ writeUrl: false });
+    });
+
+    setControls(parseCandidatePaperFilterState(window.location.search));
+    form.hidden = false;
+    applyFilters({ writeUrl: false });
+  });
+</script>
+
+<style>
+  .candidate-explorer {
+    display: grid;
+    gap: 1.15rem;
+    margin-top: 1.25rem;
+  }
+
+  .explorer-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: end;
+    padding-top: 1.3rem;
+  }
+
+  .eyebrow,
+  h2,
+  .explorer-copy {
+    margin: 0;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.35rem;
+    color: var(--atlas-burgundy);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-family: var(--atlas-display-font);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .explorer-copy {
+    max-width: 45rem;
+    margin-top: 0.5rem;
+    color: var(--atlas-muted);
+  }
+
+  .collection-stats {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .collection-stats div {
+    min-width: 5.2rem;
+    padding: 0.65rem 0.7rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: 0.65rem;
+    background: var(--atlas-paper);
+    text-align: center;
+  }
+
+  .collection-stats dt {
+    color: var(--atlas-muted);
+    font-size: 0.62rem;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+
+  .collection-stats dd {
+    margin: 0.1rem 0 0;
+    color: var(--atlas-ink);
+    font-family: var(--atlas-display-font);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .boundary-note,
+  .noscript-note {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--atlas-amber-border);
+    border-inline-start: 0.24rem solid var(--atlas-amber-border);
+    background: var(--atlas-amber-soft);
+    color: var(--atlas-ink);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .explorer-controls {
+    display: grid;
+    grid-template-columns: minmax(14rem, 1.7fr) repeat(4, minmax(8rem, 1fr)) auto;
+    gap: 0.7rem;
+    align-items: end;
+    padding: 1rem;
+    border: 1px solid var(--atlas-border);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper-muted);
+  }
+
+  .explorer-controls label {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+    color: var(--atlas-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .explorer-controls input,
+  .explorer-controls select,
+  .explorer-controls button,
+  .empty-state button,
+  .active-filters button {
+    min-height: 2.75rem;
+    border: 1px solid var(--atlas-border-strong);
+    border-radius: 0.55rem;
+    background: var(--atlas-paper);
+    color: var(--atlas-ink);
+    font: inherit;
+  }
+
+  .explorer-controls input,
+  .explorer-controls select {
+    width: 100%;
+    padding: 0.62rem 0.72rem;
+    font-size: 0.82rem;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .clear-button,
+  .empty-state button {
+    padding: 0.58rem 0.8rem;
+    color: var(--sl-color-accent-high);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .active-filters button {
+    min-height: 2rem;
+    padding: 0.25rem 0.6rem;
+    border-color: color-mix(in srgb, var(--atlas-burgundy) 38%, var(--atlas-border));
+    background: var(--atlas-burgundy-soft);
+    color: var(--sl-color-accent-high);
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  .results-heading {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--atlas-border-strong);
+  }
+
+  .results-heading p {
+    margin: 0;
+    color: var(--atlas-ink);
+    font-size: 0.86rem;
+  }
+
+  .results-hint {
+    color: var(--atlas-muted);
+    font-size: 0.75rem;
+  }
+
+  .candidate-list {
+    display: grid;
+    gap: 0.78rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .empty-state {
+    padding: 1.35rem;
+    border: 1px dashed var(--atlas-border-strong);
+    border-radius: var(--atlas-radius);
+    background: var(--atlas-paper-muted);
+    text-align: center;
+  }
+
+  .empty-state p {
+    margin: 0 0 0.45rem;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 74rem) {
+    .explorer-header {
+      grid-template-columns: 1fr;
+    }
+
+    .collection-stats {
+      justify-content: start;
+    }
+
+    .explorer-controls {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .search-field {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 42rem) {
+    .collection-stats {
+      width: 100%;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .collection-stats div {
+      min-width: 0;
+    }
+
+    .explorer-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .search-field {
+      grid-column: auto;
+    }
+
+    .clear-button {
+      width: 100%;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .boundary-note,
+    .explorer-controls,
+    .collection-stats div,
+    .empty-state {
+      border-color: CanvasText;
+    }
+  }
+</style>

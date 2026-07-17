@@ -5,6 +5,7 @@ import {
   paperSourceLinks,
   reportedStateLabel,
 } from '../lib/papers.mjs';
+import MathText from './MathText.astro';
 
 const { paperId } = Astro.props;
 const paper = (await getPaperDataset()).find(
@@ -56,7 +57,10 @@ const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
 </dl>
 
 <h2>Exact update recorded from the source</h2>
-<pre class="formula-record">{paper.exact_update}</pre>
+<MathText
+  value={paper.exact_update}
+  label={`Exact mathematical update for ${paper.title}`}
+/>
 
 <h2>Atlas interpretation: traditional optimization connections</h2>
 <ul>
@@ -160,7 +164,6 @@ const codeLinkAvailable = hasVerifiedUrl(paper.code_url);
     overflow-wrap: anywhere;
   }
 
-  .formula-record,
   .human-notes {
     padding: 1rem;
     border: 1px solid var(--sl-color-gray-5);

@@ -8,13 +8,14 @@
     "start": "astro dev",
     "prebuild": "npm run validate",
     "build": "astro build",
-    "postbuild": "npm run check:built-paths",
+    "postbuild": "npm run check:built-paths && npm run check:candidate-build",
     "preview": "astro preview",
     "check": "astro check",
-    "validate": "npm run validate:content && npm run validate:papers && npm run validate:problems && npm run check:generated",
+    "validate": "npm run validate:content && npm run validate:papers && npm run validate:problems && npm run validate:candidates && npm run check:generated",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:papers": "node scripts/validate-papers.mjs",
     "validate:problems": "node scripts/validate-open-problems.mjs",
+    "validate:candidates": "node scripts/validate-candidates.mjs",
     "generate:pages": "npm run generate:paper-pages && npm run generate:problem-pages",
     "generate:paper-pages": "node scripts/generate-paper-pages.mjs",
     "generate:problem-pages": "node scripts/generate-open-problem-pages.mjs",
@@ -23,16 +24,18 @@
     "check:generated:problems": "node scripts/generate-open-problem-pages.mjs --check",
     "check:links": "node scripts/check-links.mjs",
     "check:built-paths": "node scripts/check-built-paths.mjs",
+    "check:candidate-build": "node scripts/check-candidate-build.mjs",
     "discover:candidates": "node scripts/discovery/discover-candidates.mjs",
     "verify": "npm run check && npm run validate && npm run test && npm run check:links",
     "test": "node --test",
-    "test:schema": "node --test test/paper-schema.test.mjs test/open-problem-schema.test.mjs",
+    "test:schema": "node --test test/paper-schema.test.mjs test/open-problem-schema.test.mjs test/candidate-paper-schema.test.mjs",
     "test:open-problems": "node --test test/open-problem-schema.test.mjs test/open-problem-pages.test.mjs test/open-problem-filter.test.mjs",
     "test:discovery": "node --test test/candidate-discovery.test.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "0.39.2",
-    "astro": "6.4.8"
+    "astro": "6.4.8",
+    "katex": "^0.17.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

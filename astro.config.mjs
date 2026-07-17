@@ -54,7 +54,7 @@ export default defineConfig({
           items: [
             { label: 'Paper Library', link: '/paper-notes/' },
             {
-              label: 'Claim–Evidence Matrix',
+              label: 'Claim-Evidence Matrix',
               link: '/claim-evidence-matrix/',
             },
             {
@@ -67,6 +67,7 @@ export default defineConfig({
           label: 'Research Workflow',
           items: [
             { label: 'Open Problems', link: '/open-problems/' },
+            { label: 'Candidate Papers', link: '/candidate-papers/' },
             { label: 'Reading Queue', link: '/reading-queue/' },
             { label: 'Watchlist', link: '/watchlist/' },
             { label: 'Experiment Ledger', link: '/experiment-notes/' },

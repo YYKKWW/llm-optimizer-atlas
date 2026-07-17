@@ -1,0 +1,68 @@
+schema_version: 1
+policy: >-
+  A checkpoint is advanced only when the configured official source was retrieved and the
+  requested interval or proceedings edition was verified. An empty or unavailable current
+  conference index is not treated as complete coverage.
+last_run:
+  run_date: '2026-07-17'
+  requested_start: '2025-01-01'
+  requested_end: '2026-07-17'
+  artifact: .artifacts/discovery/2026-07-17-2025-to-present/candidate-literature.json
+  reviewed_candidate_file: research/candidate-papers.yml
+venues:
+  mathematical-programming:
+    official_source: Crossref journal endpoint for ISSN 0025-5610
+    retrieval_status: complete
+    retrieved_records: 215
+    automatic_candidates: 15
+    manual_recall_candidates: 13
+    last_successful_verified_retrieval_date: '2026-07-17'
+    verified_window_start: '2025-01-01'
+    verified_window_end: '2026-07-17'
+    note: Corrections are merged into their base works and are not standalone candidates.
+  siam-journal-on-optimization:
+    official_source: Crossref journal endpoint for ISSN 1052-6234
+    retrieval_status: complete
+    retrieved_records: 155
+    automatic_candidates: 2
+    manual_recall_candidates: 15
+    last_successful_verified_retrieval_date: '2026-07-17'
+    verified_window_start: '2025-01-01'
+    verified_window_end: '2026-07-17'
+    note: Publisher-page access was checked where available; arXiv relationships remain unresolved.
+  iclr:
+    official_source: Official ICLR proceedings
+    retrieval_status: partial
+    retrieved_records_2025: 3703
+    automatic_candidates: 13
+    manual_recall_candidates: 9
+    last_successful_verified_retrieval_date: null
+    verified_editions:
+      - 2025
+    unresolved_editions:
+      - 2026
+    note: The official 2026 index declared zero papers, so no date checkpoint was advanced.
+  icml:
+    official_source: Official PMLR proceedings
+    retrieval_status: partial
+    retrieved_records_2025: 3330
+    automatic_candidates: 13
+    manual_recall_candidates: 2
+    last_successful_verified_retrieval_date: null
+    verified_editions:
+      - 2025
+    unresolved_editions:
+      - 2026
+    note: No complete official ICML 2026 PMLR volume was retrieved, so no date checkpoint was advanced.
+  neurips:
+    official_source: Official NeurIPS proceedings
+    retrieval_status: partial
+    retrieved_records_2025: 5823
+    automatic_candidates: 29
+    manual_recall_candidates: 17
+    last_successful_verified_retrieval_date: null
+    verified_editions:
+      - 2025
+    unresolved_editions:
+      - 2026
+    note: The official 2026 proceedings path was unavailable, so no date checkpoint was advanced.
